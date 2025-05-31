@@ -11,22 +11,9 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# --- DEPENDENCIES ---
-node_modules/
-bower_components/
-vendor/
-
-# --- BUILD FILES ---
-dist/
-build/
-out/
-coverage/
-tmp/
-temp/
-
 # --- ENVIRONMENT FILES ---
 .env
-.env.*          # For multiple environments like .env.production
+.env.*
 
 # --- EDITOR / IDE SETTINGS ---
 .vscode/
@@ -45,15 +32,6 @@ temp/
 # --- GIT FILES ---
 .git/
 .gitignore.local
-
-# --- PYTHON (Optional if you code Python too) ---
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-env/
-venv/
-.Python
 
 # --- MAC SPECIFIC ---
 .AppleDouble
