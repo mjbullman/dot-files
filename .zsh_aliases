@@ -1,0 +1,16 @@
+###############################################################################
+#                     ~/.zsh_aliases MAC CONFIGURATION                        #
+# --------------------------------------------------------------------------- #
+# Author        : Martin Bullman                                              #
+# Purpose       : Mac-specific Zsh aliases to enhance CLI productivity        #
+#                 and streamline common tasks on macOS.                       #
+#                                                                             #
+# Last Updated : 2025-06-14                                                   #
+###############################################################################
+
+alias ll='colorls -lah'
+alias vim='nvim'
+alias gs='git status'
+alias gp='git push'
+alias uu='brew update && brew upgrade && brew autoremove && brew cleanup'
+alias ls='ls --color=auto'
