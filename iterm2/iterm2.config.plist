@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>AllowClipboardAccess</key>
+	<true/>
 	<key>ClickToSelectCommand</key>
 	<false/>
 	<key>Custom Color Presets</key>
@@ -365,8 +367,10 @@
 			<key>ASCII Ligatures</key>
 			<true/>
 			<key>Allow Alternate Mouse Scroll</key>
-			<false/>
+			<true/>
 			<key>Allow Paste Bracketing</key>
+			<false/>
+			<key>Allow Title Reporting</key>
 			<false/>
 			<key>Ambiguous Double Width</key>
 			<false/>
@@ -1276,6 +1280,8 @@
 			<false/>
 			<key>Draw Powerline Glyphs</key>
 			<true/>
+			<key>Enable Triggers in Interactive Apps</key>
+			<false/>
 			<key>Faint Text Alpha (Dark)</key>
 			<real>0.5</real>
 			<key>Faint Text Alpha (Light)</key>
@@ -1408,7 +1414,9 @@
 			<key>Mouse Reporting</key>
 			<true/>
 			<key>Mouse Reporting allow clicks and drags</key>
-			<false/>
+			<true/>
+			<key>Mouse Reporting allow mouse wheel</key>
+			<true/>
 			<key>Name</key>
 			<string>Default</string>
 			<key>Non Ascii Font</key>
@@ -1421,6 +1429,8 @@
 			<true/>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
+			<key>Place Prompt at First Column</key>
+			<false/>
 			<key>Prompt Before Closing 2</key>
 			<false/>
 			<key>Restrict Mouse Reporting to Alternate Screen Mode</key>
@@ -1434,9 +1444,9 @@
 			<key>Scrollback Lines</key>
 			<integer>0</integer>
 			<key>Scrollback With Status Bar</key>
-			<false/>
+			<true/>
 			<key>Scrollback in Alternate Screen</key>
-			<false/>
+			<true/>
 			<key>Selected Text Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -1519,6 +1529,10 @@
 			<false/>
 			<key>Shortcut</key>
 			<string></string>
+			<key>Show Mark Indicators</key>
+			<false/>
+			<key>Show Offscreen Command line</key>
+			<false/>
 			<key>Show Status Bar</key>
 			<true/>
 			<key>Silence Bell</key>
@@ -1536,7 +1550,7 @@
 					<key>auto-rainbow style</key>
 					<integer>0</integer>
 					<key>font</key>
-					<string>.AppleSystemUIFont 12</string>
+					<string>.SFNS-Regular 12</string>
 					<key>remove empty components</key>
 					<false/>
 				</dict>
@@ -1560,6 +1574,8 @@
 								<integer>0</integer>
 								<key>auto-rainbow style</key>
 								<integer>0</integer>
+								<key>font</key>
+								<string>.AppleSystemUIFont 12</string>
 								<key>remove empty components</key>
 								<false/>
 							</dict>
@@ -1583,6 +1599,8 @@
 								<integer>0</integer>
 								<key>auto-rainbow style</key>
 								<integer>0</integer>
+								<key>font</key>
+								<string>.AppleSystemUIFont 12</string>
 								<key>remove empty components</key>
 								<false/>
 							</dict>
@@ -1606,6 +1624,8 @@
 								<integer>0</integer>
 								<key>auto-rainbow style</key>
 								<integer>0</integer>
+								<key>font</key>
+								<string>.AppleSystemUIFont 12</string>
 								<key>remove empty components</key>
 								<false/>
 							</dict>
@@ -1629,6 +1649,8 @@
 								<integer>0</integer>
 								<key>auto-rainbow style</key>
 								<integer>0</integer>
+								<key>font</key>
+								<string>.AppleSystemUIFont 12</string>
 								<key>remove empty components</key>
 								<false/>
 							</dict>
@@ -1644,6 +1666,8 @@
 			<string>xterm-256color</string>
 			<key>Thin Strokes</key>
 			<integer>3</integer>
+			<key>Tmux Newline</key>
+			<false/>
 			<key>Transparency</key>
 			<real>0.04305245535714286</real>
 			<key>Unicode Version</key>
@@ -1683,7 +1707,7 @@
 			<key>Vertical Spacing</key>
 			<real>1</real>
 			<key>Visual Bell</key>
-			<true/>
+			<false/>
 			<key>Window Type</key>
 			<integer>0</integer>
 			<key>Working Directory</key>
@@ -1747,6 +1771,8 @@
 	<integer>0</integer>
 	<key>TabStyleWithAutomaticOption</key>
 	<integer>6</integer>
+	<key>TmuxSyncClipboard</key>
+	<true/>
 	<key>UseBorder</key>
 	<false/>
 	<key>VisualIndicatorForEsc</key>
