@@ -19,13 +19,28 @@ return {
         })
 
         -- reveal current file in Neo-tree
-        vim.keymap.set("n", "<leader>o", ":Neotree reveal<CR>", {
-            desc = "Reveal file in Neo-tree"
-        })
+        -- vim.keymap.set("n", "<leader>o", ":Neotree reveal<CR>", {
+            -- desc = "Reveal file in Neo-tree"
+        -- })
 
         -- open Neo-tree in floating window
-        vim.keymap.set("n", "<leader>f", ":Neotree toggle float<CR>", {
-            desc = "Toggle Neo-tree (float)"
+        -- vim.keymap.set("n", "<leader>f", ":Neotree toggle float<CR>", {
+            -- desc = "Toggle Neo-tree (float)"
+        -- })
+
+        -- vim.keymap.set("n", "<leader>e", ":Neotree focus<CR>", {
+            --desc = "Focus Neo-tree"
+        -- })
+
+        -- Neo-tree setup
+        require("neo-tree").setup({
+            filesystem = {
+                filtered_items = {
+                    visible = true,         -- Show all files, even hidden ones
+                    hide_dotfiles = false,  -- Do NOT hide dotfiles
+                    hide_gitignored = false, -- Optional: show .gitignored files
+                },
+            },
         })
     end
 }
