@@ -1,8 +1,7 @@
--- =========================================================
+-- =================================
 --  Neovim Configuration Entry Point
 --  Author: Martin Bullman
---  Description: Bootstraps Lazy plugin manager and loads config
--- =========================================================
+-- =================================
 
 -- install lazy plugin manager
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"

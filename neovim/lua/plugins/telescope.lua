@@ -1,9 +1,7 @@
--- =========================================================
+-- ========================
 --  Telescope Configuration
 --  Author: Martin Bullman
---  Description: Sets up Telescope fuzzy finder with keymaps and
---               UI select dropdown extension.
--- =========================================================
+-- ========================
 
 return {
     {

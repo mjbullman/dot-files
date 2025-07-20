@@ -1,9 +1,7 @@
--- =========================================================
---  Treesitter Plugin Setup
+-- =========================
+--  Treesitter Configuration
 --  Author: Martin Bullman
---  Description: Configures nvim-treesitter with language
---               parsers and enables highlighting and indent.
--- =========================================================
+-- =========================
 
 return {
     "nvim-treesitter/nvim-treesitter",

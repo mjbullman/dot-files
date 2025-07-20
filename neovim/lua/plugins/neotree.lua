@@ -1,9 +1,7 @@
--- =========================================================
+-- =======================
 --  Neo-tree Configuration
 --  Author: Martin Bullman
---  Description: Sets up Neo-tree for file exploration with custom
---               keybindings and floating/side panel options.
--- =========================================================
+-- =======================
 
 return {
     "nvim-neo-tree/neo-tree.nvim",
@@ -13,6 +11,7 @@ return {
         "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
         "MunifTanjim/nui.nvim",
     },
+    lazy=false,
     config = function()
         -- open Neo-tree in left position
         vim.keymap.set("n", "<C-q>", ":Neotree toggle left<CR>", {

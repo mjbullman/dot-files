@@ -1,9 +1,7 @@
--- =========================================================
+-- =======================
 --  LSP Configuration
 --  Author: Martin Bullman
---  Description: Sets up Mason, Mason LSPConfig, and native
---               Neovim LSP with basic keybindings.
--- =========================================================
+-- =======================
 
 return {
     {
