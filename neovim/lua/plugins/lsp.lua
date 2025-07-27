@@ -7,7 +7,15 @@ return {
     {
         "williamboman/mason.nvim",
         config = function()
-            require("mason").setup()
+            require("mason").setup({
+                ui = {
+                    icons = {
+                        package_installed = "✓",
+                        package_pending = "➜",
+                        package_uninstalled = "✗",
+                    },
+                },
+            })
         end,
     },
     {
@@ -17,7 +25,11 @@ return {
                 ensure_installed = {
                     "lua_ls",
                     "ts_ls",
+                    "html",
+                    "vuels"
                 },
+
+                automatic_enable = false
             })
         end,
     },
@@ -25,16 +37,14 @@ return {
         "neovim/nvim-lspconfig",
         config = function()
             -- setup cababilities with language servers.
-            local capabilities = require('cmp_nvim_lsp').default_capabilities()
+            local capabilities = require("cmp_nvim_lsp").default_capabilities()
             local lspconfig = require("lspconfig")
 
             -- setup langage server.
             lspconfig.lua_ls.setup({})
             lspconfig.ts_ls.setup({})
-
-            vim.diagnostic.config({
-                virtual_text = true,
-            })
+            lspconfig.html.setup({})
+            lspconfig.vuels.setup({})
 
             -- lsp keymaps.
             vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
