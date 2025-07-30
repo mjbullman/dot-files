@@ -1,3 +1,8 @@
+-- =======================
+--  DAP Configuration
+--  Author: Martin Bullman
+-- =======================
+
 return {
 	"mfussenegger/nvim-dap",
     dependencies = {
