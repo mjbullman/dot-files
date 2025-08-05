@@ -36,8 +36,8 @@ return {
         require("neo-tree").setup({
             filesystem = {
                 filtered_items = {
-                    visible = true,         -- Show all files, even hidden ones
-                    hide_dotfiles = false,  -- Do NOT hide dotfiles
+                    visible = true,          -- Show all files, even hidden ones
+                    hide_dotfiles = false,   -- Do NOT hide dotfiles
                     hide_gitignored = false, -- Optional: show .gitignored files
                 },
             },
