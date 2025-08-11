@@ -133,8 +133,8 @@ source $ZSH/oh-my-zsh.sh
 # Init Starship terminal prompt.
 eval "$(starship init zsh)"
 
-# Print system details using Neofetch.
-neofetch
+# Print system details using fastfetch.
+fastfetch
 
 # Load custom aliases.
 [[ -f ~/.zsh_aliases ]] && source ~/.zsh_aliases

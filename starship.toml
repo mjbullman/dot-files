@@ -2,8 +2,8 @@
 #                            STARSHIP CONFIGURATION                           #
 # --------------------------------------------------------------------------- #
 # Author       : Martin Bullman                                               #
-# Purpose      : Custom configuration file for Startship termainl prompt      #
-# Last Updated : 2025-07-14                                                   #
+# Purpose      : Custom configuration file for Startship terminal prompt      #
+# Last Updated : 2025-08-11                                                   #
 ###############################################################################
 
 "$schema" = 'https://starship.rs/config-schema.json'
