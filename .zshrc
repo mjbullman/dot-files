@@ -138,3 +138,10 @@ fastfetch
 
 # Load custom aliases.
 [[ -f ~/.zsh_aliases ]] && source ~/.zsh_aliases
+
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/martinbullman/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
+
