@@ -12,13 +12,25 @@ return {
         dependencies = {
             "saadparwaiz1/cmp_luasnip",
             "rafamadriz/friendly-snippets"
-        }
+        },
+        build = "make install_jsregexp",
+        config = function()
+            local luasnip = require("luasnip")
+
+        --    luasnip.config.setup({
+        --        load_jsregexp = false,  -- disables jsregexp warning
+        --    })
+
+            -- Load VSCode-style snippets (from friendly-snippets)
+            require("luasnip.loaders.from_vscode").lazy_load()
+        end,
     },
 	{
 		"hrsh7th/nvim-cmp",
 		config = function()
-			local cmp = require("cmp")
-            require("luasnip.loaders.from_vscode").lazy_load()
+	            vim.opt.completeopt = { "menu", "menuone", "noselect", "noinsert", "popup" }
+
+            local cmp = require("cmp")
 
 			cmp.setup({
 				snippet = {

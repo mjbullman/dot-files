@@ -27,7 +27,7 @@ return {
 					"ts_ls",
 					"html",
 					"vuels",
-                    "jdtls",
+					"jdtls",
 					"rust_analyzer",
 				},
 
@@ -40,24 +40,25 @@ return {
 		config = function()
 			-- setup cababilities with language servers.
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
-			local lspconfig = require("lspconfig")
+
+			local lsp = vim.lsp.config
 
 			-- setup langage server.
-			lspconfig.lua_ls.setup({
+			lsp("lua_ls", {
 				capabilities = capabilities,
 			})
-			lspconfig.ts_ls.setup({
+			lsp("tsserver", {
 				capabilities = capabilities,
 			})
-			lspconfig.html.setup({
+			lsp("html", {
 				capabilities = capabilities,
 			})
-			lspconfig.vuels.setup({
+			lsp("vuels", {
 				capabilities = capabilities,
 			})
-			lspconfig.rust_analyzer.setup({
-                capabilities = capabilities,
-                settings = {
+			lsp("rust_analyzer", {
+				capabilities = capabilities,
+				settings = {
 					["rust-analyzer"] = {
 						cargo = { allFeatures = true },
 						checkOnSave = { command = "clippy" },

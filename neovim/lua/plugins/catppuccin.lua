@@ -1,5 +1,5 @@
 -- ==============================
--- Catppuccin Theme Configuration
+-- Catppuccin Theme Plugin Setup
 -- Author: Martin Bullman
 -- ==============================
 
