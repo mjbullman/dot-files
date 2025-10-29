@@ -1,6 +1,6 @@
 -- ===============================
---  Telescope Plugin Configuration
---  Author: Martin Bullman
+-- Telescope Plugin Configuration
+-- Author: Martin Bullman
 -- ===============================
 
 local builtin = require("telescope/builtin")
@@ -17,6 +17,7 @@ vim.keymap.set("n", "<leader>fg", builtin.live_grep, {
 vim.keymap.set("n", "<leader>fb", builtin.buffers, {
 	desc = "Telescope: Find Buffers",
 })
-vim.keymap.set("n", "<leader>fg", builtin.help_tags, {
+vim.keymap.set("n", "<leader>fh", builtin.help_tags, {
 	desc = "Telescope: Help Tags",
 })
+
