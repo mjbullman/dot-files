@@ -1,6 +1,6 @@
 -- =======================
---  Telescope Plugin Setup
---  Author: Martin Bullman
+-- Telescope Plugin Setup
+-- Author: Martin Bullman
 -- =======================
 
 return {

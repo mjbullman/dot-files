@@ -1,6 +1,6 @@
 -- =======================
---  Neo-tree Plugin Setup
---  Author: Martin Bullman
+-- Neo-tree Plugin Setup
+-- Author: Martin Bullman
 -- =======================
 
 return {

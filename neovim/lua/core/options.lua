@@ -3,77 +3,18 @@
 -- Author: Martin Bullman
 -- =============================
 
+vim.wo.number = true             -- show line numbers
+vim.o.expandtab = true           -- use spaces instead of tabs
+vim.o.tabstop = 4                -- number of spaces a <Tab> counts for
+vim.o.shiftwidth = 4             -- number of spaces used for autoindent
+vim.o.smartindent = true         -- autoindent new lines
+vim.o.ignorecase = true          -- ignore case in search patterns
+vim.o.smartcase = true           -- override 'ignorecase' if search contains uppercase
+vim.o.clipboard = "unnamedplus"  -- use system clipboard
+vim.o.mouse = "a"                -- enable mouse support
+vim.opt.splitright = true        -- new vertical splits to the right
+vim.opt.splitbelow = true        -- new horizontal splits to the bottom
+vim.o.termguicolors = true       -- enable 24-bit RGB colors
+vim.o.scrolloff = 4              -- minimum number of screen lines to keep above and below the cursor
+vim.o.sidescrolloff = 8          -- minimum number of screen columns to
 
--- -----------------------------
--- Basic Command Settings
--- -----------------------------
-vim.cmd("set number")                 -- show line numbers
-vim.cmd("set expandtab")              -- use spaces instead of tabs
-vim.cmd("set tabstop=4")              -- number of spaces a <Tab> in the file counts for
-vim.cmd("set shiftwidth=4")           -- number of spaces used for autoindent
-vim.cmd("set clipboard+=unnamedplus") -- use system clipboard
-
-
--- -----------------------------
--- Basic Options Settings
--- -----------------------------
-vim.opt.splitright = true
-
--- -----------------------------
--- Leader keys
--- -----------------------------
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
-
-
--- -----------------------------
--- Diagnostics config
--- -----------------------------
-vim.diagnostic.config({
-  virtual_text = true,
-  update_in_insert = false,
-  float = { border = "rounded" }
-})
-
-
-local map = vim.keymap.set 
-local opts = { noremap = true, silent = true }
-
-
--- ----------------------------- 
--- Basic operations 
--- -----------------------------
-map("n", "<leader>w", "<cmd>w<CR>", opts, {
-    desc = "Save file"
-})
-map("n", "<leader>q", "<cmd>q<CR>", opts, {
-    desc = "Quit window"
-}) 
-map("n", "<leader>Q", "<cmd>qa!<CR>", opts, {
-    desc = "Quit all without saving"
-})
-map("n", "<leader>x", "<cmd>x<CR>", opts, {
-    desc = "Save and quit"
-})
-
--- -----------------------------
--- Buffers
--- -----------------------------
-map("n", "<S-l>", "<cmd>bnext<CR>", opts, {
-  desc = "Go to next buffer"
-})
-map("n", "<S-h>", "<cmd>bprevious<CR>", opts, {
-  desc = "Go to previous buffer"
-})
-map("n", "<leader>bd", "<cmd>bdelete<CR>", vim.tbl_extend("force", opts, {
-  desc = "Close current buffer"
-}))
-map("n", "<leader>bo", "<cmd>%bdelete|edit#|bdelete#<CR>", vim.tbl_extend("force", opts, {
-  desc = "Close all other buffers"
-}))
-map("n", "<leader>bu", "<cmd>e#<CR>", vim.tbl_extend("force", opts, {
-  desc = "Reopen last closed buffer"
-}))
-map("n", "<leader>bl", "<cmd>ls<CR>", vim.tbl_extend("force", opts, {
-  desc = "List all buffers"
-}))
