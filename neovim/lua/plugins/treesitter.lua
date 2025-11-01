@@ -1,5 +1,5 @@
 -- =========================
---  Treesitter Configuration
+--  Treesitter Plugin Setup
 --  Author: Martin Bullman
 -- =========================
 
