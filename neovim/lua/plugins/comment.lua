@@ -1,6 +1,12 @@
+-- =======================
+--  Comment Plugin Setup
+--  Author: Martin Bullman
+-- =======================
+
 return {
-    'numToStr/Comment.nvim',
-    opts = {
-        -- add any options here
-    }
+    "numToStr/Comment.nvim",
+    opts = {},
+    config = function()
+        require("config.comment")
+    end
 }
