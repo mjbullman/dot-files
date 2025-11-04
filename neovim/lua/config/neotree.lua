@@ -1,7 +1,7 @@
--- =======================
+-- ========================
 --  Neo-tree Configuration
 --  Author: Martin Bullman
--- =======================
+-- ========================
 
 require("neo-tree").setup({
 	popup_border_style = "",

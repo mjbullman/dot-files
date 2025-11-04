@@ -27,12 +27,11 @@ local opts = { noremap = true, silent = true }
 -- ----------------------------- 
 -- Basic operations 
 -- -----------------------------
-map({"n", "v"}, "<Space>", "<Nop>", opts, { 
+map({"n", "v"}, "<Space>", "<Nop>", {
     silent = true,
     desc = "Disable space key default behavior"
 })
-
-map("n", "<leader>w", "<cmd>w<CR>", opts, {
+map("n", "<leader>w", "<cmd>w<CR>", {
     desc = "Save file"
 })
 map("n", "<leader>q", "<cmd>q<CR>", opts, {
