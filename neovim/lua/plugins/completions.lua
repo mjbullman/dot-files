@@ -1,62 +1,60 @@
 -- =======================
---  Code Completions Configuration
+--  Code Completions Configuration (Blink.cmp)
 --  Author: Martin Bullman
 -- =======================
 
 return {
-    {
-        "hrsh7th/cmp-nvim-lsp"
-    },
-    {
-        "L3MON4D3/LuaSnip",
-        dependencies = {
-            "saadparwaiz1/cmp_luasnip",
-            "rafamadriz/friendly-snippets"
+  {
+    "saghen/blink.cmp",
+    dependencies = "rafamadriz/friendly-snippets",
+    version = "*",
+    opts = {
+      keymap = {
+        preset = "default",
+        ["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
+        ["<C-e>"] = { "hide" },
+        ["<C-y>"] = { "select_and_accept" },
+        ["<C-k>"] = { "select_prev", "fallback" },
+        ["<C-j>"] = { "select_next", "fallback" },
+        ["<C-b>"] = { "scroll_documentation_up", "fallback" },
+        ["<C-f>"] = { "scroll_documentation_down", "fallback" },
+        ["<Tab>"] = { "snippet_forward", "fallback" },
+        ["<S-Tab>"] = { "snippet_backward", "fallback" },
+      },
+      completion = {
+        menu = { border = "rounded" },
+        documentation = { border = "rounded" },
+        ghost_text = { enabled = true },
+      },
+      sources = {
+        default = { "lsp", "path", "snippets", "buffer" },
+        providers = {
+          lsp = {
+            name = "lsp",
+            enabled = true,
+            max_items = 50,
+            score_offset = 100,
+          },
+          snippets = {
+            name = "snippets",
+            enabled = true,
+            max_items = 20,
+            score_offset = 50,
+          },
+          path = {
+            name = "path",
+            enabled = true,
+            max_items = 20,
+          },
+          buffer = {
+            name = "buffer",
+            enabled = true,
+            max_items = 10,
+            score_offset = -10,
+          },
         },
-        build = "make install_jsregexp",
-        config = function()
-            local luasnip = require("luasnip")
-
-        --    luasnip.config.setup({
-        --        load_jsregexp = false,  -- disables jsregexp warning
-        --    })
-
-            -- Load VSCode-style snippets (from friendly-snippets)
-            require("luasnip.loaders.from_vscode").lazy_load()
-        end,
+      },
+      signature = { enabled = true, window = { border = "rounded" } },
     },
-	{
-		"hrsh7th/nvim-cmp",
-		config = function()
-	            vim.opt.completeopt = { "menu", "menuone", "noselect", "noinsert", "popup" }
-
-            local cmp = require("cmp")
-
-			cmp.setup({
-				snippet = {
-					expand = function(args)
-						require("luasnip").lsp_expand(args.body)
-					end
-				},
-				window = {
-					completion = cmp.config.window.bordered(),
-					documentation = cmp.config.window.bordered(),
-				},
-				mapping = cmp.mapping.preset.insert({
-					["<C-b>"] = cmp.mapping.scroll_docs(-4),
-					["<C-f>"] = cmp.mapping.scroll_docs(4),
-					["<C-Space>"] = cmp.mapping.complete(),
-					["<C-e>"] = cmp.mapping.abort(),
-					["<CR>"] = cmp.mapping.confirm({ select = true }),
-				}),
-				sources = cmp.config.sources({
-					{ name = "nvim_lsp" },
-					-- { name = "vsnip" }, -- For vsnip users.
-					{ name = "luasnip" }, -- For luasnip users.
-				}, {
-					{ name = "buffer" },
-				}),
-			})
-		end
-	},
+  },
 }
