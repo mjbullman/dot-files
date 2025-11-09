@@ -18,7 +18,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 
 vim.opt.rtp:prepend(lazypath)
-vim.lsp.enable({ "clangd", "lua_ls", "vtsls", "vue_ls", "basedpyright", "html_ls", "css_ls", "eslint_ls", "jdtls" })
 
 -- setup lazy.nvim
 require("lazy").setup({
@@ -33,3 +32,6 @@ require("lazy").setup({
         enabled = false,
     },
 })
+
+-- Enable all LSP servers
+vim.lsp.enable({ "clangd", "lua_ls", "vtsls", "vue_ls", "basedpyright", "html_ls", "css_ls", "eslint_ls", "jdtls" })

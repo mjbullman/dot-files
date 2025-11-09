@@ -12,5 +12,6 @@ config.setup({
 	},
 	indent = {
 		enable = true,
+		disable = { "vue" },  -- Disable treesitter indent for Vue files
 	},
 })
