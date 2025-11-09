@@ -53,3 +53,5 @@ require("telescope").setup({
     },
 })
 
+-- load telescope ui.
+require("telescope").load_extension("ui-select")
