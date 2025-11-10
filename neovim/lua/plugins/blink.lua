@@ -7,7 +7,9 @@ return {
     {
         "saghen/blink.cmp",
         dependencies = {
-            "rafamadriz/friendly-snippets"
+            "rafamadriz/friendly-snippets",
+            "dsznajder/vscode-es7-javascript-react-snippets",  -- Better JS/React
+            "hollowtree/vscode-vue-snippets",                  -- Vue 3 snippets
         },
         version = "*",
         opts = {
@@ -24,7 +26,15 @@ return {
                 ["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
             },
             snippets = {
-                preset = "default",
+                expand = function(snippet)
+                    vim.snippet.expand(snippet)
+                end,
+                active = function(filter)
+                    return vim.snippet.active(filter)
+                end,
+                jump = function(direction)
+                    vim.snippet.jump(direction)
+                end,
             },
             appearance = {
                 use_nvim_cmp_as_default = true,

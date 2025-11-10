@@ -33,5 +33,26 @@ require("lazy").setup({
     },
 })
 
+-- Configure LSP with Blink.cmp capabilities (after lazy loads plugins)
+vim.lsp.config('*', {
+    capabilities = require('blink.cmp').get_lsp_capabilities(),
+    root_markers = { '.git' },
+})
+
+-- Configure lua_ls for Neovim development
+vim.lsp.config('lua_ls', {
+    settings = {
+        Lua = {
+            runtime = { version = 'LuaJIT' },
+            diagnostics = { globals = { 'vim' } },
+            workspace = {
+                library = vim.api.nvim_get_runtime_file("", true),
+                checkThirdParty = false,
+            },
+            telemetry = { enable = false },
+        },
+    },
+})
+
 -- Enable all LSP servers
 vim.lsp.enable({ "clangd", "lua_ls", "vtsls", "vue_ls", "basedpyright", "html_ls", "css_ls", "eslint_ls", "jdtls" })

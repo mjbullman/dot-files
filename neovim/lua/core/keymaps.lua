@@ -14,10 +14,10 @@ vim.g.maplocalleader = " "
 -- Diagnostics config
 -- -----------------------------
 vim.diagnostic.config({
-  virtual_text = true,
   update_in_insert = false,
   float = { border = "rounded" }
 })
+-- Note: virtual_text handled by tiny-inline-diagnostic plugin
 
 
 local map = vim.keymap.set 
