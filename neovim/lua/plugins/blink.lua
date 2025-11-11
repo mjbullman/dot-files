@@ -61,8 +61,14 @@ return {
                 proximity = { enabled = true },
             },
             sources = {
-                default = { "lsp", "path", "snippets", "buffer" },
+                default = { "lsp", "path", "snippets", "buffer", "codeium" },
                 providers = {
+                    codeium = {
+                        name = "Codeium",
+                        module = "codeium.blink",
+                        score_offset = 85,
+                        async = true,
+                    },
                     lsp = {
                         name = "lsp",
                         enabled = true,
