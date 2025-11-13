@@ -12,7 +12,7 @@ return {
         vim.api.nvim_create_autocmd("LspAttach", {
             group = vim.api.nvim_create_augroup("UserLspConfig", {}),
             callback = function(ev)
-                -- Navigation
+                -- navigation
                 vim.keymap.set("n", "gd", vim.lsp.buf.definition, {
                     buffer = ev.buf,
                     desc = "Go to definition",
@@ -34,7 +34,7 @@ return {
                     desc = "Go to type definition",
                 })
 
-                -- Documentation
+                -- documentation
                 vim.keymap.set("n", "K", vim.lsp.buf.hover, {
                     buffer = ev.buf,
                     desc = "Hover documentation",
@@ -48,7 +48,7 @@ return {
                     desc = "Signature help (insert mode)",
                 })
 
-                -- Code actions
+                -- code actions
                 vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {
                     buffer = ev.buf,
                     desc = "Code action",
@@ -58,13 +58,13 @@ return {
                     desc = "Rename symbol",
                 })
 
-                -- Formatting
+                -- formatting
                 vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, {
                     buffer = ev.buf,
                     desc = "Format buffer",
                 })
 
-                -- Workspace folders
+                -- workspace folders
                 vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, {
                     buffer = ev.buf,
                     desc = "Add workspace folder",

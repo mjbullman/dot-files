@@ -20,32 +20,5 @@ return {
 	},
 	config = function()
 		require("config.telescope")
-
-        -- -----------------------------
-        -- Custom Keymaps for Telescope
-        -- -------------------------------
-        local builtin = require("telescope.builtin")
-
-        vim.keymap.set("n", "<leader>ff", builtin.find_files, {
-            desc = "Telescope: Find Files",
-        })
-        vim.keymap.set("n", "<leader>fg", builtin.live_grep, {
-            desc = "Telescope: Live Grep",
-        })
-        vim.keymap.set("n", "<leader>fh", builtin.help_tags, {
-            desc = "Telescope: Help Tags",
-        })
-        vim.keymap.set("n", "<leader><leader>", builtin.buffers, {
-            desc = "Telescope: Find Buffers",
-        })
-        vim.keymap.set("n", "<leader>f.", builtin.oldfiles, {
-            desc = "Telescope: Recent Files",
-        })
-        vim.keymap.set("n", "<leader>fd", builtin.diagnostics, {
-            desc = "[S]earch [D]iagnostics",
-        })
-        vim.keymap.set("n", "<leader>fk", builtin.keymaps, {
-            desc = "[S]earch [K]eymaps",
-        })
-    end
+	end,
 }

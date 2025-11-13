@@ -1,5 +1,5 @@
 -- =======================
--- Codeium AI Completions (Blink-only, no nvim-cmp)
+-- Codeium Plugin Setup
 -- Author: Martin Bullman
 -- =======================
 
@@ -10,9 +10,6 @@ return {
     },
     event = "InsertEnter",
     config = function()
-        require("codeium").setup({
-            enable_chat = true,
-            enable_cmp_source = false,  -- We're using Blink, not nvim-cmp
-        })
+        require("config.codeium")
     end,
 }
