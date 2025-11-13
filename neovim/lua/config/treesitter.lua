@@ -5,13 +5,26 @@
 
 local config = require("nvim-treesitter.configs")
 
-config.setup({
-	auto_install = true,
-	highlight = {
-		enable = true,
-	},
-	indent = {
-		enable = true,
-		disable = { "vue" },  -- Disable treesitter indent for Vue files
-	},
-})
+config.setup {
+    ensure_installed = {
+       "lua",
+        "css",
+        "vue",
+        "html",
+        "scss",
+        "json",
+        "javascript",
+        "typescript"
+    },
+    ignore_install = { "javascript" },
+    sync_install = false,
+    modules = {},
+    auto_install = true,
+    highlight = {
+        enable = true
+    },
+    indent = {
+        enable = true,
+        disable = { "vue" }
+    },
+}
