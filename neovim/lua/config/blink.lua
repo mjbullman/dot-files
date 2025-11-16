@@ -72,9 +72,8 @@ require("blink.cmp").setup({
         },
     },
     fuzzy = {
-        use_typo_resistance = true,
-        frecency = { enabled = true },
-        proximity = { enabled = true },
+        enabled = true,
+        threshold = 3
     },
     sources = {
         default = { 
