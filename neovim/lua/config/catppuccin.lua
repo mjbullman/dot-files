@@ -62,6 +62,7 @@ require("catppuccin").setup({
         notify = false,
         gitsigns = true,
         nvimtree = true,
+        neotree = true,
         bufferline = {
             enabled = true,
             themable = true,

@@ -4,6 +4,7 @@
 -- ===============================
 
 require("which-key").setup({
+    delay = 1000,  -- Delay in ms before showing popup (default: 500, increased to 1000ms/1sec)
     plugins = {
         marks = true,
         registers = true,
@@ -46,6 +47,7 @@ local wk = require("which-key")
 wk.add({
     { "<leader>f", group = "Find (Telescope)" },
     { "<leader>a", group = "AI (ChatGPT)" },
+    { "<leader>c", group = "Copilot" },
     { "<leader>d", group = "Debug/Diagnostics" },
     { "<leader>l", group = "LSP/Language" },
     { "<leader>e", group = "Explorer (Neo-tree)" },
