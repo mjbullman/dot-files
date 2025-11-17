@@ -53,6 +53,12 @@ return {
                     buffer = ev.buf,
                     desc = "Code action",
                 })
+                vim.keymap.set("n", "<leader>cf", function()
+                    vim.lsp.buf.code_action({ apply = true })
+                end, {
+                    buffer = ev.buf,
+                    desc = "Quick fix (apply first action)",
+                })
                 vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {
                     buffer = ev.buf,
                     desc = "Rename symbol",

@@ -76,12 +76,13 @@ require("blink.cmp").setup({
         threshold = 3
     },
     sources = {
-        default = { 
+        default = {
             "lsp",
             "path",
             "snippets",
             "buffer",
-            "codeium" 
+            "lazydev",
+            "codeium"
         },
         providers = {
             codeium = {
@@ -96,6 +97,11 @@ require("blink.cmp").setup({
                 max_items = 50,
                 score_offset = 100,
                 min_keyword_length = 1,
+            },
+            lazydev = {
+                name = "lazydev",
+                module = "lazydev.integrations.blink",
+                score_offset = 95,  -- Higher than snippets, lower than LSP
             },
             snippets = {
                 name = "snippets",
