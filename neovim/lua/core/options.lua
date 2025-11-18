@@ -18,3 +18,16 @@ vim.o.termguicolors = true       -- enable 24-bit RGB colors
 vim.o.scrolloff = 4              -- minimum number of screen lines to keep above and below the cursor
 vim.o.sidescrolloff = 8          -- minimum number of screen columns to
 
+-- -----------------------------
+-- Highlight yanked text
+-- -----------------------------
+vim.api.nvim_create_autocmd("TextYankPost", {
+    group = vim.api.nvim_create_augroup("HighlightYank", {}),
+    callback = function()
+        vim.highlight.on_yank({
+            higroup = "IncSearch",
+            timeout = 200,
+        })
+    end,
+})
+

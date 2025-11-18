@@ -67,11 +67,11 @@ return {
         workingDirectory = { mode = "auto" },
         codeAction = {
             disableRuleComment = {
-                enable = true,
+                enable = false,  -- Disable "disable rule" suggestions
                 location = "separateLine",
             },
             showDocumentation = {
-                enable = true,
+                enable = false,  -- Disable "show docs" suggestions
             },
         },
     },

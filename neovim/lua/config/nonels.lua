@@ -33,7 +33,7 @@ null_ls.setup({
         -- ===============================
         -- CODE ACTIONS
         -- ===============================
-        code_actions.gitsigns, -- Git actions (stage hunks, etc)
+        code_actions.gitsigns,    -- Git actions (stage hunks, etc)
     },
 })
 
