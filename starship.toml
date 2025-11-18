@@ -8,6 +8,9 @@
 
 "$schema" = 'https://starship.rs/config-schema.json'
 
+# fix issue with prompt not returning after exiting program
+command_timeout = 1001
+
 format = """
 [](red)\
 $os\
