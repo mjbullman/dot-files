@@ -55,4 +55,4 @@ vim.lsp.config('lua_ls', {
 })
 
 -- Enable all LSP servers
-vim.lsp.enable({ "clangd", "lua_ls", "vtsls", "vue_ls", "basedpyright", "html_ls", "css_ls", "eslint_ls", "jdtls" })
+vim.lsp.enable({ "clangd", "lua_ls", "vtsls", "vue_ls", "basedpyright", "html_ls", "css_ls", "eslint_ls", "jdtls", "rust_ls" })

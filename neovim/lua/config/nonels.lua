@@ -11,7 +11,7 @@ local diagnostics = null_ls.builtins.diagnostics
 local code_actions = null_ls.builtins.code_actions
 
 null_ls.setup({
-    debug = false, -- Enable for debugging
+    debug = false,
     sources = {
         -- ===============================
         -- FORMATTING
@@ -28,12 +28,11 @@ null_ls.setup({
         diagnostics.pylint,       -- Python linting
         diagnostics.mypy,         -- Python type checking
         diagnostics.markdownlint, -- Markdown
-        diagnostics.shellcheck,   -- Shell scripts
 
         -- ===============================
         -- CODE ACTIONS
         -- ===============================
-        code_actions.gitsigns,    -- Git actions (stage hunks, etc)
+        code_actions.gitsigns, -- Git actions (stage hunks, etc)
     },
 })
 
@@ -43,6 +42,7 @@ null_ls.setup({
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
+-- Manual format keymap (defined in lsp.lua but good to have backup)
 map("n", "<leader>lf", vim.lsp.buf.format, vim.tbl_extend("force", opts, {
-    desc = "Format buffer"
+    desc = "Format buffer",
 }))
