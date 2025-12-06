@@ -5,7 +5,10 @@
 
 return {
 	"nvimtools/none-ls.nvim",
-	config = function()
+    dependencies = {
+        "nvimtools/none-ls-extras.nvim",
+    },	
+    config = function()
 		require("config.nonels")
 	end,
 }
