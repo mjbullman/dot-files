@@ -8,9 +8,6 @@
 
 "$schema" = 'https://starship.rs/config-schema.json'
 
-# fix issue with prompt not returning after exiting program
-command_timeout = 1001
-
 format = """
 [](red)\
 $os\
@@ -173,7 +170,7 @@ show_milliseconds = true
 format = " in $duration "
 style = "bg:lavender"
 disabled = false
-show_notifications = true
+show_notifications = false
 min_time_to_notify = 45000
 
 [palettes.catppuccin_mocha]
