@@ -3,7 +3,7 @@
 -- Author: Martin Bullman
 -- ===============================
 
-local null_ls = require("null-ls")
+local null_ls = require('null-ls')
 
 -- Shortcuts for built-ins
 local formatting = null_ls.builtins.formatting
@@ -42,7 +42,7 @@ null_ls.setup({
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
--- Manual format keymap (defined in lsp.lua but good to have backup)
-map("n", "<leader>lf", vim.lsp.buf.format, vim.tbl_extend("force", opts, {
-    desc = "Format buffer",
+-- manual format keymap (defined in lsp.lua but good to have backup)
+map('n', '<leader>lf', vim.lsp.buf.format, vim.tbl_extend('force', opts, {
+    desc = 'Format buffer',
 }))

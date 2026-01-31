@@ -3,8 +3,8 @@
 -- Author: Martin Bullman
 -- ===============================
 
-require("which-key").setup({
-    delay = 1000,  -- Delay in ms before showing popup (default: 500, increased to 1000ms/1sec)
+require('which-key').setup({
+    delay = 1000, -- delay in ms before showing popup
     plugins = {
         marks = true,
         registers = true,
@@ -23,32 +23,32 @@ require("which-key").setup({
         },
     },
     icons = {
-        breadcrumb = "»",
-        separator = "➜",
-        group = "+",
+        breadcrumb = '»',
+        separator = '➜',
+        group = '+',
     },
     win = {
-        border = "rounded",
+        border = 'rounded',
         padding = { 1, 2 },
     },
     layout = {
         height = { min = 4, max = 25 },
         width = { min = 20, max = 50 },
         spacing = 3,
-        align = "left",
+        align = 'left',
     },
 })
 
 -- =============================
 -- Which-Key Group Labels
 -- =============================
-local wk = require("which-key")
+local wk = require('which-key')
 
 wk.add({
-    { "<leader>f", group = "Find (Telescope)" },
-    { "<leader>a", group = "AI (ChatGPT)" },
-    { "<leader>c", group = "Copilot" },
-    { "<leader>d", group = "Debug/Diagnostics" },
-    { "<leader>l", group = "LSP/Language" },
-    { "<leader>e", group = "Explorer (Neo-tree)" },
+    { '<leader>f', group = 'Find (Telescope)' },
+    { '<leader>a', group = 'AI (ChatGPT)' },
+    { '<leader>c', group = 'Copilot' },
+    { '<leader>d', group = 'Debug/Diagnostics' },
+    { '<leader>l', group = 'LSP/Language' },
+    { '<leader>e', group = 'Explorer (Neo-tree)' },
 })

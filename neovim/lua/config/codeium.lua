@@ -3,7 +3,14 @@
 -- Author: Martin Bullman
 -- ===============================
 
-require("codeium").setup({
+require('codeium').setup({
     enable_chat = true,
-    enable_cmp_source = false,  -- We're using Blink, not nvim-cmp
+    enable_cmp_source = false,  -- using Blink, not nvim-cmp
+    virtual_text = {
+        enable = true
+    },
+    workspace_root = {
+        use_lsp = true
+    }
+
 })

@@ -3,20 +3,20 @@
 -- Author: Martin Bullman
 -- ===============================
 
-local config = require("nvim-treesitter.configs")
+local config = require('nvim-treesitter.configs')
 
 config.setup {
     ensure_installed = {
-       "lua",
-        "css",
-        "vue",
-        "html",
-        "scss",
-        "json",
-        "javascript",
-        "typescript"
+       'lua',
+        'css',
+        'vue',
+        'html',
+        'scss',
+        'json',
+        'javascript',
+        'typescript'
     },
-    ignore_install = { "javascript" },
+    ignore_install = { 'javascript' },
     sync_install = false,
     modules = {},
     auto_install = true,
@@ -25,6 +25,6 @@ config.setup {
     },
     indent = {
         enable = true,
-        disable = { "vue" }
+        disable = { 'vue' }
     },
 }

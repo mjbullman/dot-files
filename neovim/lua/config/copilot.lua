@@ -3,65 +3,57 @@
 -- Author: Martin Bullman
 -- ===============================
 
--- Disable Copilot by default (manual control)
+-- disable Copilot by default (manual control)
 vim.g.copilot_enabled = false
 
--- Don't auto-trigger on every keystroke
+-- don't auto-trigger on every keystroke
 vim.g.copilot_no_tab_map = true
 
--- Only suggest on specific filetypes
+-- only suggest on specific filetypes
 vim.g.copilot_filetypes = {
-	["*"] = true,
-	["TelescopePrompt"] = false,
-	["chatgpt-input"] = false,
-	["chatgpt"] = false,
+	['*'] = true,
+	['TelescopePrompt'] = false,
+	['chatgpt-input'] = false,
+	['chatgpt'] = false,
 }
 
 -- =============================
 -- Copilot Keymaps (Manual Control)
 -- =============================
+
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
--- Toggle Copilot on/off
-map("n", "<leader>cp", function()
+-- toggle Copilot on/off
+map('n', '<leader>cp', function()
 	if vim.g.copilot_enabled then
-		vim.cmd("Copilot disable")
+		vim.cmd('Copilot disable')
 		vim.g.copilot_enabled = false
-		print("Copilot disabled")
+		print('Copilot disabled')
 	else
-		vim.cmd("Copilot enable")
+		vim.cmd('Copilot enable')
 		vim.g.copilot_enabled = true
-		print("Copilot enabled")
+		print('Copilot enabled')
 	end
-end, vim.tbl_extend("force", opts, {
-	desc = "Copilot: Toggle on/off"
+end, vim.tbl_extend('force', opts, {
+	desc = 'Copilot: Toggle on/off'
 }))
-
--- Manually trigger suggestion
-map("i", "<C-\\>", "<Plug>(copilot-suggest)", {
-	desc = "Copilot: Trigger suggestion"
+map('i', '<C-\\>', '<Plug>(copilot-suggest)', {
+	desc = 'Copilot: Trigger suggestion'
 })
-
--- Accept suggestion
-map("i", "<C-j>", "<Plug>(copilot-accept-word)", {
-	desc = "Copilot: Accept word"
+map('i', '<C-j>', '<Plug>(copilot-accept-word)', {
+	desc = 'Copilot: Accept word'
 })
-
-map("i", "<C-l>", "<Plug>(copilot-accept-line)", {
-	desc = "Copilot: Accept line"
+map('i', '<C-l>', '<Plug>(copilot-accept-line)', {
+	desc = 'Copilot: Accept line'
 })
-
--- Cycle through suggestions
-map("i", "<M-]>", "<Plug>(copilot-next)", {
-	desc = "Copilot: Next suggestion"
+map('i', '<M-]>', '<Plug>(copilot-next)', {
+	desc = 'Copilot: Next suggestion'
 })
-
-map("i", "<M-[>", "<Plug>(copilot-previous)", {
-	desc = "Copilot: Previous suggestion"
+map('i', '<M-[>', '<Plug>(copilot-previous)', {
+	desc = 'Copilot: Previous suggestion'
 })
-
 -- Dismiss suggestion (Esc works naturally)
-map("i", "<C-x>", "<Plug>(copilot-dismiss)", {
-	desc = "Copilot: Dismiss suggestion"
+map('i', '<C-x>', '<Plug>(copilot-dismiss)', {
+	desc = 'Copilot: Dismiss suggestion'
 })

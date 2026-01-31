@@ -3,13 +3,13 @@
 -- Author: Martin Bullman
 -- ===============================
 
-require("mason").setup({
+require('mason').setup({
     ui = {
-        border = "rounded",
+        border = 'rounded',
         icons = {
-            package_installed = "✓",
-            package_pending = "➜",
-            package_uninstalled = "✗",
+            package_installed = '✓',
+            package_pending = '➜',
+            package_uninstalled = '✗',
         },
     },
 })
