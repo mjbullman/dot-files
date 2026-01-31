@@ -4,9 +4,9 @@
 -- =======================
 
 return {
-    "numToStr/Comment.nvim",
+    'numToStr/Comment.nvim',
     opts = {},
     config = function()
-        require("config.comment")
+        require('config.comment')
     end
 }

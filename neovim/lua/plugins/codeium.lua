@@ -4,12 +4,12 @@
 -- =======================
 
 return {
-    "Exafunction/codeium.nvim",
+    'Exafunction/codeium.nvim',
     dependencies = {
-        "nvim-lua/plenary.nvim",
+        'nvim-lua/plenary.nvim',
     },
-    event = "InsertEnter",
+    event = 'VeryLazy',
     config = function()
-        require("config.codeium")
+        require('config.codeium')
     end,
 }

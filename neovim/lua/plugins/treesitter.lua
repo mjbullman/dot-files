@@ -4,12 +4,11 @@
 -- =========================
 
 return {
-    "nvim-treesitter/nvim-treesitter",
+    'nvim-treesitter/nvim-treesitter',
     branch = 'master',
     lazy = false,
-    build = ":TSUpdate",
+    build = ':TSUpdate',
     config = function()
-        require("config.treesitter")
-    end
+        require('config.treesitter')
+    end,
 }
-
