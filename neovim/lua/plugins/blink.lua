@@ -5,15 +5,15 @@
 
 return {
     {
-        "saghen/blink.cmp",
+        'saghen/blink.cmp',
         dependencies = {
-            "rafamadriz/friendly-snippets",
-            "dsznajder/vscode-es7-javascript-react-snippets",  -- Better JS/React
-            "hollowtree/vscode-vue-snippets",                  -- Vue 3 snippets
+            'rafamadriz/friendly-snippets',
+            'dsznajder/vscode-es7-javascript-react-snippets',  -- Better JS/React
+            'hollowtree/vscode-vue-snippets',                  -- Vue 3 snippets
         },
-        version = "*",
+        version = '*',
         config = function()
-            require("config.blink")
+            require('config.blink')
         end,
     },
 }

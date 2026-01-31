@@ -4,17 +4,20 @@
 -- ================================
 
 return {
-    -- "CopilotC-Nvim/CopilotChat.nvim",
+    -- 'CopilotC-Nvim/CopilotChat.nvim',
     -- dependencies = {
-    -- 	{ "github/copilot.vim" },
-    -- 	{ "nvim-lua/plenary.nvim", branch = "master" },
-    -- 	{ "nvim-telescope/telescope.nvim" },
+    --     { 'github/copilot.vim' },
+    --     {
+    --         'nvim-lua/plenary.nvim',
+    --         branch = 'master'
+    --     },
+    --     { 'nvim-telescope/telescope.nvim' },
     -- },
-    -- build = "make tiktoken",
+    -- build = 'make tiktoken',
     -- opts = {
-    -- 	window = {
-    -- 		layout = "vertical",
-    -- 		width = 0.3,
-    -- 	},
+    --     window = {
+    --         layout = 'vertical',
+    --         width = 0.3,
+    --     },
     -- },
 }
