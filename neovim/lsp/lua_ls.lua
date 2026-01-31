@@ -4,7 +4,13 @@
 -- ==============================
 
 return {
-    cmd = { vim.fn.expand("~/.local/share/nvim/mason/bin/lua-language-server") },
-    root_markers = { ".luarc.json" },
-    filetypes = { "lua" },
+    cmd = {
+        vim.fn.expand('~/.local/share/nvim/mason/bin/lua-language-server')
+    },
+    root_markers = {
+        '.luarc.json'
+    },
+    filetypes = {
+        'lua'
+    },
 }

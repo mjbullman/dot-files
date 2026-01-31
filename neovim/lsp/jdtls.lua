@@ -4,18 +4,18 @@
 -- ==============================
 
 local function get_jdtls_cache_dir()
-    return vim.fn.stdpath("cache") .. "/jdtls"
+    return vim.fn.stdpath('cache') .. '/jdtls'
 end
 
 local function get_jdtls_workspace_dir()
-    return get_jdtls_cache_dir() .. "/workspace"
+    return get_jdtls_cache_dir() .. '/workspace'
 end
 
 local function get_jdtls_jvm_args()
-    local env = os.getenv("JDTLS_JVM_ARGS")
+    local env = os.getenv('JDTLS_JVM_ARGS')
     local args = {}
-    for a in string.gmatch((env or ""), "%S+") do
-        local arg = string.format("--jvm-arg=%s", a)
+    for a in string.gmatch((env or ''), '%S+') do
+        local arg = string.format('--jvm-arg=%s', a)
         table.insert(args, arg)
     end
     return args
@@ -25,12 +25,18 @@ return {
     cmd = function(dispatchers, config)
         local workspace_dir = get_jdtls_workspace_dir()
         local data_dir = workspace_dir
+
         if config.root_dir then
-            data_dir = data_dir .. "/" .. vim.fn.fnamemodify(config.root_dir, ":p:h:t")
+            data_dir = data_dir .. '/' .. vim.fn.fnamemodify(config.root_dir, ':p:h:t')
         end
 
-        local jdtls_bin = vim.fn.stdpath("data") .. "/mason/bin/jdtls"
-        local config_cmd = { jdtls_bin, "-data", data_dir }
+        local jdtls_bin = vim.fn.stdpath('data') .. '/mason/bin/jdtls'
+        local config_cmd = {
+            jdtls_bin,
+            '-data',
+            data_dir
+        }
+
         vim.list_extend(config_cmd, get_jdtls_jvm_args())
 
         return vim.lsp.rpc.start(config_cmd, dispatchers, {
@@ -39,17 +45,17 @@ return {
             detached = config.detached,
         })
     end,
-    filetypes = { "java" },
+    filetypes = { 'java' },
     root_markers = {
-        "mvnw",
-        "gradlew",
-        "settings.gradle",
-        "settings.gradle.kts",
-        ".git",
-        "build.xml",
-        "pom.xml",
-        "build.gradle",
-        "build.gradle.kts",
+        '.git',
+        'mvnw',
+        'gradlew',
+        'pom.xml',
+        'build.xml',
+        'build.gradle',
+        'settings.gradle',
+        'build.gradle.kts',
+        'settings.gradle.kts',
     },
     init_options = {},
 }

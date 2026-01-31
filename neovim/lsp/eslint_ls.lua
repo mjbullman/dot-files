@@ -4,37 +4,41 @@
 -- ==============================
 
 local eslint_config_files = {
-    ".eslintrc",
-    ".eslintrc.js",
-    ".eslintrc.cjs",
-    ".eslintrc.yaml",
-    ".eslintrc.yml",
-    ".eslintrc.json",
-    "eslint.config.js",
-    "eslint.config.mjs",
-    "eslint.config.cjs",
-    "eslint.config.ts",
-    "eslint.config.mts",
-    "eslint.config.cts",
-    "package.json", -- for eslintConfig in package.json
+    '.eslintrc',
+    '.eslintrc.js',
+    '.eslintrc.cjs',
+    '.eslintrc.yaml',
+    '.eslintrc.yml',
+    '.eslintrc.json',
+    'eslint.config.js',
+    'eslint.config.mjs',
+    'eslint.config.cjs',
+    'eslint.config.ts',
+    'eslint.config.mts',
+    'eslint.config.cts',
+    'package.json', -- for eslintConfig in package.json
 }
 
 return {
-    cmd = { vim.fn.stdpath("data") .. "/mason/bin/vscode-eslint-language-server", "--stdio" },
-    filetypes = {
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact",
-        "vue",
-        "svelte",
-        "astro",
+    cmd = {
+        vim.fn.stdpath('data') .. '/mason/bin/vscode-eslint-language-server',
+        '--stdio',
     },
-    root_markers = { "package.json", ".git" },
+    filetypes = {
+        'vue',
+        'astro',
+        'svelte',
+        'javascript',
+        'javascriptreact',
+    },
+    root_markers = {
+        '.git',
+        'package.json',
+    },
     on_attach = function(client, bufnr)
-        vim.api.nvim_buf_create_user_command(bufnr, "LspEslintFixAll", function()
-            client:request_sync("workspace/executeCommand", {
-                command = "eslint.applyAllFixes",
+        vim.api.nvim_buf_create_user_command(bufnr, 'LspEslintFixAll', function()
+            client:request_sync('workspace/executeCommand', {
+                command = 'eslint.applyAllFixes',
                 arguments = {
                     {
                         uri = vim.uri_from_bufnr(bufnr),
@@ -45,7 +49,7 @@ return {
         end, {})
     end,
     settings = {
-        validate = "on",
+        validate = 'on',
         packageManager = nil,
         useESLintClass = false,
         experimental = {
@@ -53,44 +57,44 @@ return {
         },
         codeActionOnSave = {
             enable = false,
-            mode = "all",
+            mode = 'all',
         },
         format = true,
         quiet = false,
-        onIgnoredFiles = "off",
+        onIgnoredFiles = 'off',
         rulesCustomizations = {},
-        run = "onType",
+        run = 'onType',
         problems = {
             shortenToSingleLine = false,
         },
-        nodePath = "",
-        workingDirectory = { mode = "auto" },
+        nodePath = '',
+        workingDirectory = { mode = 'auto' },
         codeAction = {
             disableRuleComment = {
-                enable = false,  -- Disable "disable rule" suggestions
-                location = "separateLine",
+                enable = false, -- Disable 'disable rule' suggestions
+                location = 'separateLine',
             },
             showDocumentation = {
-                enable = false,  -- Disable "show docs" suggestions
+                enable = false, -- Disable 'show docs' suggestions
             },
         },
     },
     handlers = {
-        ["eslint/openDoc"] = function(_, result)
+        ['eslint/openDoc'] = function(_, result)
             if result then
                 vim.ui.open(result.url)
             end
             return {}
         end,
-        ["eslint/confirmESLintExecution"] = function()
+        ['eslint/confirmESLintExecution'] = function()
             return 4 -- approved
         end,
-        ["eslint/probeFailed"] = function()
-            vim.notify("[ESLint] Probe failed.", vim.log.levels.WARN)
+        ['eslint/probeFailed'] = function()
+            vim.notify('[ESLint] Probe failed.', vim.log.levels.WARN)
             return {}
         end,
-        ["eslint/noLibrary"] = function()
-            vim.notify("[ESLint] Unable to find ESLint library.", vim.log.levels.WARN)
+        ['eslint/noLibrary'] = function()
+            vim.notify('[ESLint] Unable to find ESLint library.', vim.log.levels.WARN)
             return {}
         end,
     },
