@@ -99,12 +99,6 @@ require('blink.cmp').setup({
             'buffer',
         },
         providers = {
-            codeium = {
-                name = 'codeium',
-                module = 'blink.compat.source',
-                score_offset = 85,
-                async = true,
-            },
             lsp = {
                 name = 'lsp',
                 enabled = true,
@@ -116,6 +110,12 @@ require('blink.cmp').setup({
                 name = 'lazydev',
                 module = 'lazydev.integrations.blink',
                 score_offset = 95,  -- Higher than snippets, lower than LSP
+            },
+            codeium = {
+                name = 'codeium',
+                module = 'codeium.blink',
+                score_offset = 85,
+                async = true,
             },
             snippets = {
                 name = 'snippets',
