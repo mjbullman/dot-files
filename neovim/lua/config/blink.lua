@@ -3,6 +3,8 @@
 -- Author: Martin Bullman
 -- ===============================
 
+vim.lsp.inlay_hint.enable(true)
+
 require('blink.cmp').setup({
     enabled = function()
         -- disable in ChatGPT input windows and prompts
@@ -16,6 +18,11 @@ require('blink.cmp').setup({
 
         -- disable in ChatGPT-related filetypes
         if filetype == 'chatgpt-input' or filetype == 'chatgpt' then
+            return false
+        end
+
+        -- disable in Telescope prompt
+        if buftype == 'prompt' or filetype == 'TelescopePrompt' then
             return false
         end
 
@@ -49,7 +56,11 @@ require('blink.cmp').setup({
         nerd_font_variant = 'mono',
     },
     completion = {
-        accept = { auto_brackets = { enabled = true } },
+        accept = {
+            auto_brackets = {
+                enabled = true
+            }
+        },
         menu = {
             border = 'rounded',
             draw = {
@@ -62,7 +73,7 @@ require('blink.cmp').setup({
         },
         documentation = {
             auto_show = true,
-            auto_show_delay_ms = 500,
+            auto_show_delay_ms = 300,
             window = {
                 border = 'rounded'
             },
@@ -70,24 +81,27 @@ require('blink.cmp').setup({
         ghost_text = {
             enabled = true
         },
+        trigger = {
+            prefetch_on_insert = true,
+        },
     },
     fuzzy = {
         enabled = true,
-        threshold = 3
+        threshold = 2
     },
     sources = {
         default = {
             'lsp',
-            'path',
-            'snippets',
-            'buffer',
             'lazydev',
-            'codeium'
+            'codeium',
+            'snippets',
+            'path',
+            'buffer',
         },
         providers = {
             codeium = {
-                name = 'Codeium',
-                module = 'codeium.blink',
+                name = 'codeium',
+                module = 'blink.compat.source',
                 score_offset = 85,
                 async = true,
             },
@@ -119,10 +133,12 @@ require('blink.cmp').setup({
             },
             buffer = {
                 name = 'buffer',
-                enabled = true,
                 max_items = 10,
-                score_offset = -3,
+                score_offset = -10,
                 min_keyword_length = 3,
+                enabled = function()
+                    return vim.api.nvim_buf_line_count(0) < 3000
+                end,
             },
         },
     },

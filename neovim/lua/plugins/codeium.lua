@@ -5,6 +5,7 @@
 
 return {
     'Exafunction/codeium.nvim',
+    enabled = true,
     event = 'VeryLazy',
     dependencies = {
         'nvim-lua/plenary.nvim',
