@@ -5,10 +5,11 @@
 
 return {
     'Exafunction/codeium.nvim',
+    event = 'VeryLazy',
     dependencies = {
         'nvim-lua/plenary.nvim',
+        'saghen/blink.cmp',
     },
-    event = 'VeryLazy',
     config = function()
         require('config.codeium')
     end,

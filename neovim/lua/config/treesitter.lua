@@ -7,12 +7,15 @@ local config = require('nvim-treesitter.configs')
 
 config.setup {
     ensure_installed = {
-       'lua',
+        'lua',
         'css',
         'vue',
+        'php',
         'html',
         'scss',
         'json',
+        'bash',
+        'rust',
         'javascript',
         'typescript'
     },
@@ -24,7 +27,7 @@ config.setup {
         enable = true
     },
     indent = {
-        enable = true,
+        enable = false,
         disable = { 'vue' }
     },
 }

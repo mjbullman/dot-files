@@ -4,24 +4,30 @@
 -- ==============================
 
 return {
-    cmd = { vim.fn.stdpath('data') .. '/mason/bin/basedpyright-langserver', '--stdio' },
+    cmd = { 
+        vim.fn.stdpath('data') .. '/mason/bin/basedpyright-langserver', '--stdio' 
+    },
     filetypes = { 'python' },
-    root_markers = { 'pyproject.toml', 'setup.py', 'setup.cfg', 'requirements.txt', '.git' },
-
+    root_markers = {
+        '.git',
+        'setup.py',
+        'setup.cfg',
+        'pyproject.toml',
+        'requirements.txt',
+    },
     settings = {
         basedpyright = {
             analysis = {
+                diagnosticMode = 'workspace',
+                autoSearchPaths = true,
                 typeCheckingMode = 'basic', -- 'off', 'basic', or 'strict'
                 autoImportCompletions = true,
-                autoSearchPaths = true,
                 useLibraryCodeForTypes = true,
-                diagnosticMode = 'workspace',
             },
-            disableLanguageServices = false,
             disableOrganizeImports = false,
+            disableLanguageServices = false,
         },
     },
-
     on_attach = function(client, bufnr)
         vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
     end,
