@@ -5,6 +5,7 @@
 
 return {
     'jackMort/ChatGPT.nvim',
+    enabled = false,  -- Disabled due to conflicts with Avante
     event = 'VeryLazy',
     dependencies = {
         'MunifTanjim/nui.nvim',
