@@ -16,6 +16,7 @@ config.setup {
         'json',
         'bash',
         'rust',
+        'regex',
         'javascript',
         'typescript'
     },

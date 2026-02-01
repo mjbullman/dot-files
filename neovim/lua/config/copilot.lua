@@ -34,18 +34,18 @@ map('n', '<leader>cp', function()
 		vim.cmd('Copilot enable')
 		vim.g.copilot_enabled = true
 		print('Copilot enabled')
-	end
+    end
 end, vim.tbl_extend('force', opts, {
-	desc = 'Copilot: Toggle on/off'
+    desc = 'Copilot: Toggle on/off'
 }))
 map('i', '<C-\\>', '<Plug>(copilot-suggest)', {
-	desc = 'Copilot: Trigger suggestion'
+    desc = 'Copilot: Trigger suggestion'
 })
 map('i', '<C-j>', '<Plug>(copilot-accept-word)', {
-	desc = 'Copilot: Accept word'
+    desc = 'Copilot: Accept word'
 })
 map('i', '<C-l>', '<Plug>(copilot-accept-line)', {
-	desc = 'Copilot: Accept line'
+    desc = 'Copilot: Accept line'
 })
 map('i', '<M-]>', '<Plug>(copilot-next)', {
 	desc = 'Copilot: Next suggestion'

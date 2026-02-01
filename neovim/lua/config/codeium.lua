@@ -11,5 +11,5 @@ require('codeium').setup({
     },
     workspace_root = {
         use_lsp = true
-    }
+    },
 })

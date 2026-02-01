@@ -16,18 +16,16 @@ null_ls.setup({
         -- ===============================
         -- FORMATTING
         -- ===============================
-        formatting.stylua,       -- Lua
-        formatting.prettier,     -- JS/TS/Vue/CSS/HTML/JSON/Markdown
-        formatting.black,        -- Python
-        formatting.isort,        -- Python imports
-        formatting.clang_format, -- C/C++/Java
+        formatting.stylua,   -- Lua
+        formatting.prettier, -- JS/TS/Vue/CSS/HTML/JSON/Markdown
+        formatting.black,    -- Python
+        formatting.isort,    -- Python imports
 
         -- ===============================
         -- DIAGNOSTICS
         -- ===============================
-        diagnostics.pylint,       -- Python linting
-        diagnostics.mypy,         -- Python type checking
-        diagnostics.markdownlint, -- Markdown
+        diagnostics.pylint, -- Python linting
+        diagnostics.mypy,   -- Python type checking
 
         -- ===============================
         -- CODE ACTIONS
