@@ -39,13 +39,14 @@ The Neovim configuration follows a modular Lua-based structure:
 - `lazy.lua`: lazy.nvim bootstrap and setup, global LSP configuration
 
 **LSP Architecture**:
-The configuration uses modern Neovim LSP (neovim/nvim-lspconfig) with a centralized approach:
-- **Global LSP configuration** in `neovim/lua/core/lazy.lua`:
+The configuration uses modern Neovim LSP (neovim/nvim-lspconfig):
+- **Plugin definition** in `neovim/lua/plugins/lsp.lua`: Pseudo-plugin that loads on file events
+- **LSP configuration** in `neovim/lua/config/lsp.lua`:
   - Sets capabilities from Blink.cmp for all servers
   - Configures root markers (`.git`)
   - Special configuration for `lua_ls` (Neovim development)
-  - Enables LSP servers: `clangd`, `lua_ls`, `vtsls`, `vue_ls`, `basedpyright`, `html_ls`, `css_ls`, `eslint_ls`, `jdtls`
-- **LSP keybindings** in `neovim/lua/plugins/lsp.lua`:
+  - Enabled servers: `vtsls`, `jdtls`, `lua_ls`, `vue_ls`, `clangd`, `css_ls`, `rust_analyzer`, `html_ls`, `eslint_ls`, `basedpyright`, `jsonls`, `marksman`, `bashls`, `dockerls`
+- **LSP keybindings**:
   - Uses LspAttach autocmd to set buffer-local keymaps when LSP attaches
   - Navigation: `gd` (definition), `gD` (declaration), `gi` (implementation), `gr` (references), `gt` (type definition)
   - Documentation: `K` (hover), `<C-k>` (signature help)
@@ -146,10 +147,10 @@ Neovim files:
 5. All plugins are auto-loaded by lazy.nvim scanning the `lua/plugins/` directory
 
 **Adding LSP Support for a New Language**:
-1. Add the server name to the `vim.lsp.enable()` call in `neovim/lua/core/lazy.lua` (line 58)
+1. Add the server name to the `vim.lsp.enable()` call in `neovim/lua/config/lsp.lua`
 2. If the server needs special configuration, add it using `vim.lsp.config()` before the `vim.lsp.enable()` call
 3. Install the language server via Mason (`:Mason` command in Neovim)
-4. LSP keybindings are globally configured in `lua/plugins/lsp.lua` and apply to all servers automatically
+4. LSP keybindings are globally configured and apply to all servers automatically
 
 **Adding Completion Sources to Blink.cmp**:
 1. Add the source to the `sources.default` array in `neovim/lua/config/blink.lua`

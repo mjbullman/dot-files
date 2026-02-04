@@ -3,8 +3,6 @@
 -- Author: Martin Bullman
 -- ===============================
 
-vim.lsp.inlay_hint.enable(true)
-
 require('blink.cmp').setup({
     enabled = function()
         -- disable in ChatGPT input windows and prompts
