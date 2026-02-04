@@ -30,12 +30,12 @@ vim.diagnostic.config({
     },
 })
 
--- customize diagnostic signs (Nerd Font icons)
+-- customize diagnostic signs (Unicode icons)
 local signs = {
     Error = '✘',
-    Warn = '',
-    Hint = '',
-    Info = ''
+    Warn = '⚠',
+    Hint = '💡,
+    Info = 'ℹ'
 }
 for type, icon in pairs(signs) do
     local hl = 'DiagnosticSign' .. type
