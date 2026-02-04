@@ -69,30 +69,22 @@ require('gitsigns').setup({
             return '<Ignore>'
         end, { expr = true, desc = 'Previous hunk' })
 
-        -- actions
-        map('n', '<leader>hs', gs.stage_hunk, { desc = 'Stage hunk' })
-        map('n', '<leader>hr', gs.reset_hunk, { desc = 'Reset hunk' })
-        map('v', '<leader>hs', function()
+        -- actions (essential only)
+        map('n', '<leader>gs', gs.stage_hunk, { desc = 'Git: Stage hunk' })
+        map('v', '<leader>gs', function()
             gs.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
-        end, { desc = 'Stage hunk' })
-        map('v', '<leader>hr', function()
+        end, { desc = 'Git: Stage hunk' })
+        map('n', '<leader>gr', gs.reset_hunk, { desc = 'Git: Reset hunk' })
+        map('v', '<leader>gr', function()
             gs.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
-        end, { desc = 'Reset hunk' })
-        map('n', '<leader>hS', gs.stage_buffer, { desc = 'Stage buffer' })
-        map('n', '<leader>hu', gs.undo_stage_hunk, { desc = 'Undo stage hunk' })
-        map('n', '<leader>hR', gs.reset_buffer, { desc = 'Reset buffer' })
-        map('n', '<leader>hp', gs.preview_hunk, { desc = 'Preview hunk' })
-        map('n', '<leader>hb', function()
+        end, { desc = 'Git: Reset hunk' })
+        map('n', '<leader>gp', gs.preview_hunk, { desc = 'Git: Preview hunk' })
+        map('n', '<leader>gb', function()
             gs.blame_line({ full = true })
-        end, { desc = 'Blame line' })
-        map('n', '<leader>tb', gs.toggle_current_line_blame, { desc = 'Toggle line blame' })
-        map('n', '<leader>hd', gs.diffthis, { desc = 'Diff this' })
-        map('n', '<leader>hD', function()
-            gs.diffthis('~')
-        end, { desc = 'Diff this ~' })
-        map('n', '<leader>td', gs.toggle_deleted, { desc = 'Toggle deleted' })
+        end, { desc = 'Git: Blame line' })
 
-        -- Text object
-        map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', { desc = 'Select hunk' })
+        -- toggles
+        map('n', '<leader>tb', gs.toggle_current_line_blame, { desc = 'Toggle line blame' })
+        map('n', '<leader>td', gs.toggle_deleted, { desc = 'Toggle deleted' })
     end,
 })
