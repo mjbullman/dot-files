@@ -34,7 +34,7 @@ vim.diagnostic.config({
 local signs = {
     Error = '✘',
     Warn = '⚠',
-    Hint = '💡,
+    Hint = '💡',
     Info = 'ℹ'
 }
 for type, icon in pairs(signs) do
