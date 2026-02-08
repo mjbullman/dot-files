@@ -1,0 +1,144 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "theme": "catppuccin",
+  "model": "ollama/qwen3-coder:480b-cloud",
+  "small_model": "ollama/llama3.1:8b",
+  "default_agent": "build",
+  "autoupdate": "notify",
+  "share": "manual",
+  "compaction": {
+    "auto": true,
+    "prune": true
+  },
+  "instructions": [
+    "./AGENTS.md",
+    "./CLAUDE.md",
+    "./GEMINI.md"
+  ],
+  "provider": {
+    "openai": {
+      "options": {
+        "timeout": 600000
+      }
+    },
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama VM",
+      "options": {
+        "baseURL": "http://192.168.1.180:11434/v1"
+      },
+      "models": {
+        "qwen3-coder:480b-cloud": {
+          "name": "Qwen3 Coder 480B"
+        },
+        "llama3.1:8b": {
+          "name": "Llama 3.1 8B"
+        },
+        "gpt-oss:20b-cloud": {
+          "name": "GPT OSS 20B"
+        },
+        "gpt-oss:120b-cloud": {
+          "name": "GPT OSS 120B"
+        },
+        "deepseek-v3.1:671b-cloud": {
+          "name": "DeepSeek V3.1 671B"
+        },
+        "codellama:7b": {
+          "name": "CodeLlama 7B"
+        },
+        "gemini-3-pro-preview:latest": {
+          "name": "Gemini 3 Pro Preview"
+        },
+        "kimi-k2:1t-cloud": {
+          "name": "Kimi K2 1T"
+        }
+      }
+    }
+  },
+  "permission": {
+    "*": "ask",
+    "read": {
+      "*": "allow",
+      "*.env": "deny",
+      "*.env.*": "deny",
+      "*.env.example": "allow"
+    },
+    "bash": {
+      "*": "ask",
+      "git status*": "allow",
+      "git diff*": "allow",
+      "git log*": "allow",
+      "git show*": "allow",
+      "rg *": "allow",
+      "ls *": "allow",
+      "cat *": "allow",
+      "sed *": "allow",
+      "awk *": "allow",
+      "jq *": "allow",
+      "npm test*": "ask",
+      "pnpm test*": "ask",
+      "bun test*": "ask",
+      "go test*": "ask",
+      "pytest*": "ask",
+      "cargo test*": "ask",
+      "git push*": "deny",
+      "rm *": "deny",
+      "sudo *": "deny"
+    },
+    "webfetch": "allow",
+    "external_directory": "ask",
+    "doom_loop": "ask"
+  },
+  "command": {
+    "tests": {
+      "description": "Run full test suite and report failures",
+      "agent": "build",
+      "template": "Run the project tests. If failures occur, summarize root cause first, then propose minimal fixes."
+    },
+    "review": {
+      "description": "Review local changes for bugs and regressions",
+      "agent": "build",
+      "template": "Review current local changes with a strict code-review mindset. Prioritize bugs, regressions, and missing tests."
+    }
+  },
+  "agent": {
+    "review": {
+      "description": "Read-only reviewer focused on correctness and risk",
+      "model": "ollama/qwen3-coder:480b-cloud",
+      "prompt": "You are a rigorous code reviewer. Find correctness issues, regressions, and missing tests. Keep output concise and actionable.",
+      "tools": {
+        "write": false,
+        "edit": false
+      }
+    }
+  },
+  "formatter": {
+    "prettier": {
+      "disabled": false
+    }
+  },
+  "watcher": {
+    "ignore": [
+      "node_modules/**",
+      "dist/**",
+      "build/**",
+      ".next/**",
+      ".turbo/**",
+      ".cache/**",
+      "coverage/**",
+      ".venv/**",
+      "__pycache__/**",
+      ".git/**"
+    ]
+  },
+  "tui": {
+    "scroll_speed": 3,
+    "scroll_acceleration": {
+      "enabled": true
+    },
+    "diff_style": "auto"
+  },
+  "keybinds": {
+    "tool_details": "none"
+  }
+}
