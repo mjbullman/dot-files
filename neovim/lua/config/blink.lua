@@ -83,57 +83,53 @@ require('blink.cmp').setup({
             prefetch_on_insert = true,
         },
     },
-    fuzzy = {
-        enabled = true,
-        threshold = 2
-    },
     sources = {
         default = {
             'lsp',
             'lazydev',
-            'codeium',
             'snippets',
             'path',
             'buffer',
+            'codeium',
         },
         providers = {
             lsp = {
                 name = 'lsp',
                 enabled = true,
                 max_items = 50,
-                score_offset = 100,
+                score_offset = 120,
                 min_keyword_length = 1,
             },
             lazydev = {
                 name = 'lazydev',
                 module = 'lazydev.integrations.blink',
-                score_offset = 95,  -- Higher than snippets, lower than LSP
+                score_offset = 90, -- Higher than snippets, lower than LSP
             },
             codeium = {
                 name = 'codeium',
                 module = 'codeium.blink',
-                score_offset = 85,
+                score_offset = 20,
                 async = true,
             },
             snippets = {
                 name = 'snippets',
                 enabled = true,
                 max_items = 20,
-                score_offset = 50,
+                score_offset = 60,
                 min_keyword_length = 2,
             },
             path = {
                 name = 'path',
                 enabled = true,
                 max_items = 20,
-                score_offset = 3,
+                score_offset = 10,
                 min_keyword_length = 0,
             },
             buffer = {
                 name = 'buffer',
-                max_items = 10,
-                score_offset = -10,
-                min_keyword_length = 3,
+                max_items = 8,
+                score_offset = -20,
+                min_keyword_length = 4,
                 enabled = function()
                     return vim.api.nvim_buf_line_count(0) < 3000
                 end,

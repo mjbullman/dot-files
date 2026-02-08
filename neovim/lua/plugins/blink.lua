@@ -7,8 +7,9 @@ return {
     'saghen/blink.cmp',
     dependencies = {
         'rafamadriz/friendly-snippets',
-        'dsznajder/vscode-es7-javascript-react-snippets',  -- Better JS/React
-        'hollowtree/vscode-vue-snippets',                  -- Vue 3 snippets
+        'dsznajder/vscode-es7-javascript-react-snippets',  -- JS/React/TS
+        'hollowtree/vscode-vue-snippets',                  -- Vue 3
+        'cstrap/python-snippets',                          -- Python
     },
     version = '*',
     config = function()
