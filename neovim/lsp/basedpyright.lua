@@ -21,7 +21,7 @@ return {
             analysis = {
                 diagnosticMode = 'workspace',
                 autoSearchPaths = true,
-                typeCheckingMode = 'basic', -- 'off', 'basic', or 'strict'
+                typeCheckingMode = 'standard', -- 'off', 'basic', 'standard', or 'strict'
                 autoImportCompletions = true,
                 useLibraryCodeForTypes = true,
                 indexing = true,
