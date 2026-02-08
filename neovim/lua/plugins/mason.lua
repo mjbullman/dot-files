@@ -4,10 +4,16 @@
 -- =======================
 
 return {
-    'williamboman/mason.nvim',
-    cmd = 'Mason',
-    build = ':MasonUpdate',
-    config = function()
-        require('config.mason')
-    end,
+    {
+        'williamboman/mason.nvim',
+        cmd = 'Mason',
+        build = ':MasonUpdate',
+    },
+    {
+        'WhoIsSethDaniel/mason-tool-installer.nvim',
+        dependencies = { 'williamboman/mason.nvim' },
+        config = function()
+            require('config.mason')
+        end,
+    },
 }

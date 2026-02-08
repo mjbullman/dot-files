@@ -25,12 +25,58 @@ local vue_plugin = {
 
 return {
     cmd = { vim.fn.stdpath('data') .. '/mason/bin/vtsls', '--stdio' },
-    root_markers = { 'package.json', 'tsconfig.json' },
+    root_markers = {
+        'package.json',
+        'tsconfig.json',
+        'jsconfig.json',
+        'pnpm-workspace.yaml',
+        'yarn.lock',
+        '.git',
+    },
     filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
     settings = {
+        complete_function_calls = true,
         vtsls = {
+            autoUseWorkspaceTsdk = true,
+            enableMoveToFileCodeAction = true,
             tsserver = {
+                maxTsServerMemory = 4096,
                 globalPlugins = { vue_plugin },
+            },
+            experimental = {
+                completion = {
+                    enableServerSideFuzzyMatch = true,
+                },
+            },
+        },
+        typescript = {
+            suggest = {
+                completeFunctionCalls = true,
+            },
+            updateImportsOnFileMove = {
+                enabled = 'always',
+            },
+            preferences = {
+                includeCompletionsForModuleExports = true,
+                includeCompletionsForImportStatements = true,
+                includeCompletionsWithInsertText = true,
+                includePackageJsonAutoImports = 'auto',
+                importModuleSpecifierPreference = 'non-relative',
+            },
+        },
+        javascript = {
+            suggest = {
+                completeFunctionCalls = true,
+            },
+            updateImportsOnFileMove = {
+                enabled = 'always',
+            },
+            preferences = {
+                includeCompletionsForModuleExports = true,
+                includeCompletionsForImportStatements = true,
+                includeCompletionsWithInsertText = true,
+                includePackageJsonAutoImports = 'auto',
+                importModuleSpecifierPreference = 'non-relative',
             },
         },
     },

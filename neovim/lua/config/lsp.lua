@@ -49,25 +49,11 @@ vim.lsp.inlay_hint.enable(true)
 -- LSP server configuration
 -- =============================
 
--- configure LSP with Blink.cmp capabilities
+-- configure LSP with Blink.cmp capabilities (applies to all servers)
+-- individual server configs are auto-loaded from lsp/<name>.lua by vim.lsp.enable()
 vim.lsp.config('*', {
     capabilities = require('blink.cmp').get_lsp_capabilities(),
     root_markers = { '.git' },
-})
-
--- configure lua_ls for Neovim development
-vim.lsp.config('lua_ls', {
-    settings = {
-        Lua = {
-            runtime = { version = 'LuaJIT' },
-            diagnostics = { globals = { 'vim' } },
-            workspace = {
-                library = vim.api.nvim_get_runtime_file('', true),
-                checkThirdParty = false,
-            },
-            telemetry = { enable = false },
-        },
-    },
 })
 
 -- enable all LSP servers

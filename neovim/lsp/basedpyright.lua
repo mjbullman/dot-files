@@ -10,6 +10,7 @@ return {
     filetypes = { 'python' },
     root_markers = {
         '.git',
+        'pyrightconfig.json',
         'setup.py',
         'setup.cfg',
         'pyproject.toml',
@@ -23,6 +24,7 @@ return {
                 typeCheckingMode = 'basic', -- 'off', 'basic', or 'strict'
                 autoImportCompletions = true,
                 useLibraryCodeForTypes = true,
+                indexing = true,
             },
             disableOrganizeImports = false,
             disableLanguageServices = false,
