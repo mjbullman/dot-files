@@ -76,6 +76,10 @@ vim.opt.confirm = true
 -- enable 24-bit RGB colors
 vim.opt.termguicolors = true
 
+-- completion popup behavior (JetBrains-like preselection flow)
+vim.opt.completeopt = { 'menu', 'menuone', 'noinsert', 'noselect', 'popup' }
+vim.opt.pumheight = 12
+
 
 -- -----------------------------
 -- Highlight yanked text
@@ -89,4 +93,3 @@ vim.api.nvim_create_autocmd('TextYankPost', {
         })
     end,
 })
-

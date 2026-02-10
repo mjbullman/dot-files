@@ -18,7 +18,14 @@ vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.s
 -- better diagnostic configuration
 vim.diagnostic.config({
     virtual_text = false, -- using tiny-inline-diagnostic instead
-    signs = true,
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = '✘',
+            [vim.diagnostic.severity.WARN] = '⚠',
+            [vim.diagnostic.severity.HINT] = '󰞋',
+            [vim.diagnostic.severity.INFO] = 'ℹ',
+        },
+    },
     underline = true,
     update_in_insert = false,
     severity_sort = true,
@@ -29,18 +36,6 @@ vim.diagnostic.config({
         prefix = '',
     },
 })
-
--- customize diagnostic signs (Unicode icons)
-local signs = {
-    Error = '✘',
-    Warn = '⚠',
-    Hint = '💡',
-    Info = 'ℹ'
-}
-for type, icon in pairs(signs) do
-    local hl = 'DiagnosticSign' .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
 
 -- enable inlay hints by default (types, parameter names, etc.)
 vim.lsp.inlay_hint.enable(true)
@@ -58,20 +53,20 @@ vim.lsp.config('*', {
 
 -- enable all LSP servers
 vim.lsp.enable({
+    'ruff',
     'vtsls',
     'jdtls',
     'lua_ls',
     'vue_ls',
     'clangd',
     'css_ls',
-    'rust_analyzer',
+    'jsonls',
+    'bashls',
     'html_ls',
+    'marksman',
     'eslint_ls',
     'basedpyright',
-    'jsonls',
-    'marksman',
-    'bashls',
-    'dockerls',
+    'rust_analyzer',
 })
 
 -- =============================
@@ -180,11 +175,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
             desc = 'Rename symbol',
         })
 
-        -- formatting
-        vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format, {
-            buffer = ev.buf,
-            desc = 'Format buffer',
-        })
+        -- formatting is handled by conform.nvim (see config/conform.lua)
 
         -- workspace folders
         vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, {

@@ -31,6 +31,7 @@ require('mason-tool-installer').setup({
         'vue-language-server',
         'bash-language-server',
         -- formatters / linters
+        'ruff',
         'black',
         'stylua',
         'prettier',

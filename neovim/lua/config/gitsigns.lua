@@ -10,7 +10,7 @@ require('gitsigns').setup({
         delete       = { text = "" },
         topdelete    = { text = "" },
         changedelete = { text = "" },
-        untracked    = { text = "" }, 
+        untracked    = { text = "" },
     },
     signcolumn = true,  -- toggle with `:Gitsigns toggle_signs`
     numhl = false,      -- toggle with `:Gitsigns toggle_numhl`
