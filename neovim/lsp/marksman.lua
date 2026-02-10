@@ -8,6 +8,6 @@ return {
         vim.fn.stdpath('data') .. '/mason/bin/marksman',
         'server',
     },
-    filetypes = { 'markdown', 'markdown.mdx' },
+    filetypes = { 'markdown' },
     root_markers = { '.git' },
 }
