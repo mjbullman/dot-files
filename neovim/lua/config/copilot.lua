@@ -25,7 +25,7 @@ local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
 -- toggle Copilot on/off
-map('n', '<leader>cp', function()
+map('n', '<leader>ac', function()
 	if vim.g.copilot_enabled then
 		vim.cmd('Copilot disable')
 		vim.g.copilot_enabled = false
@@ -36,7 +36,7 @@ map('n', '<leader>cp', function()
 		print('Copilot enabled')
     end
 end, vim.tbl_extend('force', opts, {
-    desc = 'Copilot: Toggle on/off'
+    desc = 'Toggle Copilot'
 }))
 map('i', '<C-\\>', '<Plug>(copilot-suggest)', {
     desc = 'Copilot: Trigger suggestion'
