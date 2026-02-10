@@ -70,27 +70,6 @@ vim.lsp.enable({
 })
 
 -- =============================
--- LSP progress notifications
--- =============================
-
-vim.lsp.handlers['$/progress'] = function(_, result, ctx)
-    local client = vim.lsp.get_client_by_id(ctx.client_id)
-    local value = result.value
-
-    if not client then
-        return
-    end
-
-    -- show notification for significant progress
-    if value.kind == 'begin' then
-        vim.notify(value.title, vim.log.levels.INFO, {
-            title = client.name,
-            timeout = 1000,
-        })
-    end
-end
-
--- =============================
 -- LSP keymaps (global)
 -- =============================
 
