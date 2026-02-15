@@ -35,6 +35,10 @@ require('mason-tool-installer').setup({
         'black',
         'stylua',
         'prettier',
+        -- java debug / test
+        'java-test',
+        'java-debug-adapter',
+
     },
     auto_update = false,
     run_on_start = true,

@@ -53,6 +53,7 @@ wk.add({
     { '<leader>e', group = 'Explorer' },
     { '<leader>f', group = 'Find (Telescope)' },
     { '<leader>g', group = 'Git' },
+    { '<leader>j', group = 'Java' },
     { '<leader>l', group = 'LSP' },
     { '<leader>t', group = 'Toggle' },
     { '<leader>w', group = 'Workspace' },
@@ -113,6 +114,18 @@ wk.add({
     { '<leader>gr', desc = 'Reset hunk' },
     { '<leader>gp', desc = 'Preview hunk' },
     { '<leader>gb', desc = 'Blame line' },
+
+    -- Java (buffer-local, set by nvim-jdtls)
+    { '<leader>jo', desc = 'Organize imports' },
+    { '<leader>jv', desc = 'Extract variable' },
+    { '<leader>jc', desc = 'Extract constant' },
+    { '<leader>jm', desc = 'Extract method' },
+    { '<leader>jt', desc = 'Test nearest method' },
+    { '<leader>jT', desc = 'Test class' },
+    { '<leader>jp', desc = 'Pick test' },
+    { '<leader>ju', desc = 'Update project config' },
+    { '<leader>jr', desc = 'Run main class' },
+    { '<leader>jd', desc = 'Debug main class' },
 
     -- LSP (buffer-local)
     { '<leader>li', desc = 'LSP info' },
