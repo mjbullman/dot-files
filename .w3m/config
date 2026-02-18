@@ -1,0 +1,25 @@
+###############################################################################
+#                  W3M TERMINAL WEB BROWSER CONFIGURATION                     #
+# --------------------------------------------------------------------------- #
+# Author       : Martin Bullman                                               #
+# Purpose      : Custom configuration for W3M                                 #
+# Last Updated : 2026-02-18                                                   #
+###############################################################################
+ssl_verify_server TRUE
+ssl_ca_default TRUE
+ssl_ca_file /opt/homebrew/etc/openssl@3/cert.pem
+
+color TRUE
+high-intensity TRUE
+anchor_color 4
+visited_anchor TRUE
+visited_color 6
+
+active_style FALSE
+display_link FALSE
+display_link_number FALSE
+display_lineinfo FALSE
+display_title FALSE
+show_lnum FALSE
+show_srch_str FALSE
+confirm_qq TRUE
