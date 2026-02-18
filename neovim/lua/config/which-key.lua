@@ -55,6 +55,7 @@ wk.add({
     { '<leader>g', group = 'Git' },
     { '<leader>j', group = 'Java' },
     { '<leader>l', group = 'LSP' },
+    { '<leader>n', group = 'Tests' },
     { '<leader>t', group = 'Toggle' },
     { '<leader>w', group = 'Workspace' },
 
@@ -126,6 +127,17 @@ wk.add({
     { '<leader>ju', desc = 'Update project config' },
     { '<leader>jr', desc = 'Run main class' },
     { '<leader>jd', desc = 'Debug main class' },
+
+    -- Tests (neotest)
+    { '<leader>nr', desc = 'Run nearest test' },
+    { '<leader>nf', desc = 'Run test file' },
+    { '<leader>nd', desc = 'Debug nearest test' },
+    { '<leader>ns', desc = 'Stop test' },
+    { '<leader>no', desc = 'Show test output' },
+    { '<leader>np', desc = 'Toggle output panel' },
+    { '<leader>nm', desc = 'Toggle test summary' },
+    { '[n', desc = 'Previous failed test' },
+    { ']n', desc = 'Next failed test' },
 
     -- LSP (buffer-local)
     { '<leader>li', desc = 'LSP info' },

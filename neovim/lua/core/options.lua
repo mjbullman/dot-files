@@ -38,8 +38,8 @@ vim.opt.undofile = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
--- keep sign column on by default
-vim.opt.signcolumn = 'yes'
+-- allow multiple signs per line (git + diagnostics + tests)
+vim.opt.signcolumn = 'yes:2'
 
 -- decrease update time
 vim.opt.updatetime = 250
