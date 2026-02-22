@@ -27,12 +27,6 @@ require('conform').setup({
         typescriptreact = { 'prettier' },
     },
 
-    -- format on save
-    --format_on_save = {
-        --timeout_ms = 500,
-        --lsp_fallback = true, -- Use LSP formatting if no formatter configured
-    --},
-
     -- customize formatters
     formatters = {
         ruff_organize_imports = {
