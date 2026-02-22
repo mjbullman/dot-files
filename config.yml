@@ -1,0 +1,31 @@
+###############################################################################
+#                           LAZYGIT CONFIGURATION                             #
+# --------------------------------------------------------------------------- #
+# Author       : Martin Bullman                                               #
+# Purpose      : Custom configuration file for Lazygit git TUI                #
+# Last Updated : 2026-02-22                                                   #
+###############################################################################
+
+gui:
+  nerdFontsVersion: "3"
+  theme:
+    activeBorderColor:
+      - "#fab387"
+      - "bold"
+    inactiveBorderColor:
+      - "#89b4fa"
+    searchingActiveBorderColor:
+      - "#fab387"
+      - "bold"
+    optionsTextColor:
+      - "#89b4fa"
+    selectedLineBgColor:
+      - "#45475a"
+    cherryPickedCommitBgColor:
+      - "#f2cdcd"
+    cherryPickedCommitFgColor:
+      - "#89b4fa"
+    unstagedChangesColor:
+      - "#f38ba8"
+    defaultFgColor:
+      - "#cdd6f4"
