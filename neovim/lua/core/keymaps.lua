@@ -71,10 +71,10 @@ map('n', '<S-l>', '<cmd>bnext<CR>', {
 map('n', '<S-h>', '<cmd>bprevious<CR>', {
     desc = 'Go to previous buffer'
 })
-map('n', '<leader>bd', '<cmd>bdelete<CR>', {
+map('n', '<leader>bd', function() Snacks.bufdelete() end, {
     desc = 'Close current buffer'
 })
-map('n', '<leader>bo', '<cmd>%bdelete|edit#|bdelete#<CR>', {
+map('n', '<leader>bo', function() Snacks.bufdelete.other() end, {
     desc = 'Close all other buffers'
 })
 map('n', '<leader>bu', '<cmd>e#<CR>', {

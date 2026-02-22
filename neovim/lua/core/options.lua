@@ -38,8 +38,12 @@ vim.opt.undofile = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
--- allow multiple signs per line (git + diagnostics + tests)
-vim.opt.signcolumn = 'yes:2'
+-- folding via treesitter
+vim.opt.foldcolumn = '1'
+vim.opt.foldlevel  = 99
+vim.opt.foldmethod = 'expr'
+vim.opt.foldexpr   = 'v:lua.vim.treesitter.foldexpr()'
+vim.opt.fillchars  = { foldopen = '▾', foldclose = '▸', fold = ' ', foldsep = ' ' }
 
 -- decrease update time
 vim.opt.updatetime = 250
