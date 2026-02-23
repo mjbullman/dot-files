@@ -15,13 +15,15 @@ All tools use the Catppuccin Mocha theme for visual consistency.
 
 ## Installation Method
 
-Files in this repository are meant to be symlinked to the user's home directory. There is no automated installation script - users manually create symbolic links.
+Files are symlinked to the user's home directory using the install script at `~/Development/BashScripts/installers/mac/install_dotfiles.sh`. This script handles cloning the repo, creating symlinks, and setting up dependencies (Oh My Zsh, TPM, etc.).
 
-Example:
+Manual symlink example:
 ```bash
 mv ~/.zshrc ~/.zshrc.bak
 ln -s /path/to/.dotfiles/.zshrc ~/.zshrc
 ```
+
+**Git config**: Personal info (name, email) is kept in `~/.gitconfig.local` (not committed). The dotfiles `.gitconfig` includes it via `[include] path = ~/.gitconfig.local`. The install script creates this file by prompting for user details on first run.
 
 ## Neovim Configuration Architecture
 
@@ -39,20 +41,28 @@ The Neovim configuration follows a modular Lua-based structure:
 - `lazy.lua`: lazy.nvim bootstrap and setup, global LSP configuration
 
 **LSP Architecture**:
-The configuration uses modern Neovim LSP (neovim/nvim-lspconfig):
+Uses Neovim's built-in LSP (`vim.lsp.enable` / `vim.lsp.config`) — not nvim-lspconfig:
 - **Plugin definition** in `neovim/lua/plugins/lsp.lua`: Pseudo-plugin that loads on file events
-- **LSP configuration** in `neovim/lua/config/lsp.lua`:
-  - Sets capabilities from Blink.cmp for all servers
-  - Configures root markers (`.git`)
-  - Special configuration for `lua_ls` (Neovim development)
-  - Enabled servers: `vtsls`, `jdtls`, `lua_ls`, `vue_ls`, `clangd`, `css_ls`, `rust_analyzer`, `html_ls`, `eslint_ls`, `basedpyright`, `jsonls`, `marksman`, `bashls`, `dockerls`
-- **LSP keybindings**:
-  - Uses LspAttach autocmd to set buffer-local keymaps when LSP attaches
+- **Global LSP configuration** in `neovim/lua/config/lsp.lua`:
+  - Sets Blink.cmp capabilities for all servers via `vim.lsp.config('*', {...})`
+  - Diagnostic UI, inlay hints, and LspAttach keybindings
+  - Enabled servers: `vtsls`, `vue_ls`, `lua_ls`, `clangd`, `css_ls`, `rust_analyzer`, `html_ls`, `eslint_ls`, `basedpyright`, `jsonls`, `marksman`, `bashls`, `ruff`
+- **Per-server configs** in `neovim/lsp/*.lua`: Auto-loaded by `vim.lsp.enable()`, one file per server
+- **LSP keybindings** (set in LspAttach autocmd):
   - Navigation: `gd` (definition), `gD` (declaration), `gi` (implementation), `gr` (references), `gt` (type definition)
   - Documentation: `K` (hover), `<C-k>` (signature help)
-  - Actions: `<leader>ca` (code actions), `<leader>rn` (rename), `<leader>lf` (format)
+  - Actions: `<leader>ca` (code actions), `<leader>rn` (rename)
   - Workspace: `<leader>wa/wr/wl` (add/remove/list workspace folders)
 - **Mason** (`neovim/lua/plugins/mason.lua`): LSP server installer UI (cmd lazy-loaded)
+
+**Vue LSP (hybrid mode)**:
+Vue requires two servers working together — `vue_ls` handles templates/styles, `vtsls` handles TypeScript including `<script setup>`:
+- `neovim/lsp/vtsls.lua`: Includes `vue` in filetypes + loads `@vue/typescript-plugin` via `globalPlugins`
+  - **Critical**: `enableForWorkspaceTypeScriptVersions = true` is required when `autoUseWorkspaceTsdk = true`, otherwise the plugin location is silently ignored
+  - Plugin path: `@vue/typescript-plugin` (inside Mason's `vue-language-server` package)
+  - No `.git` in root_markers — prevents anchoring to git root instead of the project dir with `tsconfig.json`
+- `neovim/lsp/vue_ls.lua`: Implements the `tsserver/request` bridge in `on_init` to forward TypeScript requests to vtsls (mandatory in vue-language-server v3 — standalone mode was removed)
+- Run `nuxt prepare` after pulling Nuxt projects to regenerate `.nuxt/` type declarations
 
 **Completion System**:
 - **Blink.cmp** (`neovim/lua/plugins/blink.lua`): Modern completion engine replacing nvim-cmp
@@ -80,7 +90,7 @@ Each file defines related plugins for lazy.nvim. Key plugins include:
 - `which-key.lua`: Keybinding popup helper
 - `dashboard.lua`: Start screen
 - `comment.lua`: Comment toggling
-- `nonels.lua`: none-ls for formatting/linting
+- `conform.lua`: Code formatting (replaced none-ls)
 - `inline-diagnostic.lua`: Inline diagnostic display
 
 **Configuration Pattern**: Plugins defined in `lua/plugins/*.lua` often have corresponding detailed configuration files in `lua/config/*.lua`.
@@ -119,6 +129,8 @@ Configuration files in root:
 - `.tmux.conf`: Tmux configuration
 - `starship.toml`: Starship prompt configuration
 - `ghostty.config`: Ghostty terminal emulator settings
+- `.gitconfig`: Git configuration (includes `~/.gitconfig.local` for personal info)
+- `config.yml`: Lazygit configuration
 - `.p10k.zsh`: Powerlevel10k configuration (legacy, Starship is active)
 - `neofetch.conf`: Neofetch system info display configuration
 
@@ -127,6 +139,7 @@ Neovim files:
 - `neovim/lua/core/`: Core editor settings
 - `neovim/lua/plugins/`: Plugin definitions
 - `neovim/lua/config/`: Detailed plugin configurations
+- `neovim/lsp/`: Per-server LSP configurations (auto-loaded by `vim.lsp.enable()`)
 
 ## Common Development Patterns
 
