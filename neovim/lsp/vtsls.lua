@@ -4,34 +4,34 @@
 -- =================================
 
 -- vtsls.lua
-local vue_language_server_path = vim.fn.stdpath('data')
-    .. '/mason/packages/vue-language-server/node_modules/@vue/language-server'
+local vue_plugin_path = vim.fn.stdpath('data')
+    .. '/mason/packages/vue-language-server/node_modules/@vue/typescript-plugin'
 
 -- fallback check
-if vim.fn.isdirectory(vue_language_server_path) == 0 then
+if vim.fn.isdirectory(vue_plugin_path) == 0 then
     local ok, registry = pcall(require, 'mason-registry')
     if ok and registry.has_package('vue-language-server') then
-        vue_language_server_path = registry.get_package('vue-language-server'):get_install_path()
-            .. '/node_modules/@vue/language-server'
+        vue_plugin_path = registry.get_package('vue-language-server'):get_install_path()
+            .. '/node_modules/@vue/typescript-plugin'
     end
 end
 
 local vue_plugin = {
     name = '@vue/typescript-plugin',
-    location = vue_language_server_path,
+    location = vue_plugin_path,
     languages = { 'vue' },
     configNamespace = 'typescript',
+    enableForWorkspaceTypeScriptVersions = true,
 }
 
 return {
     cmd = { vim.fn.stdpath('data') .. '/mason/bin/vtsls', '--stdio' },
     root_markers = {
-        'package.json',
         'tsconfig.json',
         'jsconfig.json',
+        'package.json',
         'pnpm-workspace.yaml',
         'yarn.lock',
-        '.git',
     },
     filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
     settings = {
@@ -82,7 +82,7 @@ return {
     },
     on_attach = function(client)
         if vim.bo.filetype == 'vue' then
-            client.server_capabilities.semanticTokensProvider.full = false
+            client.server_capabilities.semanticTokensProvider = nil
         end
     end,
 }

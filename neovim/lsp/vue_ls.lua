@@ -5,7 +5,7 @@
 
 return {
     cmd = { vim.fn.stdpath('data') .. '/mason/bin/vue-language-server', '--stdio' },
-    root_markers = { 'package.json' },
+    root_markers = { 'tsconfig.json', 'jsconfig.json', 'package.json' },
     filetypes = { 'vue' },
 
     on_init = function(client)
