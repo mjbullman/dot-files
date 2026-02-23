@@ -1,0 +1,42 @@
+[include]
+	path = ~/.gitconfig.local
+
+[gpg]
+	format = openpgp
+	program = gpg
+[commit]
+	gpgSign = false
+[tag]
+	forceSignAnnotated = false
+[gpg "ssh"]
+	program = ssh-keygen
+	allowedSignersFile = ""
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[core]
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	features = catppuccin-mocha colorblind-diff
+
+[delta "catppuccin-mocha"]
+	dark = true
+	line-numbers = true
+	syntax-theme = Catppuccin Mocha
+
+[delta "colorblind-diff"]
+	# deletions: coral-red (colorblind-safe, avoids green/red confusion)
+	minus-style = syntax "#2C1215"
+	minus-emph-style = syntax "#5C1A20"
+	minus-non-emph-style = syntax "#2C1215"
+	line-numbers-minus-style = "#F38BA8"
+	# additions: blue (clearly distinct from red for all colorblind types)
+	plus-style = syntax "#0E1F2E"
+	plus-emph-style = syntax "#1A3A5C"
+	plus-non-emph-style = syntax "#0E1F2E"
+	line-numbers-plus-style = "#89DCEB"
