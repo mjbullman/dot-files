@@ -29,8 +29,7 @@ gui:
       - "#f38ba8"
     defaultFgColor:
       - "#cdd6f4"
-
 git:
-  paging:
-    colorArg: always
-    pager: delta --features=catppuccin-mocha --paging=never
+  pagers:
+    - colorArg: always
+      pager: delta --features=catppuccin-mocha --paging=never

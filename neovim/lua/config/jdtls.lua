@@ -56,7 +56,8 @@ end
 -- =============================
 local config = {
     cmd = {
-        'java',
+        -- jdtls itself requires Java 21+ to run
+        '/opt/homebrew/Cellar/openjdk@21/21.0.10/libexec/openjdk.jdk/Contents/Home/bin/java',
         '-Declipse.application=org.eclipse.jdt.ls.core.id1',
         '-Dosgi.bundles.defaultStartLevel=4',
         '-Declipse.product=org.eclipse.jdt.ls.core.product',
@@ -89,6 +90,24 @@ local config = {
         java = {
             signatureHelp = { enabled = true },
             contentProvider = { preferred = 'fernflower' },
+            configuration = {
+                updateBuildConfiguration = 'interactive',
+                runtimes = {
+                    {
+                        name = 'JavaSE-17',
+                        path = '/opt/homebrew/Cellar/openjdk@17/17.0.18/libexec/openjdk.jdk/Contents/Home',
+                        default = true,
+                    },
+                    {
+                        name = 'JavaSE-21',
+                        path = '/opt/homebrew/Cellar/openjdk@21/21.0.10/libexec/openjdk.jdk/Contents/Home',
+                    },
+                    {
+                        name = 'JavaSE-22',
+                        path = '/Users/martinbullman/Library/Java/JavaVirtualMachines/openjdk-22.0.2/Contents/Home',
+                    },
+                },
+            },
             completion = {
                 favoriteStaticMembers = {
                     'org.hamcrest.MatcherAssert.assertThat',
@@ -127,9 +146,6 @@ local config = {
                     useJava7Objects = true,
                 },
                 useBlocks = true,
-            },
-            configuration = {
-                updateBuildConfiguration = 'interactive',
             },
             implementationsCodeLens = { enabled = true },
             referencesCodeLens = { enabled = true },
