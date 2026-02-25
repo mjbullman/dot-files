@@ -3,17 +3,16 @@
 -- Author: Martin Bullman
 -- =================================
 
--- vtsls.lua
+-- Use the @vue/typescript-plugin@3.0.0 bundled inside @vue/language-server@3.0.0.
+-- Mason's wrapper also installs a top-level @vue/typescript-plugin@3.2.4 which dropped
+-- Vue 2 support in v3.1. The nested version (3.0.0) is required for Vue 2 / Vuetify 2.
 local vue_plugin_path = vim.fn.stdpath('data')
-    .. '/mason/packages/vue-language-server/node_modules/@vue/typescript-plugin'
+    .. '/mason/packages/vue-language-server/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin'
 
--- fallback check
+-- fallback to outer node_modules if the nested path doesn't exist
 if vim.fn.isdirectory(vue_plugin_path) == 0 then
-    local ok, registry = pcall(require, 'mason-registry')
-    if ok and registry.has_package('vue-language-server') then
-        vue_plugin_path = registry.get_package('vue-language-server'):get_install_path()
-            .. '/node_modules/@vue/typescript-plugin'
-    end
+    vue_plugin_path = vim.fn.stdpath('data')
+        .. '/mason/packages/vue-language-server/node_modules/@vue/typescript-plugin'
 end
 
 local vue_plugin = {
