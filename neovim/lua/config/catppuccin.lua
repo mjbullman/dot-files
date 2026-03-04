@@ -54,7 +54,12 @@ require('catppuccin').setup({
         },
     },
     --color_overrides = {},
-    --custom_highlights = {},
+    custom_highlights = function(colors)
+        return {
+            TroubleNormal   = { bg = colors.mantle },
+            TroubleNormalNC = { bg = colors.mantle },
+        }
+    end,
     default_integrations = true,
     auto_integrations = true,
     integrations = {
@@ -63,6 +68,7 @@ require('catppuccin').setup({
         gitsigns = true,
         nvimtree = true,
         neotree = true,
+        trouble = true,
         bufferline = {
             enabled = true,
             themable = true,

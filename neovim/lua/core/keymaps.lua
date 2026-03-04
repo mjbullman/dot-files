@@ -57,10 +57,6 @@ map('n', '<leader>q', '<cmd>q<CR>', {
 map('n', '<leader>Q', '<cmd>qa!<CR>', {
     desc = 'Quit all without saving'
 })
-map('n', '<leader>x', '<cmd>x<CR>', {
-    desc = 'Save and quit'
-})
-
 
 -- -----------------------------
 -- Buffers
