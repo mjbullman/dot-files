@@ -4,34 +4,34 @@
 -- ========================
 
 require('neo-tree').setup({
-	popup_border_style = '',
-	close_if_last_window = true,
-	windew = {
-		width = 35,
-		-- mappings = {},
-		position = 'left',
-	},
-	filesystem = {
-		filtered_items = {
-			visible = true,
-			hide_dotfiles = false,
-			hide_gitignored = false,
-		},
-	},
-	default_component_configs = {
-		indent = {
-			with_expanders = true,
-			expander_collapsed = '',
-			expander_expanded = '',
-			expander_highlight = 'NeoTreeExpander',
-		},
-		git_status = {
-			symbols = {
-				unstaged = '󰄱',
-				staged = '󰱒',
-			},
-		},
-	},
+    popup_border_style = '',
+    close_if_last_window = true,
+    windew = {
+        width = 35,
+        -- mappings = {},
+        position = 'left',
+    },
+    filesystem = {
+        filtered_items = {
+            visible = true,
+            hide_dotfiles = false,
+            hide_gitignored = false,
+        },
+    },
+    default_component_configs = {
+        indent = {
+            with_expanders = true,
+            expander_collapsed = '',
+            expander_expanded = '',
+            expander_highlight = 'NeoTreeExpander',
+        },
+        git_status = {
+           symbols = {
+               unstaged = '󰄱',
+               staged = '󰱒',
+           },
+        },
+    },
 })
 
 
@@ -44,20 +44,20 @@ local opts = { silent = true, noremap = true }
 
 -- toggle Neo-tree at project root (cwd).
 map('n', '<leader>e', function()
-	require('neo-tree.command').execute({
-		dir = vim.loop.cwd(),
-		toggle = true,
-		source = 'filesystem',
-		position = 'left',
-	})
+    require('neo-tree.command').execute({
+        dir = vim.fn.getcwd(),
+        toggle = true,
+        source = 'filesystem',
+        position = 'left',
+    })
 end, vim.tbl_extend('force', opts, { desc = 'Toggle Neo-tree (cwd)' }))
 
 -- toggle Neo-tree in the current working directory.
 map('n', '<leader>E', function()
-	require('neo-tree.command').execute({
-		dir = vim.loop.cwd(),
-		toggle = true,
-		reveal = true,
-		position = 'left',
-	})
+    require('neo-tree.command').execute({
+        dir = vim.fn.getcwd(),
+        toggle = true,
+        reveal = true,
+        position = 'left',
+    })
 end, vim.tbl_extend('force', opts, { desc = 'Toggle Neo-tree' }))

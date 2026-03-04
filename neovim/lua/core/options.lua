@@ -20,6 +20,8 @@ vim.opt.shiftwidth = 4
 -- how many spaces when pressing tab
 vim.opt.softtabstop = 4
 
+vim.opt.winborder = "rounded"
+
 -- enable mouse support
 vim.opt.mouse = 'a'
 

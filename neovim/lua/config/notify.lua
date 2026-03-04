@@ -5,7 +5,7 @@
 
 ---@diagnostic disable-next-line: missing-fields
 require('notify').setup({
-    background_colour = '#1e1e2e',  -- Catppuccin Mocha background
+    background_colour = '#1e1e2e',  -- catppuccin mocha background
     fps = 60,
     icons = {
         DEBUG = '󰃤',
