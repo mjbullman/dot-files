@@ -65,7 +65,10 @@ require('snacks').setup({
     gh          = { enabled = true },
     git         = { enabled = true },
     gitbrowse   = { enabled = false },
-    image       = { enabled = true },
+    image       = {
+        enabled = true,
+        doc     = { enabled = false },
+    },
     indent      = { enabled = false },
     input       = { enabled = false },
     keymap      = { enabled = false },
