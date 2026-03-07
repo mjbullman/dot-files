@@ -57,13 +57,13 @@ end
 local config = {
     cmd = {
         -- jdtls itself requires Java 21+ to run
-        '/opt/homebrew/Cellar/openjdk@21/21.0.10/libexec/openjdk.jdk/Contents/Home/bin/java',
+        '/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home/bin/java',
         '-Declipse.application=org.eclipse.jdt.ls.core.id1',
         '-Dosgi.bundles.defaultStartLevel=4',
         '-Declipse.product=org.eclipse.jdt.ls.core.product',
         '-Dlog.protocol=true',
         '-Dlog.level=ALL',
-        '-Xmx1g',
+        '-Xmx2g',
         '--add-modules=ALL-SYSTEM',
         '--add-opens', 'java.base/java.util=ALL-UNNAMED',
         '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
@@ -95,12 +95,12 @@ local config = {
                 runtimes = {
                     {
                         name = 'JavaSE-17',
-                        path = '/opt/homebrew/Cellar/openjdk@17/17.0.18/libexec/openjdk.jdk/Contents/Home',
+                        path = '/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home',
                         default = true,
                     },
                     {
                         name = 'JavaSE-21',
-                        path = '/opt/homebrew/Cellar/openjdk@21/21.0.10/libexec/openjdk.jdk/Contents/Home',
+                        path = '/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home',
                     },
                     {
                         name = 'JavaSE-22',

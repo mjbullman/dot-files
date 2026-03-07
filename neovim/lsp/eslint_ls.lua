@@ -30,6 +30,8 @@ return {
         'svelte',
         'javascript',
         'javascriptreact',
+        'typescript',
+        'typescriptreact',
     },
     root_markers = {
         '.git',

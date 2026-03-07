@@ -47,7 +47,6 @@ vim.lsp.config('*', {
 vim.lsp.enable({
     'ruff',
     'vtsls',
-    'jdtls',
     'lua_ls',
     'vue_ls',
     'clangd',
