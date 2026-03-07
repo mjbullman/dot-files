@@ -20,7 +20,7 @@ require('blink.cmp').setup({
         end
 
         -- disable in Telescope prompt
-        if buftype == 'prompt' or filetype == 'TelescopePrompt' then
+        if filetype == 'TelescopePrompt' then
             return false
         end
 
@@ -108,14 +108,14 @@ require('blink.cmp').setup({
             codeium = {
                 name = 'codeium',
                 module = 'codeium.blink',
-                score_offset = 20,
+                score_offset = 85,
                 async = true,
             },
             snippets = {
                 name = 'snippets',
                 enabled = true,
                 max_items = 20,
-                score_offset = 60,
+                score_offset = 50,
                 min_keyword_length = 2,
             },
             path = {

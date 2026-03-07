@@ -6,7 +6,7 @@
 require('neo-tree').setup({
     popup_border_style = '',
     close_if_last_window = true,
-    windew = {
+    window = {
         width = 35,
         -- mappings = {},
         position = 'left',

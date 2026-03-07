@@ -16,10 +16,8 @@ require('telescope').setup({
         prompt_prefix = ' 🔍 ',
         selection_caret = '➤ ',
         path_display = { 'smart' },
-        defaults = {
-            layout_config = {
-                vertical = { width = 1 }
-            },
+        layout_config = {
+            vertical = { width = 1 },
         },
         mappings = {
             i = {

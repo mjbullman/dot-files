@@ -20,7 +20,7 @@ config.setup {
         'javascript',
         'typescript'
     },
-    ignore_install = { 'javascript' },
+    ignore_install = {},
     sync_install = false,
     modules = {},
     auto_install = true,

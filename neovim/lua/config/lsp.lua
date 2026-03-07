@@ -40,13 +40,14 @@ vim.lsp.inlay_hint.enable(true)
 -- individual server configs are auto-loaded from lsp/<name>.lua by vim.lsp.enable()
 vim.lsp.config('*', {
     capabilities = require('blink.cmp').get_lsp_capabilities(),
-    root_markers = { '.git' },
+    root_markers = { '.editorconfig', '.git' },
 })
 
 -- enable all LSP servers
 vim.lsp.enable({
     'ruff',
     'vtsls',
+    'jdtls',
     'lua_ls',
     'vue_ls',
     'clangd',
@@ -56,6 +57,7 @@ vim.lsp.enable({
     'html_ls',
     'marksman',
     'eslint_ls',
+    'dockerls',
     'basedpyright',
     'rust_analyzer',
 })
@@ -85,7 +87,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(ev)
         -- populate diagnostics for all project files (not just open buffers)
         local client = vim.lsp.get_client_by_id(ev.data.client_id)
-        if client and client.name ~= 'copilot' then
+        if client and client.config.filetypes then
             require('workspace-diagnostics').populate_workspace_diagnostics(client, ev.buf)
         end
 
