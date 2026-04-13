@@ -7,9 +7,10 @@
 #                Catppuccin Mocha theme.                                      #
 ###############################################################################
 
+# reads JSON data that Claude Code sends to stdin
 input=$(cat)
 
-# Catppuccin Mocha palette (ANSI 24-bit color)
+# catppuccin Mocha palette (ANSI 24-bit color)
 RED='\033[38;2;243;139;168m'
 PEACH='\033[38;2;250;179;135m'
 YELLOW='\033[38;2;249;226;175m'
@@ -27,7 +28,8 @@ dir=$(echo "$input" | jq -r '.workspace.current_dir // .cwd // empty')
 dir_short=$(echo "$dir" | sed "s|$HOME|~|")
 
 model=$(echo "$input" | jq -r '.model.display_name // empty')
-used=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
+used=$(echo "$input" | jq -r '.context_window.used_percentage // 0')
+cost=$(echo "$input" | jq -r '.cost.total_cost_usd // 0')
 
 # Git branch (skip optional locks for safety)
 git_branch=""
@@ -35,12 +37,12 @@ if git -C "$dir" rev-parse --git-dir > /dev/null 2>&1; then
   git_branch=$(GIT_OPTIONAL_LOCKS=0 git -C "$dir" symbolic-ref --short HEAD 2>/dev/null)
 fi
 
-# Build status line
+# build status line
 printf "${RED}${BOLD} ${user} ${RESET}"
 printf "${PEACH}${BOLD} ${dir_short} ${RESET}"
 
 if [ -n "$git_branch" ]; then
-  printf "${YELLOW}${BOLD}  ${git_branch} ${RESET}"
+  printf "${YELLOW}${BOLD} git:${git_branch} ${RESET}"
 fi
 
 if [ -n "$model" ]; then
@@ -48,7 +50,12 @@ if [ -n "$model" ]; then
 fi
 
 if [ -n "$used" ]; then
-  printf "${LAVENDER}${BOLD}  ${used}%% used ${RESET}"
+  printf "${GREEN}${BOLD}  ${used}%% used ${RESET}"
 fi
+
+if [ -n "$cost" ]; then
+  printf "${LAVENDER}${BOLD}  \$${cost} cost ${RESET}"
+fi
+
 
 printf "\n"

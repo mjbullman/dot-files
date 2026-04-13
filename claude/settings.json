@@ -1,21 +1,19 @@
 {
-  "statusLine": {
-    "type": "command",
-    "command": "~/.local/bin/starship-claude",
-    "padding": 0
+  "permissions": {
+    "allow": [
+      "Read",
+      "Bash(git:*)",
+      "Bash(npm:*)",
+      "Bash(npx:*)"
+    ]
   },
   "enabledPlugins": {
-    "starship-claude@starship-claude": true,
     "skill-creator@claude-plugins-official": true,
     "code-review@claude-plugins-official": true
   },
-  "extraKnownMarketplaces": {
-    "starship-claude": {
-      "source": {
-        "source": "github",
-        "repo": "martinemde/starship-claude"
-      }
-    }
-  },
-  "alwaysThinkingEnabled": true
+  "alwaysThinkingEnabled": true,
+  "statusLine": {
+    "type": "command",
+    "command": "bash /Users/martinbullman/.claude/statusline-command.sh"
+  }
 }
