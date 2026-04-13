@@ -36,10 +36,10 @@ return {
     settings = {
         complete_function_calls = true,
         vtsls = {
-            autoUseWorkspaceTsdk = true,
+            autoUseWorkspaceTsdk = false,
             enableMoveToFileCodeAction = true,
             tsserver = {
-                maxTsServerMemory = 4096,
+                maxTsServerMemory = 3072,
                 globalPlugins = { vue_plugin },
             },
             experimental = {
