@@ -7,5 +7,7 @@ return {
     'nvim-mini/mini.nvim',
     event = 'VeryLazy',
     version = false,
-    opts = {}
+    config = function()
+        require('mini.pairs').setup()
+    end
 }
