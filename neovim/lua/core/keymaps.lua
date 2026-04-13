@@ -14,7 +14,7 @@ vim.g.maplocalleader = ' '
 
 
 -- -----------------------------
--- Diagnostics config
+-- diagnostics config
 -- -----------------------------
 vim.diagnostic.config({
     update_in_insert = false,
@@ -25,7 +25,7 @@ vim.diagnostic.config({
 
 
 -- -----------------------------
--- Diagnostics 
+-- diagnostics 
 -- -----------------------------
 map('n', '<leader>d', vim.diagnostic.open_float, {
     desc = 'Open diagnostic float'
@@ -42,7 +42,7 @@ map('n', ']d', vim.diagnostic.goto_next, vim.tbl_extend('force', opts, {
 
 
 -- ----------------------------- 
--- Basic operations 
+-- basic operations 
 -- -----------------------------
 map({'n', 'v'}, '<Space>', '<Nop>', {
     silent = true,
@@ -59,7 +59,7 @@ map('n', '<leader>Q', '<cmd>qa!<CR>', {
 })
 
 -- -----------------------------
--- Buffers
+-- buffers
 -- -----------------------------
 map('n', '<S-l>', '<cmd>bnext<CR>', {
     desc = 'Go to next buffer'
@@ -82,7 +82,7 @@ map('n', '<leader>bl', '<cmd>ls<CR>', {
 
 
 -- -----------------------------
--- Indentation
+-- indentation
 -- -----------------------------
 map('v', '<', '<gv', {
     desc = 'Indent left and reselect'
@@ -93,7 +93,7 @@ map('v', '>', '>gv', {
 
 
 -- -----------------------------
--- Search
+-- search
 -- -----------------------------
 map('n', '<Esc>', '<cmd>nohlsearch<CR>')
 

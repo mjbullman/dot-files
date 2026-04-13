@@ -96,7 +96,7 @@ vim.opt.pumheight = 12
 
 
 -- -----------------------------
--- Highlight yanked text
+-- highlight yanked text
 -- -----------------------------
 vim.api.nvim_create_autocmd('TextYankPost', {
     group = vim.api.nvim_create_augroup('HighlightYank', {}),

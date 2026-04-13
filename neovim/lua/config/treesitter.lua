@@ -21,8 +21,14 @@ local ensure_installed = {
     'typescript',
 }
 
+local installed = ts.get_installed()
+local installed_set = {}
+for _, lang in ipairs(installed) do
+    installed_set[lang] = true
+end
+
 for _, lang in ipairs(ensure_installed) do
-    if not ts.is_installed(lang) then
+    if not installed_set[lang] then
         ts.install(lang)
     end
 end

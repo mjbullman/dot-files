@@ -1,7 +1,7 @@
--- =======================
---  Code Completions Plugin (Blink.cmp)
+-- ========================
+--  Code Completions Plugin
 --  Author: Martin Bullman
--- =======================
+-- ========================
 
 return {
     'saghen/blink.cmp',
