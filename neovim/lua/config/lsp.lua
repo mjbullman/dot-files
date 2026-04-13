@@ -172,10 +172,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
         -- codelens support (useful for Rust, Java, etc.)
         if vim.lsp.codelens then
-            vim.lsp.codelens.refresh()
+            vim.lsp.codelens.enable(true, { bufnr = ev.buf })
             vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
                 buffer = ev.buf,
-                callback = vim.lsp.codelens.refresh,
+                callback = function() vim.lsp.codelens.refresh({ bufnr = ev.buf }) end,
             })
 
             vim.keymap.set('n', '<leader>cl', vim.lsp.codelens.run, {
