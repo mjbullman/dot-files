@@ -172,12 +172,12 @@ local config = {
 
         -- enable codelens (shows "▶ Run | Debug" above main/test methods)
         vim.defer_fn(function()
-            vim.lsp.codelens.refresh()
+            vim.lsp.codelens.enable(true, { bufnr = bufnr })
         end, 3000)
         vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost' }, {
             buffer = bufnr,
             callback = function()
-                vim.lsp.codelens.refresh()
+                vim.lsp.codelens.enable(true, { bufnr = bufnr })
             end,
         })
 

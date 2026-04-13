@@ -19,6 +19,7 @@ local ensure_installed = {
     'regex',
     'javascript',
     'typescript',
+    'java',
 }
 
 local installed = ts.get_installed()
