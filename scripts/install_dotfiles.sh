@@ -131,6 +131,16 @@ function install_zsh_configs() {
         fi
     fi
 
+    if [[ -f "$DOTFILES_DIR/.zprofile" ]]; then
+        print_banner "Installing Zsh Profile"
+
+        if ln -sf "$DOTFILES_DIR/.zprofile" "$HOME/.zprofile"; then
+            print_success ".zprofile installed!"
+        else
+            print_error "Failed to install .zprofile!"
+        fi
+    fi
+
     if [[ -f "$DOTFILES_DIR/.zsh_aliases" ]]; then
         print_banner "Installing Zsh Aliases"
 

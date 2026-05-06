@@ -102,6 +102,8 @@ plugins=(
         zsh-autosuggestions
 )
 
+fpath=(/Users/martinbullman/.docker/completions $fpath)
+zstyle ':completion:*' use-cache yes
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -130,18 +132,13 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# Print system details using fastfetch.
+[[ $SHLVL -eq 1 ]] && fastfetch
+
 # Init Starship terminal prompt.
 eval "$(starship init zsh)"
-
-# Print system details using fastfetch.
-fastfetch
 
 # Load custom aliases.
 [[ -f ~/.zsh_aliases ]] && source ~/.zsh_aliases
 
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/martinbullman/.docker/completions $fpath)
-autoload -Uz compinit
-compinit
-# End of Docker CLI completions
 
