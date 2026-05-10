@@ -1,5 +1,3 @@
-local colors = require('catppuccin.palettes').get_palette()
-
 require('bufferline').setup({
     options = {
         mode = 'buffers',                    -- set to 'tabs' to only show tabpages instead
@@ -25,10 +23,5 @@ require('bufferline').setup({
         diagnostics = false,
         diagnostics_update_in_insert = false, -- only applies to coc
         diagnostics_update_on_event = true,   -- use nvim's diagnostic handler
-    },
-    highlights = {
-        fill = {
-            bg = colors.base,
-        },
     },
 })
