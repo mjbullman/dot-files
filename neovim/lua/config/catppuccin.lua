@@ -69,10 +69,7 @@ require('catppuccin').setup({
         nvimtree = true,
         neotree = true,
         trouble = true,
-        bufferline = {
-            enabled = true,
-            themable = true,
-        },
+        bufferline = { enabled = false },
         treesitter = true,
         mini = {
             enabled = true,
