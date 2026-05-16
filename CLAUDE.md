@@ -46,7 +46,7 @@ Uses Neovim's built-in LSP (`vim.lsp.enable` / `vim.lsp.config`) — not nvim-ls
 - **Global LSP configuration** in `neovim/lua/config/lsp.lua`:
   - Sets Blink.cmp capabilities for all servers via `vim.lsp.config('*', {...})`
   - Diagnostic UI, inlay hints, and LspAttach keybindings
-  - Enabled servers: `vtsls`, `vue_ls`, `lua_ls`, `clangd`, `css_ls`, `rust_analyzer`, `html_ls`, `eslint_ls`, `basedpyright`, `jsonls`, `marksman`, `bashls`, `ruff`
+  - Enabled servers: `vtsls`, `vue_ls`, `lua_ls`, `clangd`, `css_ls`, `rust_analyzer`, `html_ls`, `eslint_ls`, `basedpyright`, `jsonls`, `marksman`, `bashls`, `ruff`, `dockerls`
 - **Per-server configs** in `neovim/lsp/*.lua`: Auto-loaded by `vim.lsp.enable()`, one file per server
 - **LSP keybindings** (set in LspAttach autocmd):
   - Navigation: `gd` (definition), `gD` (declaration), `gi` (implementation), `gr` (references), `gt` (type definition)
@@ -103,7 +103,7 @@ Key customizations:
 - Prefix remapped to `Ctrl+A` (GNU Screen style)
 - Mouse support enabled
 - Catppuccin Mocha theme via TPM (Tmux Plugin Manager)
-- vim-tmux-navigator plugin for seamless Neovim integration
+- vim-tmux-navigator plugin disabled (see commented-out line in `.tmux.conf`)
 - Custom pane splitting: `|` for horizontal, `-` for vertical
 - Vim-style pane resizing: `h`, `l`, `j`, `k` with prefix
 - Status bar positioned at top with directory, session, uptime, and datetime
@@ -171,7 +171,8 @@ Neovim files:
 3. Higher `score_offset` values prioritize the source (LSP=100, Codeium=85, snippets=50, etc.)
 
 **AI Assistant Integration**:
-- Codeium provides inline completions via Blink.cmp (free, no API key needed)
-- ChatGPT requires an API key stored in environment or config
-- Copilot Chat requires GitHub Copilot subscription
-- Blink.cmp is disabled in ChatGPT buffers to prevent interference (configured in `neovim/lua/config/blink.lua`)
+- Codeium (`neovim/lua/plugins/codeium.lua`): provides both Blink.cmp source completions and its own `virtual_text` inline suggestions. Free, no API key.
+- Supermaven (`neovim/lua/plugins/supermaven.lua`): additional inline ghost-text completions, toggled via `<leader>am`. Both Codeium and Supermaven can run simultaneously.
+- GitHub Copilot (`neovim/lua/plugins/copilot.lua`): disabled by default (`vim.g.copilot_enabled = false`), toggled via `<leader>ac`. Requires GitHub Copilot subscription.
+- ChatGPT (`neovim/lua/plugins/chatgpt.lua`): currently `enabled = false` due to conflicts. Requires an OpenAI API key.
+- Blink.cmp is disabled in ChatGPT and Telescope prompt buffers (configured in `neovim/lua/config/blink.lua`)

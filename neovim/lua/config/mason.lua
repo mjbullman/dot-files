@@ -32,7 +32,6 @@ require('mason-tool-installer').setup({
         'bash-language-server',
         -- formatters / linters
         'ruff',
-        'black',
         'stylua',
         'prettier',
         -- java debug / test

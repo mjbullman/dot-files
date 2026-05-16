@@ -6,11 +6,10 @@
 #                 productivity tools, and system information display.         #
 #                                                                             #
 # Features:                                                                   #
-#   - Powerlevel10k prompt with instant prompt support                        #
+#   - Starship cross-shell prompt                                             #
 #   - Oh My Zsh framework with selected plugins                               #
 #   - Syntax highlighting and autosuggestions                                 #
-#   - Custom system info display using Neofetch                               #
-#   - Prepared for further hardware/network info enhancements                 #
+#   - Custom system info display using Fastfetch                              #
 #                                                                             #
 # Plugin Set:                                                                 #
 #   - git                                                                     #
@@ -102,7 +101,7 @@ plugins=(
         zsh-autosuggestions
 )
 
-fpath=(/Users/martinbullman/.docker/completions $fpath)
+fpath=($HOME/.docker/completions $fpath)
 zstyle ':completion:*' use-cache yes
 source $ZSH/oh-my-zsh.sh
 

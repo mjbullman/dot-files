@@ -66,7 +66,6 @@ require('catppuccin').setup({
         cmp = true,
         notify = false,
         gitsigns = true,
-        nvimtree = true,
         neotree = true,
         trouble = true,
         bufferline = { enabled = false },

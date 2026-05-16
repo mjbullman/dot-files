@@ -57,7 +57,11 @@ end
 local config = {
     cmd = {
         -- jdtls itself requires Java 21+ to run
-        '/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home/bin/java',
+        -- macOS (Homebrew): /opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home/bin/java
+        -- Linux: adjust to your Java 21 path, e.g. /usr/lib/jvm/java-21-openjdk/bin/java
+        vim.fn.has('mac') == 1
+            and '/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home/bin/java'
+            or '/usr/lib/jvm/java-21-openjdk/bin/java',
         '-Declipse.application=org.eclipse.jdt.ls.core.id1',
         '-Dosgi.bundles.defaultStartLevel=4',
         '-Declipse.product=org.eclipse.jdt.ls.core.product',
@@ -92,7 +96,8 @@ local config = {
             contentProvider = { preferred = 'fernflower' },
             configuration = {
                 updateBuildConfiguration = 'interactive',
-                runtimes = {
+                -- macOS (Homebrew) runtime paths — adjust for your OS/installation
+                runtimes = vim.fn.has('mac') == 1 and {
                     {
                         name = 'JavaSE-17',
                         path = '/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home',
@@ -104,8 +109,12 @@ local config = {
                     },
                     {
                         name = 'JavaSE-22',
-                        path = '/Users/martinbullman/Library/Java/JavaVirtualMachines/openjdk-22.0.2/Contents/Home',
+                        path = vim.fn.expand('~') .. '/Library/Java/JavaVirtualMachines/openjdk-22.0.2/Contents/Home',
                     },
+                } or {
+                    -- Linux fallback — adjust paths to match your system
+                    { name = 'JavaSE-17', path = '/usr/lib/jvm/java-17-openjdk', default = true },
+                    { name = 'JavaSE-21', path = '/usr/lib/jvm/java-21-openjdk' },
                 },
             },
             completion = {

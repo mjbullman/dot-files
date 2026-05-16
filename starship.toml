@@ -29,6 +29,7 @@ $haskell\
 $python\
 [](fg:green bg:sapphire)\
 $conda\
+$docker_context\
 [](fg:sapphire bg:lavender)\
 $time\
 [ ](fg:lavender)\
