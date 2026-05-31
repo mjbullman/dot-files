@@ -141,4 +141,9 @@ eval "$(starship init zsh)"
 # Load custom aliases.
 [[ -f ~/.zsh_aliases ]] && source ~/.zsh_aliases
 
+# Init jenv (Java version manager).
+if command -v jenv &>/dev/null; then
+  eval "$(jenv init -)"
+fi
+
 
