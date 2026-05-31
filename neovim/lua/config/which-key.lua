@@ -55,21 +55,10 @@ wk.add({
     { '<leader>g', group = 'Git' },
     { '<leader>j', group = 'Java' },
     { '<leader>l', group = 'LSP' },
-    { '<leader>n', group = 'Tests' },
     { '<leader>t', group = 'Toggle' },
     { '<leader>w', group = 'Workspace' },
 
-    -- AI Tools (ChatGPT + Copilot + Supermaven)
-    { '<leader>ai', desc = 'ChatGPT interactive' },
-    { '<leader>ae', desc = 'Edit with AI' },
-    { '<leader>ax', desc = 'Explain code' },
-    { '<leader>af', desc = 'Fix bugs' },
-    { '<leader>ao', desc = 'Optimize code' },
-    { '<leader>ad', desc = 'Add docstring' },
-    { '<leader>at', desc = 'Add tests' },
-    { '<leader>ag', desc = 'Grammar correction' },
-    { '<leader>as', desc = 'Act as (prompts)' },
-    { '<leader>ac', desc = 'Toggle Copilot' },
+    -- AI Tools (Codeium active via Blink; Supermaven disabled by default)
     { '<leader>am', desc = 'Toggle Supermaven' },
 
     -- Buffers
@@ -81,7 +70,6 @@ wk.add({
     -- Code Actions (LSP buffer-local)
     { '<leader>ca', desc = 'Code action' },
     { '<leader>cf', desc = 'Quick fix (first action)' },
-    { '<leader>cl', desc = 'Run CodeLens' },
 
     -- Debug/Diagnostics
     { '<leader>d', desc = 'Show diagnostic float' },
@@ -128,17 +116,6 @@ wk.add({
     { '<leader>jr', desc = 'Run main class' },
     { '<leader>jd', desc = 'Debug main class' },
 
-    -- Tests (neotest)
-    { '<leader>nr', desc = 'Run nearest test' },
-    { '<leader>nf', desc = 'Run test file' },
-    { '<leader>nd', desc = 'Debug nearest test' },
-    { '<leader>ns', desc = 'Stop test' },
-    { '<leader>no', desc = 'Show test output' },
-    { '<leader>np', desc = 'Toggle output panel' },
-    { '<leader>nm', desc = 'Toggle test summary' },
-    { '[n', desc = 'Previous failed test' },
-    { ']n', desc = 'Next failed test' },
-
     -- LSP (buffer-local)
     { '<leader>li', desc = 'LSP info' },
     { '<leader>ll', desc = 'LSP log' },
@@ -151,6 +128,7 @@ wk.add({
     { '<leader>th', desc = 'Toggle inlay hints' },
     { '<leader>tb', desc = 'Toggle git blame' },
     { '<leader>td', desc = 'Toggle deleted (git)' },
+    { '<leader>tl', desc = 'Toggle LSP lens (reference counts)' },
 
     -- Workspace (LSP buffer-local)
     { '<leader>wa', desc = 'Add workspace folder' },
@@ -161,7 +139,6 @@ wk.add({
     { '<leader>s', desc = 'Save file' },
     { '<leader>q', desc = 'Quit window' },
     { '<leader>Q', desc = 'Quit all (no save)' },
-    { '<leader>x', desc = 'Save and quit' },
 
     -- LSP navigation (buffer-local)
     { 'gd', desc = 'Go to definition' },

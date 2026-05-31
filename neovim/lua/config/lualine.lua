@@ -36,8 +36,6 @@ require('lualine').setup({
                 'FileChangedShellPost',
                 'VimResized',
                 'Filetype',
-                'CursorMoved',
-                'CursorMovedI',
                 'ModeChanged',
             },
         },
