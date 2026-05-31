@@ -4,7 +4,7 @@
 -- ==============================
 
 return {
-    cmd = { vim.fn.stdpath('data') .. '/mason/bin/ruff', 'server', '--preview' },
+    cmd = { vim.fn.stdpath('data') .. '/mason/bin/ruff', 'server' },
     filetypes = { 'python' },
     root_markers = {
         'pyproject.toml',

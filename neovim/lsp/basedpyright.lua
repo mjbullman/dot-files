@@ -19,9 +19,9 @@ return {
     settings = {
         basedpyright = {
             analysis = {
-                diagnosticMode = 'workspace',
+                diagnosticMode = 'openFilesOnly', -- only check files you have open
                 autoSearchPaths = true,
-                typeCheckingMode = 'standard', -- 'off', 'basic', 'standard', or 'strict'
+                typeCheckingMode = 'basic', -- 'off', 'basic', 'standard', or 'strict'
                 autoImportCompletions = true,
                 useLibraryCodeForTypes = true,
                 indexing = true,
