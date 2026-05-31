@@ -63,6 +63,132 @@ require('bufferline').setup({
             fg = c.peach,
             bg = c.surface0,
         },
+
+        -- diagnostic states: keep the same tab background but tint the text
+        -- with the diagnostic severity colour so the tab doesn't shift hue
+        error = {
+            fg = c.red,
+            bg = c.mantle,
+            sp = c.red,
+        },
+        error_visible = {
+            fg = c.red,
+            bg = c.mantle,
+        },
+        error_selected = {
+            fg = c.red,
+            bg = c.surface0,
+            bold = true,
+            italic = false,
+        },
+        error_diagnostic = {
+            fg = c.red,
+            bg = c.mantle,
+            sp = c.red,
+        },
+        error_diagnostic_visible = {
+            fg = c.red,
+            bg = c.mantle,
+        },
+        error_diagnostic_selected = {
+            fg = c.red,
+            bg = c.surface0,
+            bold = true,
+            italic = false,
+        },
+
+        warning = {
+            fg = c.yellow,
+            bg = c.mantle,
+            sp = c.yellow,
+        },
+        warning_visible = {
+            fg = c.yellow,
+            bg = c.mantle,
+        },
+        warning_selected = {
+            fg = c.yellow,
+            bg = c.surface0,
+            bold = true,
+            italic = false,
+        },
+        warning_diagnostic = {
+            fg = c.yellow,
+            bg = c.mantle,
+            sp = c.yellow,
+        },
+        warning_diagnostic_visible = {
+            fg = c.yellow,
+            bg = c.mantle,
+        },
+        warning_diagnostic_selected = {
+            fg = c.yellow,
+            bg = c.surface0,
+            bold = true,
+            italic = false,
+        },
+
+        info = {
+            fg = c.sky,
+            bg = c.mantle,
+            sp = c.sky,
+        },
+        info_visible = {
+            fg = c.sky,
+            bg = c.mantle,
+        },
+        info_selected = {
+            fg = c.sky,
+            bg = c.surface0,
+            bold = true,
+            italic = false,
+        },
+        info_diagnostic = {
+            fg = c.sky,
+            bg = c.mantle,
+            sp = c.sky,
+        },
+        info_diagnostic_visible = {
+            fg = c.sky,
+            bg = c.mantle,
+        },
+        info_diagnostic_selected = {
+            fg = c.sky,
+            bg = c.surface0,
+            bold = true,
+            italic = false,
+        },
+
+        hint = {
+            fg = c.teal,
+            bg = c.mantle,
+            sp = c.teal,
+        },
+        hint_visible = {
+            fg = c.teal,
+            bg = c.mantle,
+        },
+        hint_selected = {
+            fg = c.teal,
+            bg = c.surface0,
+            bold = true,
+            italic = false,
+        },
+        hint_diagnostic = {
+            fg = c.teal,
+            bg = c.mantle,
+            sp = c.teal,
+        },
+        hint_diagnostic_visible = {
+            fg = c.teal,
+            bg = c.mantle,
+        },
+        hint_diagnostic_selected = {
+            fg = c.teal,
+            bg = c.surface0,
+            bold = true,
+            italic = false,
+        },
     },
     options = {
         mode = 'buffers',
