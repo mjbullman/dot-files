@@ -7,7 +7,7 @@ require('codeium').setup({
     enable_chat = true,
     enable_cmp_source = false,  -- using Blink, not nvim-cmp
     virtual_text = {
-        enable = true
+        enable = false
     },
     workspace_root = {
         use_lsp = true

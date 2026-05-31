@@ -23,5 +23,3 @@ require('notify').setup({
     top_down = true,
 })
 
--- Set as default notify handler
-vim.notify = require('notify')

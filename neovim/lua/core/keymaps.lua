@@ -14,18 +14,7 @@ vim.g.maplocalleader = ' '
 
 
 -- -----------------------------
--- diagnostics config
--- -----------------------------
-vim.diagnostic.config({
-    update_in_insert = false,
-    float = {
-        border = 'rounded'
-    }
-}) -- Note: virtual_text handled by tiny-inline-diagnostic plugin
-
-
--- -----------------------------
--- diagnostics 
+-- diagnostics
 -- -----------------------------
 map('n', '<leader>d', vim.diagnostic.open_float, {
     desc = 'Open diagnostic float'

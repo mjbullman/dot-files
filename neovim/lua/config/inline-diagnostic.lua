@@ -20,7 +20,3 @@ require('tiny-inline-diagnostic').setup({
     },
 })
 
--- disable default virtual text since we're using inline diagnostics
-vim.diagnostic.config({
-    virtual_text = false,
-})

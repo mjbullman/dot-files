@@ -80,7 +80,7 @@ vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
 
 -- minimum number of screen lines to keep above and below the cursor
-vim.o.scrolloff = 10
+vim.opt.scrolloff = 10
 -- minimum number of screen columns to keep left and right of the cursor
 vim.opt.sidescrolloff = 8
 

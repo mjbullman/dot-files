@@ -75,7 +75,7 @@ require('snacks').setup({
     layout      = { enabled = false },
     lazygit     = { enabled = true },
     notifier    = { enabled = false },
-    picker      = { enabled = true },
+    picker      = { enabled = false },
     profiler    = { enabled = false },
     quickfile   = { enabled = true },
     rename      = { enabled = true },
