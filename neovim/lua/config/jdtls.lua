@@ -147,8 +147,8 @@ local config = {
                 },
                 useBlocks = true,
             },
-            implementationsCodeLens = { enabled = true },
-            referencesCodeLens = { enabled = true },
+            implementationsCodeLens = { enabled = false },
+            referencesCodeLens = { enabled = false },
             inlayHints = {
                 parameterNames = { enabled = 'all' },
             },
@@ -171,15 +171,15 @@ local config = {
         require('jdtls.dap').setup_dap_main_class_configs()
 
         -- enable codelens (shows "▶ Run | Debug" above main/test methods)
-        vim.defer_fn(function()
-            vim.lsp.codelens.enable(true, { bufnr = bufnr })
-        end, 3000)
-        vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost' }, {
-            buffer = bufnr,
-            callback = function()
-                vim.lsp.codelens.enable(true, { bufnr = bufnr })
-            end,
-        })
+        --vim.defer_fn(function()
+        --    vim.lsp.codelens.enable(true, { bufnr = bufnr })
+        --end, 3000)
+        --vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost' }, {
+        --    buffer = bufnr,
+        --    callback = function()
+        --        vim.lsp.codelens.enable(true, { bufnr = bufnr })
+        --    end,
+        --})
 
         -- buffer-local Java keymaps
         local map = function(mode, lhs, rhs, desc)
