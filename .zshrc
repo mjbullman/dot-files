@@ -102,7 +102,7 @@ plugins=(
         zsh-autosuggestions
 )
 
-fpath=(/Users/martinbullman/.docker/completions $fpath)
+[[ -d "$HOME/.docker/completions" ]] && fpath=("$HOME/.docker/completions" $fpath)
 zstyle ':completion:*' use-cache yes
 source $ZSH/oh-my-zsh.sh
 
@@ -140,6 +140,11 @@ eval "$(starship init zsh)"
 
 # Load custom aliases.
 [[ -f ~/.zsh_aliases ]] && source ~/.zsh_aliases
+
+case "$(uname -s)" in
+    Darwin) [[ -f ~/.zsh_aliases_mac ]]   && source ~/.zsh_aliases_mac ;;
+    Linux)  [[ -f ~/.zsh_aliases_linux ]] && source ~/.zsh_aliases_linux ;;
+esac
 
 # Init jenv (Java version manager).
 if command -v jenv &>/dev/null; then

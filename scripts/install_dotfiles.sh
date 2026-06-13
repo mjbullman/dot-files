@@ -10,6 +10,15 @@ source "$SCRIPT_DIR/utils/folders.sh"
 CONFIG_DIR="$HOME/.config"
 DOTFILES_DIR="$HOME/.dotfiles"
 DOTFILES_REPO="https://github.com/mjbullman/dot-files.git"
+PLATFORM=""
+
+function detect_os() {
+    case "$(uname -s)" in
+        Darwin) PLATFORM="mac" ;;
+        Linux)  PLATFORM="linux" ;;
+        *)      print_error "Unsupported OS: $(uname -s)"; exit 1 ;;
+    esac
+}
 
 print_banner "Dot Files Installer"
 
@@ -150,6 +159,22 @@ function install_zsh_configs() {
             print_error "Failed to install .zsh_aliases!"
         fi
     fi
+
+    if [[ "$PLATFORM" == "mac" && -f "$DOTFILES_DIR/.zsh_aliases_mac" ]]; then
+        if ln -sf "$DOTFILES_DIR/.zsh_aliases_mac" "$HOME/.zsh_aliases_mac"; then
+            print_success ".zsh_aliases_mac installed!"
+        else
+            print_error "Failed to install .zsh_aliases_mac!"
+        fi
+    fi
+
+    if [[ "$PLATFORM" == "linux" && -f "$DOTFILES_DIR/.zsh_aliases_linux" ]]; then
+        if ln -sf "$DOTFILES_DIR/.zsh_aliases_linux" "$HOME/.zsh_aliases_linux"; then
+            print_success ".zsh_aliases_linux installed!"
+        else
+            print_error "Failed to install .zsh_aliases_linux!"
+        fi
+    fi
 }
 
 function install_starship_config() {
@@ -204,14 +229,16 @@ function install_lazygit_config() {
             print_error "Failed to install config.yml to ~/.config/lazygit/!"
         fi
 
-        local mac_lazygit_dir="$HOME/Library/Application Support/lazygit"
+        if [[ "$PLATFORM" == "mac" ]]; then
+            local mac_lazygit_dir="$HOME/Library/Application Support/lazygit"
 
-        mkdir -p "$mac_lazygit_dir" || return 1
+            mkdir -p "$mac_lazygit_dir" || return 1
 
-        if ln -sf "$DOTFILES_DIR/config.yml" "$mac_lazygit_dir/config.yml"; then
-            print_success "config.yml installed to ~/Library/Application Support/lazygit/"
-        else
-            print_error "Failed to install config.yml to ~/Library/Application Support/lazygit/!"
+            if ln -sf "$DOTFILES_DIR/config.yml" "$mac_lazygit_dir/config.yml"; then
+                print_success "config.yml installed to ~/Library/Application Support/lazygit/"
+            else
+                print_error "Failed to install config.yml to ~/Library/Application Support/lazygit/!"
+            fi
         fi
     fi
 }
@@ -301,6 +328,8 @@ function install_claude_config() {
 
 # main installation function.
 main() {
+    detect_os
+
     if ! command -v git &> /dev/null; then
         print_error "Git is not installed. Please install git first."
         exit 1
