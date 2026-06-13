@@ -7,108 +7,6 @@
       "Bash(npx:*)"
     ]
   },
-  "hooks": {
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "\"/Users/martinbullman/Library/Application Support/fnm/node-versions/v24.15.0/installation/bin/node\" \"/Users/martinbullman/.claude/hooks/gsd-check-update.js\""
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash \"/Users/martinbullman/.claude/hooks/gsd-session-state.sh\""
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "\"/Users/martinbullman/Library/Application Support/fnm/node-versions/v24.15.0/installation/bin/node\" \"/Users/martinbullman/.claude/hooks/gsd-update-banner.js\""
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "Bash|Edit|Write|MultiEdit|Agent|Task",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "\"/Users/martinbullman/Library/Application Support/fnm/node-versions/v24.15.0/installation/bin/node\" \"/Users/martinbullman/.claude/hooks/gsd-context-monitor.js\"",
-            "timeout": 10
-          }
-        ]
-      },
-      {
-        "matcher": "Read",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "\"/Users/martinbullman/Library/Application Support/fnm/node-versions/v24.15.0/installation/bin/node\" \"/Users/martinbullman/.claude/hooks/gsd-read-injection-scanner.js\"",
-            "timeout": 5
-          }
-        ]
-      },
-      {
-        "matcher": "Write|Edit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash \"/Users/martinbullman/.claude/hooks/gsd-phase-boundary.sh\"",
-            "timeout": 5
-          }
-        ]
-      }
-    ],
-    "PreToolUse": [
-      {
-        "matcher": "Write|Edit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "\"/Users/martinbullman/Library/Application Support/fnm/node-versions/v24.15.0/installation/bin/node\" \"/Users/martinbullman/.claude/hooks/gsd-prompt-guard.js\"",
-            "timeout": 5
-          }
-        ]
-      },
-      {
-        "matcher": "Write|Edit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "\"/Users/martinbullman/Library/Application Support/fnm/node-versions/v24.15.0/installation/bin/node\" \"/Users/martinbullman/.claude/hooks/gsd-read-guard.js\"",
-            "timeout": 5
-          }
-        ]
-      },
-      {
-        "matcher": "Write|Edit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "\"/Users/martinbullman/Library/Application Support/fnm/node-versions/v24.15.0/installation/bin/node\" \"/Users/martinbullman/.claude/hooks/gsd-workflow-guard.js\"",
-            "timeout": 5
-          }
-        ]
-      },
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash \"/Users/martinbullman/.claude/hooks/gsd-validate-commit.sh\"",
-            "timeout": 5
-          }
-        ]
-      }
-    ]
-  },
   "statusLine": {
     "type": "command",
     "command": "bash /Users/martinbullman/.claude/statusline-command.sh"
@@ -120,8 +18,14 @@
     "security-guidance@claude-plugins-official": true,
     "github@claude-plugins-official": true,
     "claude-md-management@claude-plugins-official": true,
-    "chrome-devtools-mcp@claude-plugins-official": true
+    "chrome-devtools-mcp@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
+    "feature-dev@claude-plugins-official": true
   },
   "alwaysThinkingEnabled": true,
-  "theme": "dark-daltonized"
+  "effortLevel": "medium",
+  "promptSuggestionEnabled": false,
+  "theme": "dark-daltonized",
+  "model": "opus"
 }
