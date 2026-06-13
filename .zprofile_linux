@@ -1,0 +1,9 @@
+###############################################################################
+#                       ~/.zprofile_linux CONFIGURATION                        #
+# --------------------------------------------------------------------------- #
+# Author        : Martin Bullman                                              #
+# Purpose       : Linux-specific login shell environment — PATH and          #
+#                 language runtime configuration.                             #
+#                                                                             #
+# Last Updated : 2026-06-13                                                   #
+###############################################################################

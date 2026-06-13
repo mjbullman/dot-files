@@ -150,6 +150,22 @@ function install_zsh_configs() {
         fi
     fi
 
+    if [[ "$PLATFORM" == "mac" && -f "$DOTFILES_DIR/.zprofile_mac" ]]; then
+        if ln -sf "$DOTFILES_DIR/.zprofile_mac" "$HOME/.zprofile_mac"; then
+            print_success ".zprofile_mac installed!"
+        else
+            print_error "Failed to install .zprofile_mac!"
+        fi
+    fi
+
+    if [[ "$PLATFORM" == "linux" && -f "$DOTFILES_DIR/.zprofile_linux" ]]; then
+        if ln -sf "$DOTFILES_DIR/.zprofile_linux" "$HOME/.zprofile_linux"; then
+            print_success ".zprofile_linux installed!"
+        else
+            print_error "Failed to install .zprofile_linux!"
+        fi
+    fi
+
     if [[ -f "$DOTFILES_DIR/.zsh_aliases" ]]; then
         print_banner "Installing Zsh Aliases"
 

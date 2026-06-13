@@ -1,0 +1,33 @@
+###############################################################################
+#                        ~/.zprofile_mac CONFIGURATION                         #
+# --------------------------------------------------------------------------- #
+# Author        : Martin Bullman                                              #
+# Purpose       : macOS-specific login shell environment — PATH, Homebrew,   #
+#                 and language runtime configuration.                         #
+#                                                                             #
+# Last Updated : 2026-06-13                                                   #
+###############################################################################
+
+# homebrew settings.
+export HOMEBREW_PREFIX="/opt/homebrew"
+export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
+export HOMEBREW_REPOSITORY="/opt/homebrew"
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+export MANPATH="/opt/homebrew/share/man:${MANPATH}"
+export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}"
+
+# JetBrains Toolbox CLI scripts.
+if [ -d "$HOME/Library/Application Support/JetBrains/Toolbox/scripts" ]; then
+    export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
+fi
+
+# ruby path settings.
+if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
+    export PATH=/opt/homebrew/opt/ruby/bin:$PATH
+    export PATH=/opt/homebrew/lib/ruby/gems/4.0.0/bin:$PATH
+fi
+
+# python path settings.
+if [ -d "/Library/Frameworks/Python.framework/Versions/3.12/bin" ]; then
+    export PATH="/Library/Frameworks/Python.framework/Versions/3.12/bin:${PATH}"
+fi
