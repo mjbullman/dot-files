@@ -30,7 +30,9 @@ export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}"
 export PATH="$PATH:/Users/martinbullman/Library/Application Support/JetBrains/Toolbox/scripts"
 
 # fnm node version manager.
-eval "$(fnm env --use-on-cd)"
+if command -v fnm &>/dev/null; then
+  eval "$(fnm env --use-on-cd)"
+fi
 
 # ruby path settings.
 if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
