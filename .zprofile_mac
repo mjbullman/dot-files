@@ -29,10 +29,10 @@ fi
 # ruby path settings.
 if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
     export PATH=/opt/homebrew/opt/ruby/bin:$PATH
-    export PATH=/opt/homebrew/lib/ruby/gems/4.0.0/bin:$PATH
+    export PATH="$(ruby -e 'puts Gem.user_dir')/bin:$PATH"
 fi
 
 # python path settings.
-if [ -d "/Library/Frameworks/Python.framework/Versions/3.12/bin" ]; then
-    export PATH="/Library/Frameworks/Python.framework/Versions/3.12/bin:${PATH}"
+if command -v python3 &>/dev/null; then
+    export PATH="$(python3 -m site --user-base)/bin:${PATH}"
 fi

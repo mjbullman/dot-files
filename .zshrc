@@ -26,6 +26,7 @@
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
+[[ -d "$HOME/.local/bin" ]] && export PATH="$HOME/.local/bin:$PATH"
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -104,7 +105,7 @@ plugins=(
 
 [[ -d "$HOME/.docker/completions" ]] && fpath=("$HOME/.docker/completions" $fpath)
 zstyle ':completion:*' use-cache yes
-source $ZSH/oh-my-zsh.sh
+[[ -f "$ZSH/oh-my-zsh.sh" ]] && source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -133,10 +134,10 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Print system details using fastfetch.
-[[ $SHLVL -eq 1 ]] && fastfetch
+[[ $SHLVL -eq 1 ]] && command -v fastfetch &>/dev/null && fastfetch
 
 # Init Starship terminal prompt.
-eval "$(starship init zsh)"
+command -v starship &>/dev/null && eval "$(starship init zsh)"
 
 # Load custom aliases.
 [[ -f ~/.zsh_aliases ]] && source ~/.zsh_aliases
