@@ -68,7 +68,7 @@ require('catppuccin').setup({
         gitsigns = true,
         nvimtree = true,
         neotree = true,
-        trouble = true,
+        lsp_trouble = true,
         bufferline = { enabled = false },
         treesitter = true,
         mini = {
