@@ -2,7 +2,7 @@
   "$schema": "https://opencode.ai/config.json",
   "theme": "catppuccin",
   "model": "ollama/qwen3-coder:480b-cloud",
-  "small_model": "ollama/llama3.1:8b",
+  "small_model": "ollama/gpt-oss:20b-cloud",
   "default_agent": "build",
   "autoupdate": "notify",
   "share": "manual",
@@ -10,22 +10,14 @@
     "auto": true,
     "prune": true
   },
-  "instructions": [
-    "./AGENTS.md",
-    "./CLAUDE.md",
-    "./GEMINI.md"
-  ],
   "provider": {
-    "openai": {
-      "options": {
-        "timeout": 600000
-      }
-    },
     "ollama": {
       "npm": "@ai-sdk/openai-compatible",
-      "name": "Ollama VM",
+      "name": "Ollama Cloud",
       "options": {
-        "baseURL": "http://192.168.1.180:11434/v1"
+        "baseURL": "https://ollama.com/v1",
+        "apiKey": "{env:OLLAMA_API_KEY}",
+        "timeout": 600000
       },
       "models": {
         "qwen3-coder:480b-cloud": {
@@ -89,6 +81,18 @@
     "external_directory": "ask",
     "doom_loop": "ask"
   },
+  "mcp": {
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "enabled": true
+    },
+    "chrome-devtools": {
+      "type": "local",
+      "command": ["npx", "-y", "chrome-devtools-mcp@latest"],
+      "enabled": true
+    }
+  },
   "command": {
     "tests": {
       "description": "Run full test suite and report failures",
@@ -97,8 +101,23 @@
     },
     "review": {
       "description": "Review local changes for bugs and regressions",
+      "agent": "review",
+      "template": "Review these local changes with a strict code-review mindset. Prioritize bugs, regressions, and missing tests.\n\n!`git diff`"
+    },
+    "commit": {
+      "description": "Write a Conventional Commit for staged changes and commit",
       "agent": "build",
-      "template": "Review current local changes with a strict code-review mindset. Prioritize bugs, regressions, and missing tests."
+      "template": "Write a Conventional Commits message for the staged changes below, then run git commit with it. Do not stage anything new.\n\n!`git diff --cached`"
+    },
+    "explain": {
+      "description": "Explain a file or path",
+      "agent": "build",
+      "template": "Explain @$1 — its purpose, key flows, and any risks or sharp edges."
+    },
+    "docs": {
+      "description": "Sync AGENTS.md / CLAUDE.md with recent changes",
+      "agent": "build",
+      "template": "Update AGENTS.md and CLAUDE.md to reflect recent changes in this repo. Keep entries concise and consistent with the existing style."
     }
   },
   "agent": {
@@ -109,6 +128,17 @@
       "tools": {
         "write": false,
         "edit": false
+      }
+    },
+    "architect": {
+      "description": "Planning and design before coding — analyzes and proposes, asks before editing",
+      "mode": "primary",
+      "model": "ollama/deepseek-v3.1:671b-cloud",
+      "temperature": 0.1,
+      "prompt": "You are a software architect. Investigate the codebase, then produce a clear, step-by-step implementation plan. Reuse existing patterns and utilities. Propose changes; do not edit without confirmation.",
+      "permission": {
+        "edit": "ask",
+        "bash": "ask"
       }
     }
   },
@@ -139,6 +169,7 @@
     "diff_style": "auto"
   },
   "keybinds": {
-    "tool_details": "none"
+    "tool_details": "none",
+    "help_show": "<leader>?"
   }
 }
