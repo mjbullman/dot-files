@@ -339,6 +339,18 @@ function install_claude_config() {
         else
             print_error "Failed to install Claude statusline-command.sh!"
         fi
+
+        # Remove existing real directory to prevent ln creating a nested symlink
+        if [[ -d "$claude_dir/skills" && ! -L "$claude_dir/skills" ]]; then
+            print_warning "$claude_dir/skills exists as a real directory — removing before symlinking."
+            rm -rf "$claude_dir/skills"
+        fi
+
+        if ln -sf "$claude_dotfiles_dir/skills" "$claude_dir/skills"; then
+            print_success "Claude skills installed!"
+        else
+            print_error "Failed to install Claude skills!"
+        fi
     fi
 }
 
