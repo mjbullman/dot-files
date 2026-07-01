@@ -334,6 +334,12 @@ function install_claude_config() {
             print_error "Failed to install Claude settings.json!"
         fi
 
+        if ln -sf "$claude_dotfiles_dir/CLAUDE.md" "$claude_dir/CLAUDE.md"; then
+            print_success "Claude global CLAUDE.md installed!"
+        else
+            print_error "Failed to install Claude global CLAUDE.md!"
+        fi
+
         if ln -sf "$claude_dotfiles_dir/statusline-command.sh" "$claude_dir/statusline-command.sh"; then
             print_success "Claude statusline-command.sh installed!"
         else
