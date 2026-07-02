@@ -13,18 +13,16 @@ unbounded output that overflows context, and aborts on a `secret is being return
 redaction filter). If the vault isn't on disk, say "I can't find your Obsidian vault on this
 machine — make sure it's synced locally, then try again" and stop. Never answer from memory.
 
-## 1. Resolve the vault root
+## 1. The vault root
 
-Find it once, reuse as `VAULT` (the directory *containing* `10 - Projects`):
+The vault is at a fixed path — no searching. Reuse it as `VAULT`:
 
 ```bash
-for d in ~/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/*/; do
-  [ -d "$d/10 - Projects" ] && echo "$d" && break
-done
-# Fallback: find ~ -maxdepth 6 -type d -name "10 - Projects" 2>/dev/null | head -1
+VAULT="$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/The Nexus"
+[ -d "$VAULT/10 - Projects" ] || echo "MISSING"  # guard only — do not scan for it
 ```
 
-If nothing is found, stop per above.
+If the guard prints `MISSING`, the vault isn't synced locally — stop per above.
 
 ## 2. Load conventions
 

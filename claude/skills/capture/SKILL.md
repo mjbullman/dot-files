@@ -15,18 +15,16 @@ insert into a daily-note section. If the vault isn't on disk, say "I can't find 
 vault on this machine — make sure it's synced locally, then try again" and stop — don't skip
 writing.
 
-## 1. Resolve the vault root
+## 1. The vault root
 
-Find it once, reuse as `VAULT` (the directory *containing* `10 - Projects`):
+The vault is at a fixed path — no searching. Reuse it as `VAULT`:
 
 ```bash
-for d in ~/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/*/; do
-  [ -d "$d/10 - Projects" ] && echo "$d" && break
-done
-# Fallback: find ~ -maxdepth 6 -type d -name "10 - Projects" 2>/dev/null | head -1
+VAULT="$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/The Nexus"
+[ -d "$VAULT/10 - Projects" ] || echo "MISSING"  # guard only — do not scan for it
 ```
 
-If nothing is found, stop per above.
+If the guard prints `MISSING`, the vault isn't synced locally — stop per above.
 
 ## 2. Load conventions
 
@@ -55,9 +53,12 @@ When placement is ambiguous, list candidates and ask — don't guess:
 
 ## 5. Apply conventions and write
 
-Every note gets: front-matter `date` (today, `YYYY-MM-DD`); tags across namespaces
-(`type/...` required, plus `project/...` / `tech/...` when relevant); `[[wiki-links]]` to
-related notes; a descriptive title. Find notes to link by grepping:
+The note's **filename is its title** — give the file a clear, descriptive name and never add
+a `title:` property (Obsidian derives the title from the filename; a `title:` field just
+duplicates it). Front-matter carries only what the templates do: `date` (today,
+`YYYY-MM-DD`) and `tags` across namespaces (`type/...` required, plus `project/...` /
+`tech/...` when relevant). Add `[[wiki-links]]` to related notes in the body. Find notes to
+link by grepping:
 `grep -ril --include='*.md' --exclude-dir='Chat History' --exclude-dir='Chat Summaries' -e 'TERM' "$VAULT" | head -20`.
 
 Write mechanics:
