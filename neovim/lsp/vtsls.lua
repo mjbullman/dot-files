@@ -79,9 +79,18 @@ return {
             },
         },
     },
-    on_attach = function(client)
-        if vim.bo.filetype == 'vue' then
-            client.server_capabilities.semanticTokensProvider = nil
+    on_attach = function(client, bufnr)
+        -- vtsls and vue_ls both emit semantic tokens on .vue buffers, which
+        -- conflict. Disable vtsls' tokens there via the sanctioned API instead
+        -- of nil-ing server_capabilities.semanticTokensProvider: that mutation
+        -- races the in-flight tokens request and crashes semantic_tokens.lua on
+        -- Neovim 0.12 (tokens_to_ranges indexes the now-nil provider).
+        -- vim.schedule defers the stop until after the default handler has
+        -- started the highlighter, so there is a highlighter to stop.
+        if vim.bo[bufnr].filetype == 'vue' then
+            vim.schedule(function()
+                vim.lsp.semantic_tokens.stop(bufnr, client.id)
+            end)
         end
     end,
 }
