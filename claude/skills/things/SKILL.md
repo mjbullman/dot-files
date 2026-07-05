@@ -33,14 +33,32 @@ links into vault notes; linking is one-direction, task → note.
 Deep link (URL-encode spaces `%20` and emoji, drop the `.md`):
 `obsidian://open?vault=The%20Nexus&file=10%20-%20Projects%2F<encoded folder>%2F<encoded note>`
 
+### Title format
+
+A title is: **`[Project] - [Verb] [specific object] [done-condition]`** — on its own it
+answers "what does done look like". `Agrello Integration - Email Hendrik to push for
+roadmap update` qualifies; `Weekly Review`-style nouns only qualify as repeating rituals.
+
+- One task = one action. A fused title (`X / Y`, `X and Y`) becomes two tasks; a
+  destructive action gets its own task naming the target environment.
+- A bug is titled `<Project> - Fix: <symptom>`.
+- A goal with no startable action (`Develop plan to…`) is a Things **project** with a
+  concrete first task, per the mirror rule below.
+- Spell correctly — search is how tasks get found again.
+
+Martin captures fast and messy by design: the open loop matters more than the format.
+Apply this format when creating or renaming tasks yourself; clean up his captured titles
+in review passes, proposing each rename one at a time with a before/after preview.
+
 ## 3. Placement — the mirror rule
 
 Things Areas/Projects mirror the vault's `20 - Areas/` and `10 - Projects/` 1:1. Things
-names carry emoji prefixes (`🚀 Arthur - AI Assistant`), so match on the
-`Yester - X` / `Personal - X` suffix, never exact string.
+names carry emoji — prefixed on projects (`🚀 Arthur - AI Assistant`), suffixed or absent
+on areas (`Personal - Home 🏠`, `Yester - People`) — so match on the `Yester - X` /
+`Personal - X` core, never the exact string.
 
-- List projects first: `osascript -e 'tell application "Things3" to get name of projects'`
-- Task fits an existing project → add there. No match → Inbox, and say so.
+- List first: `get name of projects` and `get name of areas`.
+- Task fits an existing project or area → add there. No match → Inbox, and say so.
 - New project only if a matching folder exists in the vault's `10 - Projects/` — copy the
   name exactly, emoji included. No vault counterpart → flag the drift instead of creating.
 
@@ -54,10 +72,13 @@ Always heredoc (`osascript <<'EOF' … EOF`) — it survives quotes and emoji.
 | Read a project | `get name of to dos of project "🚀 Arthur - AI Assistant"` |
 | Add task | `tell project "X" to make new to do with properties {name:"…", notes:"obsidian://…"}` |
 | Add project | `make new project with properties {name:"…", notes:"obsidian://…"}` |
-| Find task | `first to do of project "X" whose name contains "…"` |
+| Find task | `first to do of project "X" whose name contains "…"` — errors (−1719) when nothing matches, so trap or pre-check |
+| Rename | `set name of theTask to "…"` |
 | Move | `move theTask to project "Y"` |
 | Schedule | `schedule theTask for (current date) + 2 * days` |
-| Deadline | `set due date of theTask to date "3 July 2026"` |
+| Deadline | `set due date of theTask to (current date) + 7 * days` |
+
+Date literals use `date "21 July 2026"` format.
 | Complete | `set status of theTask to completed` |
 | Cancel | `set status of theTask to canceled` |
 | Delete | `delete theTask` (moves to Trash) |
@@ -73,7 +94,8 @@ Always heredoc (`osascript <<'EOF' … EOF`) — it survives quotes and emoji.
 | Mistake | Fix |
 |---|---|
 | Detail-stuffed task notes | Title + deep link only; detail → Obsidian |
-| Exact-matching project names | Emoji prefixes vary — match the name suffix |
+| Vague, fused, or symptom-only titles | Apply the Title format: `[Project] - [Verb] [object] [done-condition]`, one action per task |
+| Exact-matching project/area names | Emoji placement varies — match the `Yester - X` / `Personal - X` core |
 | `things:///` URL scheme for writes | AppleScript only |
 | Creating engineering tasks in Things | YouTrack owns those — refuse and point there |
 | `things:///` links inside vault notes | One-direction linking: task → note only |

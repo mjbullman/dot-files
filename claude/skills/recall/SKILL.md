@@ -48,13 +48,14 @@ find "$VAULT" -type f -iname '*.md' -ipath '*QUERY*' \
 ```
 
 Query choice: use the single most distinctive term (a proper noun, a rare word), not common
-words like "settings" or "update". For multi-word queries, AND-intersect passes — don't OR:
+words like "settings" or "update". For multi-word queries, AND-intersect passes — don't OR. Use `--null`, never `-Z`
+(BSD grep's `-Z` means decompress, and the pipeline silently returns nothing):
 
 ```bash
-grep -rilZ --include='*.md' \
+grep -ril --null --include='*.md' \
   --exclude-dir='Chat History' --exclude-dir='Chat Summaries' \
   -e 'term1' "$VAULT" 2>/dev/null \
-  | xargs -0 -r grep -ilZ -e 'term2' 2>/dev/null \
+  | xargs -0 -r grep -il --null -e 'term2' 2>/dev/null \
   | xargs -0 -r grep -il -e 'term3' 2>/dev/null | head -40
 ```
 
