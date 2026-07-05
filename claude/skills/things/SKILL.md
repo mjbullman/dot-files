@@ -52,10 +52,10 @@ in review passes, proposing each rename one at a time with a before/after previe
 
 ## 3. Placement — the mirror rule
 
-Things Areas/Projects mirror the vault's `20 - Areas/` and `10 - Projects/` 1:1. Things
-names carry emoji — prefixed on projects (`🚀 Arthur - AI Assistant`), suffixed or absent
-on areas (`Personal - Home 🏠`, `Yester - People`) — so match on the `Yester - X` /
-`Personal - X` core, never the exact string.
+Things Areas/Projects mirror the vault's `20 - Areas/` and `10 - Projects/` 1:1. Projects
+carry a single emoji prefix (`🚀 Arthur - AI Assistant`); areas are plain (`Yester - People`).
+Still match on the `Yester - X` / `Personal - X` core, never the exact string — emoji drift
+happens.
 
 - List first: `get name of projects` and `get name of areas`.
 - Task fits an existing project or area → add there. No match → Inbox, and say so.
