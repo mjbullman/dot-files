@@ -40,15 +40,16 @@ if debug_jar ~= '' then
     table.insert(bundles, debug_jar)
 end
 
--- java-test
-local test_jars = vim.split(
-    vim.fn.glob(java_test_path .. '/extension/server/*.jar', true),
-    '\n'
+-- java-test: only the test *plugin* is a jdtls OSGi bundle. The rest of the
+-- jars in this dir (jacocoagent, org.jacoco.*, junit-*) are plain runtime
+-- libraries with no OSGi metadata, so feeding them to jdtls throws
+-- "Failed to get bundleInfo for bundle".
+local test_plugin_jar = vim.fn.glob(
+    java_test_path .. '/extension/server/com.microsoft.java.test.plugin-*.jar',
+    true
 )
-for _, jar in ipairs(test_jars) do
-    if jar ~= '' and not vim.endswith(jar, 'com.microsoft.java.test.runner-jar-with-dependencies.jar') then
-        table.insert(bundles, jar)
-    end
+if test_plugin_jar ~= '' then
+    table.insert(bundles, test_plugin_jar)
 end
 
 -- =============================
@@ -166,10 +167,11 @@ local config = {
     },
 
     on_attach = function(_, bufnr)
-        -- setup DAP integration
+        -- register the java DAP adapter. Main-class config resolution is done
+        -- lazily in the <leader>jd mapping below, not here: resolving on every
+        -- attach fires java-debug's resolveJavaExecutable on each file open,
+        -- which crashes in adapter 0.53.2.
         jdtls.setup_dap({ hotcodereplace = 'auto' })
-        require('jdtls.dap').setup_dap_main_class_configs()
-
 
         -- buffer-local Java keymaps
         local map = function(mode, lhs, rhs, desc)
