@@ -3,9 +3,9 @@ name: daily-summary
 description: Use when the user wants to summarise or close out their day — "summarise my day", "daily summary", "end of day review", "wrap up the day", "what did I get done today".
 ---
 
-# daily-summary — write a Day Summary into today's daily note
+# daily-summary — write a Daily Summary into today's daily note
 
-Collect what happened today from four sources, write a `## Day Summary` section into today's daily note, and echo it in chat. Sources that are empty or unreachable are skipped with a one-line note — never block the rest.
+Collect what happened today from four sources, write a `## Daily Summary` section into today's daily note, and echo it in chat. Sources that are empty or unreachable are skipped with a one-line note — never block the rest.
 
 ## 1. The vault root
 
@@ -37,37 +37,29 @@ find "$VAULT" -name '*.md' -newermt "$(date +%Y-%m-%d)" \
   -not -path '*/Chat History/*' -not -path '*/Chat Summaries/*' -not -name 'CLAUDE.md' 2>/dev/null
 ```
 
-**YouTrack team movement** — the harness shell doesn't load `~/.zshrc`, so source the secrets file first. Non-200 or unset vars → skip the section and say why:
+**YouTrack team movement** — the harness shell doesn't load `~/.zshrc`, so source the secrets file first. Strip any trailing slash from the URL with `${YOUTRACK_URL%/}` — a trailing slash makes `//api/issues`, which YouTrack answers with the SPA **HTML at HTTP 200** (so `curl -sf` won't catch it). Unset vars, non-200, or a non-JSON body → skip the section and say why:
 
 ```bash
 source ~/.zsh_secrets  # YOUTRACK_URL + YOUTRACK_TOKEN
-curl -sf -H "Authorization: Bearer $YOUTRACK_TOKEN" -H "Accept: application/json" \
-  "$YOUTRACK_URL/api/issues?query=updated:%20Today&fields=idReadable,summary,customFields(name,value(name))&\$top=30"
+BASE="${YOUTRACK_URL%/}"  # tolerate a trailing slash in the config
+resp=$(curl -sf -H "Authorization: Bearer $YOUTRACK_TOKEN" -H "Accept: application/json" \
+  "$BASE/api/issues?query=updated:%20Today&fields=idReadable,summary,customFields(name,value(name))&\$top=30")
+case "$resp" in
+  \[*) echo "$resp" ;;                                   # JSON array — good
+  *)   echo "SKIP: YouTrack returned non-JSON (check YOUTRACK_URL/token)" ;;
+esac
 ```
 
-Per issue pull `State` and `Assignee` from `customFields` (each `value` may be null — guard). Weekends legitimately return 0 issues.
+Per issue pull `State` and `Assignee` from `customFields` (each `value` may be null — guard). Weekends legitimately return 0 issues (a `[]` body is a real answer, not a failure).
 
 ## 3. Write the section
 
-Append to today's daily note (Edit tool). If a `## Day Summary` section already exists, replace it — the one exception to append-only, scoped to this skill's own section. One line per bullet, no hard wraps.
+Append to today's daily note (Edit tool). If a `## Daily Summary` section already exists, replace it — the one exception to append-only, scoped to this skill's own section.
 
-```markdown
-## Day Summary
-
-**Done:** Things completions grouped by project/area, one bullet each.
-**YouTrack:** `DEV-XXXX moved to <State> (<assignee>) — <summary>`; resolved issues first.
-**Notes:** touched-folder clusters, e.g. `[[Project Brief]] +2 others in 🧾 Yester - Expenses & Business Trips`.
-**Still open:** unchecked Follow-ups and remaining Today tasks — the honest carry-over list.
-```
+The section is four bold labels — `**Done:**`, `**YouTrack:**`, `**Notes:**`, `**Still open:**` — each on its own line with a Markdown bullet list beneath it. One `-` bullet per item. Never inline prose or semicolon-joined runs. Rules per section:
+- **Done** — one bullet per Things completion. Lead with the project/area name (keep its emoji), then `— <what was done>`.
+- **YouTrack** — `DEV-XXXX <State> (<full assignee name>) — <summary>`. Use the full name, not a first name. Append `, Bug` / `, Epic` after the state when the Type is notable. Order resolved/Done first, then Code Review, In Progress, Open.
+- **Notes** — cluster by folder. A cluster of N gets one bullet with a `— N notes (…)` count; a lone note gets a plain wiki-link bullet. Use `[[note|display]]` when the display label differs from the filename. Never a raw file list.
+- **Still open** — reproduce as `- [ ]` checkboxes: unchecked Follow-ups plus remaining Today tasks. Lead each with its area, then `— <task>`.
 
 Echo the same summary in chat and report the note path written.
-
-## Common mistakes
-
-| Mistake | Fix |
-|---|---|
-| Raw file list under **Notes** | Cluster by folder — iCloud touches mtimes of files nobody edited |
-| Empty YouTrack treated as failure | 200 + `[]` is a real answer (weekends); only skip on non-200/unset vars |
-| Appending a second Day Summary | Replace the existing section on rerun |
-| Forgetting `source ~/.zsh_secrets` | Env vars are not in the harness shell by default |
-| Summarising from conversation memory | Collect from the four sources — the note must reflect the systems, not the chat |
