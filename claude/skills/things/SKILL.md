@@ -35,13 +35,15 @@ Deep link (URL-encode spaces `%20` and emoji, drop the `.md`):
 
 ### Title format
 
-A title is: **`[Project] - [Verb] [specific object] [done-condition]`** — on its own it
-answers "what does done look like". `Agrello Integration - Email Hendrik to push for
-roadmap update` qualifies; `Weekly Review`-style nouns only qualify as repeating rituals.
+A title is: **`[Verb] [specific object] [done-condition]`** — on its own it
+answers "what does done look like". `Email Hendrik to push for roadmap update`
+qualifies; `Weekly Review`-style nouns only qualify as repeating rituals.
 
+- **No project-name prefix.** Placement in the Things project already encodes the project,
+  so a `[Project] -` prefix is redundant — don't add one.
 - One task = one action. A fused title (`X / Y`, `X and Y`) becomes two tasks; a
   destructive action gets its own task naming the target environment.
-- A bug is titled `<Project> - Fix: <symptom>`.
+- A bug is titled `Fix: <symptom>`.
 - A goal with no startable action (`Develop plan to…`) is a Things **project** with a
   concrete first task, per the mirror rule below.
 - Spell correctly — search is how tasks get found again.
@@ -70,20 +72,36 @@ Always heredoc (`osascript <<'EOF' … EOF`) — it survives quotes and emoji.
 |---|---|
 | Read a list | `get name of to dos of list "Today"` (`Inbox`, `Today`, `Upcoming`, `Anytime`, `Someday`, `Logbook`) |
 | Read a project | `get name of to dos of project "🚀 Arthur - AI Assistant"` |
-| Add task | `tell project "X" to make new to do with properties {name:"…", notes:"obsidian://…"}` |
+| Add task | `tell project "X" to make new to do with properties {name:"…", notes:"obsidian://…", tag names:"High"}` — `tag names` per §5, omit when none apply |
 | Add project | `make new project with properties {name:"…", notes:"obsidian://…"}` |
 | Find task | `first to do of project "X" whose name contains "…"` — errors (−1719) when nothing matches, so trap or pre-check |
 | Rename | `set name of theTask to "…"` |
 | Move | `move theTask to project "Y"` |
 | Schedule | `schedule theTask for (current date) + 2 * days` |
 | Deadline | `set due date of theTask to (current date) + 7 * days` |
-
-Date literals use `date "21 July 2026"` format.
+| Tag | `set tag names of theTask to "High"` — comma-separated string, replaces all existing tags |
 | Complete | `set status of theTask to completed` |
 | Cancel | `set status of theTask to canceled` |
 | Delete | `delete theTask` (moves to Trash) |
 
-## 5. Confirmation rules
+Date literals use `date "21 July 2026"` format.
+
+## 5. Tags
+
+Tags cut across projects — they filter along axes placement can't encode, so keep them few. Read the live list with `get name of tags` and reuse exactly; never invent one, and if the user names a tag outside the list, confirm before creating it. Current vocabulary, by axis:
+
+- **Priority** — `High` / `Medium` / `Low`, nested under the `Priority` group.
+- **Status** — `Pending`: delegated or blocked on someone else.
+- **Context** — `Home` (plus any other context tag the live list shows).
+
+Apply at creation time (in the `make new to do` properties), keyed to the request:
+
+- User states priority or an ordering ("1 2 3", "in order of priority", "most important first") → `High` for the top item, `Low` for anything explicitly deprioritised, `Medium` for the rest.
+- User delegates it, or it's blocked on someone else → `Pending`.
+- Task is doable only in a given place or mode → the matching context tag (e.g. `Home`).
+- No such signal → no tags. Placement already encodes the project and sphere — never tag by project or sphere (no `Yester`, `Personal`, `Arthur`).
+
+## 6. Confirmation rules
 
 - Create, read, and complete-when-asked: just do it, report the result.
 - Cancel, delete, rename, or anything touching more than one task: list what will change
@@ -94,9 +112,11 @@ Date literals use `date "21 July 2026"` format.
 | Mistake | Fix |
 |---|---|
 | Detail-stuffed task notes | Title + deep link only; detail → Obsidian |
-| Vague, fused, or symptom-only titles | Apply the Title format: `[Project] - [Verb] [object] [done-condition]`, one action per task |
+| Vague, fused, or symptom-only titles | Apply the Title format: `[Verb] [object] [done-condition]` (no project-name prefix), one action per task |
 | Exact-matching project/area names | Emoji placement varies — match the `Yester - X` / `Personal - X` core |
 | `things:///` URL scheme for writes | AppleScript only |
 | Creating engineering tasks in Things | YouTrack owns those — refuse and point there |
 | `things:///` links inside vault notes | One-direction linking: task → note only |
 | Creating Things projects with no vault twin | Mirror rule — flag drift, don't create |
+| Bare tasks when the request states priority/order or a context | Tag at creation per §5 — don't wait to be asked |
+| Inventing new tags or tagging by project name | Reuse the existing vocabulary; placement already encodes project |
