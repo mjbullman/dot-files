@@ -5,8 +5,9 @@ description: Turn a shaped bet, pitch, or feature description into a YouTrack ep
 
 # shape-to-tasks — pitch → epic + sliced child tasks
 
-Convert a shaped bet into a YouTrack epic plus small vertical-slice child tasks at
-**https://yester.youtrack.cloud** (via the `youtrack` MCP server). The point: every task
+Convert a shaped bet into a YouTrack epic plus small vertical-slice child tasks in your
+YouTrack instance (via the `youtrack` MCP server; base URL is `$YOUTRACK_URL` in
+`~/.zsh_secrets`, needed only to build issue links). The point: every task
 that reaches the board is small enough to finish and test in **one merge**, and detailed
 enough that the developer self-tests before review. Vague tickets are what cause review
 round-trips — this skill exists to make them impossible.
@@ -145,7 +146,7 @@ Once confirmed:
    `Assets Module - Stakeholder Feedback Improvements`.
 3. `link_issues` each child as **subtask of** the epic, and `depends on` between tasks
    where real ordering exists (never dependency prose in descriptions).
-4. Report every ID as a link: `[DEV-123](https://yester.youtrack.cloud/issue/DEV-123)`.
+4. Report every ID as a link: `[DEV-123]($YOUTRACK_URL/issue/DEV-123)` — resolve `$YOUTRACK_URL` from `~/.zsh_secrets`.
 
 ## Epic description format
 

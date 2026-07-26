@@ -1,12 +1,14 @@
 ---
 name: youtrack
-description: YouTrack issue tracker assistant for yester.youtrack.cloud — ad-hoc operations on issues. Use this skill whenever the user mentions issues, tickets, bugs, features, tasks, sprints, backlogs, or YouTrack. Also trigger when the user references an issue ID (e.g. DEV-123), asks "what's in my sprint", "create a ticket", "log a bug", "update issue status", "assign this to someone", "what are my tasks", "comment on this issue", or wants to search, create, update, comment on, or track any YouTrack issue. Trigger even if the user doesn't say "YouTrack" explicitly — context like "open tickets", "current sprint", "backlog items" is enough. For shaping a pitch or feature into an epic with sliced child tasks, hand off to the shape-to-tasks skill instead.
+description: YouTrack issue tracker assistant for your YouTrack instance — ad-hoc operations on issues. Use this skill whenever the user mentions issues, tickets, bugs, features, tasks, sprints, backlogs, or YouTrack. Also trigger when the user references an issue ID (e.g. DEV-123), asks "what's in my sprint", "create a ticket", "log a bug", "update issue status", "assign this to someone", "what are my tasks", "comment on this issue", or wants to search, create, update, comment on, or track any YouTrack issue. Trigger even if the user doesn't say "YouTrack" explicitly — context like "open tickets", "current sprint", "backlog items" is enough. For shaping a pitch or feature into an epic with sliced child tasks, hand off to the shape-to-tasks skill instead.
 ---
 
 # YouTrack — ad-hoc operations
 
-Operate YouTrack at **https://yester.youtrack.cloud** via the `youtrack` MCP server
-(`mcp__youtrack__*` tools). This skill covers day-to-day operations: search, read, comment,
+Operate YouTrack via the `youtrack` MCP server (`mcp__youtrack__*` tools). The instance
+base URL is `$YOUTRACK_URL` in `~/.zsh_secrets` — resolve it (`source ~/.zsh_secrets`) only
+when you need to build issue links; the MCP server already knows the instance and token.
+This skill covers day-to-day operations: search, read, comment,
 update, move, quick creates. **Shaping a bet into an epic + sliced child tasks is not this
 skill's job** — that's the `shape-to-tasks` skill; hand off when the user wants a feature
 broken down. **Also hand off when the user asks to review/clean up existing tickets or an
@@ -132,7 +134,7 @@ Field-only updates (status, priority, assignee) don't need the gate.
 
 ## Presenting results
 
-- Issue IDs as links: `[DEV-123](https://yester.youtrack.cloud/issue/DEV-123)`
+- Issue IDs as links: `[DEV-123]($YOUTRACK_URL/issue/DEV-123)` — resolve `$YOUTRACK_URL` from `~/.zsh_secrets`
 - Lists → table or compact bullets, never raw JSON
 - Single issue → ID, summary, status, assignee, priority, description (truncate if long)
 - Sprint overview → search `Sprint: {Current sprint}`, group by state with counts

@@ -10,8 +10,8 @@ Collect what happened today from four sources, write a `## Daily Summary` sectio
 ## 1. The vault root
 
 ```bash
-VAULT="$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/The Nexus"
-[ -d "$VAULT/10 - Projects" ] || echo "MISSING"  # stop if MISSING — vault not synced
+source ~/.zsh_secrets 2>/dev/null; VAULT="$NEXUS_VAULT"
+[ -d "$VAULT/10 - Projects" ] || echo "MISSING"
 ```
 
 ## 2. Collect

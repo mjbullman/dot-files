@@ -18,7 +18,7 @@ machine — make sure it's synced locally, then try again" and stop. Never answe
 The vault is at a fixed path — no searching. Reuse it as `VAULT`:
 
 ```bash
-VAULT="$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/The Nexus"
+source ~/.zsh_secrets 2>/dev/null; VAULT="$NEXUS_VAULT"  # path lives in ~/.zsh_secrets, not the repo
 [ -d "$VAULT/10 - Projects" ] || echo "MISSING"  # guard only — do not scan for it
 ```
 

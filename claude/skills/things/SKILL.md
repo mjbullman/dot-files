@@ -30,8 +30,8 @@ source note. Step lists, acceptance criteria, and context never go in task notes
 detail lives in Obsidian (use the capture skill, then link it). Never put `things:///`
 links into vault notes; linking is one-direction, task → note.
 
-Deep link (URL-encode spaces `%20` and emoji, drop the `.md`):
-`obsidian://open?vault=The%20Nexus&file=10%20-%20Projects%2F<encoded folder>%2F<encoded note>`
+Deep link — resolve the vault name at runtime with `source ~/.zsh_secrets 2>/dev/null; basename "$NEXUS_VAULT"`, then URL-encode it (spaces `%20`, emoji) and drop the `.md`:
+`obsidian://open?vault=<url-encoded vault name>&file=10%20-%20Projects%2F<encoded folder>%2F<encoded note>`
 
 ### Title format
 
