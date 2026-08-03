@@ -76,7 +76,7 @@ Always heredoc (`osascript <<'EOF' … EOF`) — it survives quotes and emoji.
 | Add project | `make new project with properties {name:"…", notes:"obsidian://…"}` |
 | Find task | `first to do of project "X" whose name contains "…"` — errors (−1719) when nothing matches, so trap or pre-check |
 | Rename | `set name of theTask to "…"` |
-| Move | `move theTask to project "Y"` |
+| Move | `set project of theTask to project "Y"` — use this, **not** `move theTask to project "Y"`, which throws error 301 when moving a to-do out of an Area into a project |
 | Schedule | `schedule theTask for (current date) + 2 * days` |
 | Deadline | `set due date of theTask to (current date) + 7 * days` |
 | Tag | `set tag names of theTask to "High"` — comma-separated string, replaces all existing tags |
