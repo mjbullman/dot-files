@@ -56,10 +56,22 @@ Per issue pull `State` and `Assignee` from `customFields` (each `value` may be n
 
 Append to today's daily note (Edit tool). If a `## Daily Summary` section already exists, replace it — the one exception to append-only, scoped to this skill's own section.
 
-The section is four bold labels — `**Done:**`, `**YouTrack:**`, `**Notes:**`, `**Still open:**` — each on its own line with a Markdown bullet list beneath it. One `-` bullet per item. Never inline prose or semicolon-joined runs. Rules per section:
-- **Done** — one bullet per Things completion. Lead with the project/area name (keep its emoji), then `— <what was done>`.
-- **YouTrack** — `DEV-XXXX <State> (<full assignee name>) — <summary>`. Use the full name, not a first name. Append `, Bug` / `, Epic` after the state when the Type is notable. Order resolved/Done first, then Code Review, In Progress, Open.
-- **Notes** — cluster by folder. A cluster of N gets one bullet with a `— N notes (…)` count; a lone note gets a plain wiki-link bullet. Use `[[note|display]]` when the display label differs from the filename. Never a raw file list.
-- **Still open** — reproduce as `- [ ]` checkboxes: unchecked Follow-ups plus remaining Today tasks. Lead each with its area, then `— <task>`.
+The section is a scannable, grouped digest — not four flat lists. Use `###` sub-headings (the section title stays `## Daily Summary`). One `-` bullet per item; never inline prose or semicolon-joined runs. Order and content:
 
-Echo the same summary in chat and report the note path written.
+**Open with a native `> [!success] Overview` callout** (green) — the title on the `[!success]` line, then the body on `> `-prefixed lines: one or two sentences on the shape of the day (how many shipped, the dominant theme, the live threads). Use native callouts, NOT the Admonition plugin's ` ```ad-* ` fences — Admonition blocks render with an ugly gap between title and content; native callouts render as one cohesive box and pick up the `callout-solid-fix` snippet styling. No heading, no bold label.
+
+**A native `> [!danger] Needs My Attention` callout** (red) — the title on the `[!danger]` line, then the bullets as `> `-prefixed `-` items. This is the analytical layer, and the point of the summary. 3–6 bullets synthesised across all sources: data-integrity or security bugs, responses owed (tickets/messages "sent to you"), the user's own In Progress work, items captured but never turned into tickets, and stale personal/admin items (weekly review, time-sensitive personal tasks). Lead each bullet with a **bold** subject, then the why/action. This is judgement, not a data dump — surface what matters, skip the rest.
+
+**`### Done Today`** — two labelled blocks:
+- `**Things (<context>):**` — one bullet per Things completion, each a short past-tense phrase.
+- `**YouTrack shipped (<N> Done):**` — group the Done issues under *italic* sub-labels by module/theme, and where one person owns a cluster name them in the label, e.g. `*Business Trips & Expenses (Herbert-Ken Ymera):*`. Within a group, one bullet per issue as `DEV-XXXX — <summary>` (state is implied by the group; append `, Bug` / `, Epic` after the id when the Type is notable). Use full names, never first-name-only.
+
+**`### In Flight`** — `**Code Review:**` then `**In Progress:**` blocks. Each bullet `DEV-XXXX (<full assignee name>) — <summary>`. Put the user's own issues first within each block.
+
+**`### Open / Backlog`** — remaining Open issues grouped under **bold** module labels (Business Trips, Job Families & Occupational Groups, Bugs, …). Each bullet `DEV-XXXX, <Type if notable> (<full assignee name>) — <summary>`.
+
+**`### Notes`** — cluster by folder. A cluster of N gets one bullet with a `— N notes (…)` count; a lone note gets a plain wiki-link bullet. Use `[[note|display]]` when the display label differs from the filename. Never a raw file list.
+
+**`### Still Open (my tasks)`** — `- [ ]` checkboxes (unchecked Follow-ups plus remaining Today tasks), grouped under **bold** area labels (Sprint 66, Expenses & Business Trips, Work Schedules, Infrastructure, Personal, …). Keep each area's emoji where the Things project/area carries one.
+
+Echo the same digest in chat (including the `⚠ Needs My Attention` points) and report the note path written.
