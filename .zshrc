@@ -156,3 +156,13 @@ if command -v jenv &>/dev/null; then
   eval "$(jenv init -)"
 fi
 
+# Init fnm (Fast Node Manager). Placed last so its shim precedes Homebrew's node on PATH.
+if command -v fnm &>/dev/null; then
+  eval "$(fnm env --use-on-cd)"
+fi
+
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/martinbullman/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
