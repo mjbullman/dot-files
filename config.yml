@@ -30,6 +30,6 @@ gui:
     defaultFgColor:
       - "#cdd6f4"
 git:
-  pagers:
+  diffRenderers:
     - colorArg: always
-      pager: delta --features="catppuccin-mocha colorblind-diff" --paging=never
+      command: delta --features="catppuccin-mocha colorblind-diff" --paging=never
