@@ -103,6 +103,8 @@ wk.add({
     { '<leader>gr', desc = 'Reset hunk' },
     { '<leader>gp', desc = 'Preview hunk' },
     { '<leader>gb', desc = 'Blame line' },
+    { '<leader>gi', desc = 'GitHub issues' },
+    { '<leader>gP', desc = 'GitHub PRs' },
 
     -- Java (buffer-local, set by nvim-jdtls)
     { '<leader>jo', desc = 'Organize imports' },

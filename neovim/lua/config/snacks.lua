@@ -111,4 +111,4 @@ vim.keymap.set('n', '<leader>gf', function() Snacks.lazygit.log_file() end, { de
 vim.keymap.set('n', '<leader>gl', function() Snacks.lazygit.log() end,      { desc = 'LazyGit Log' })
 
 vim.keymap.set('n', '<leader>gi', function() Snacks.gh.issue() end, { desc = 'GitHub Issues' })
-vim.keymap.set('n', '<leader>gp', function() Snacks.gh.pr() end,    { desc = 'GitHub PRs' })
+vim.keymap.set('n', '<leader>gP', function() Snacks.gh.pr() end,    { desc = 'GitHub PRs' })
