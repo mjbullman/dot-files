@@ -21,7 +21,7 @@ require('snacks').setup({
             keys = {
                 { icon = '󰊳', key = 'u', desc = 'Update Plugins', action = ':Lazy update' },
                 { icon = '', key = 'f', desc = 'Find Files',      action = ':Telescope find_files' },
-                { icon = '', key = 'd', desc = 'Dotfiles',        action = ':Telescope dotfiles' },
+                { icon = '', key = 'd', desc = 'Dotfiles',        action = ':Telescope find_files cwd=~/.dotfiles' },
                 { icon = '', key = 'q', desc = 'Quit',            action = ':qa' },
             },
         },

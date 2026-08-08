@@ -147,7 +147,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
             buffer = ev.buf,
             desc = 'Quick fix (apply first action)',
         })
-        vim.keymap.set('n', '<leader>rn', function() Snacks.rename.rename() end, {
+        vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, {
             buffer = ev.buf,
             desc = 'Rename symbol',
         })

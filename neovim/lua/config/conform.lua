@@ -42,14 +42,5 @@ require('conform').setup({
     },
 })
 
--- =============================
--- Conform Keymaps
--- =============================
-
-vim.keymap.set({ 'n', 'v' }, '<leader>lf', function()
-    require('conform').format({
-        lsp_fallback = true,
-        async = false,
-        timeout_ms = 500,
-    })
-end, { desc = 'Format buffer or range' })
+-- keymap (<leader>lf) lives in plugins/conform.lua so it is available before
+-- the plugin loads — see the `keys` spec there.
