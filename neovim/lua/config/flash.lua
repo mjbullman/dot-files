@@ -43,7 +43,9 @@ map({ 'n', 'x', 'o' }, 's', function() require('flash').jump() end,
     { desc = 'Flash: Jump' })
 
 -- treesitter-aware selection
-map({ 'n', 'x', 'o' }, 'S', function() require('flash').treesitter() end,
+-- deliberately NOT mapped in visual mode: nvim-surround owns visual `S`
+-- (surround selection), which is the older/more standard idiom.
+map({ 'n', 'o' }, 'S', function() require('flash').treesitter() end,
     { desc = 'Flash: Treesitter' })
 
 -- remote flash (operate on distant text without moving cursor)
