@@ -131,10 +131,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
             buffer = ev.buf,
             desc = 'Signature help',
         })
-        vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, {
-            buffer = ev.buf,
-            desc = 'Signature help (insert mode)',
-        })
+        -- no insert-mode <C-k>: it shadowed blink's completion-menu nav.
+        -- blink shows signature help automatically (signature.enabled = true).
 
         -- code actions
         vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, {
