@@ -16,7 +16,18 @@ vim.g.maplocalleader = ' '
 -- -----------------------------
 -- diagnostics
 -- -----------------------------
-map('n', '<leader>d', vim.diagnostic.open_float, {
+-- open_float is line-scoped and silently does nothing when the cursor line is
+-- clean, which is indistinguishable from a broken keymap. Say so instead.
+map('n', '<leader>df', function()
+    if vim.diagnostic.open_float() == nil then
+        local total = #vim.diagnostic.get(0)
+        vim.notify(
+            total == 0 and 'No diagnostics in this buffer'
+                or ('No diagnostics on this line (' .. total .. ' in buffer)'),
+            vim.log.levels.INFO
+        )
+    end
+end, {
     desc = 'Open diagnostic float'
 })
 map('n', '<leader>dd', vim.diagnostic.setloclist, {

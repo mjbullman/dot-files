@@ -72,7 +72,7 @@ wk.add({
     { '<leader>cf', desc = 'Quick fix (first action)' },
 
     -- Debug/Diagnostics
-    { '<leader>d', desc = 'Show diagnostic float' },
+    { '<leader>df', desc = 'Show diagnostic float' },
     { '<leader>dd', desc = 'Diagnostic location list' },
     { '<leader>dt', desc = 'Toggle breakpoint' },
     { '<leader>dc', desc = 'Continue debugging' },
