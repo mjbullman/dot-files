@@ -125,12 +125,13 @@ wk.add({
     { '<leader>ls', desc = 'Document symbols' },
     { '<leader>lS', desc = 'Workspace symbols' },
     { '<leader>lf', desc = 'Format buffer/range' },
+    { '<leader>lc', desc = 'Run code lens' },
 
     -- Toggle
     { '<leader>th', desc = 'Toggle inlay hints' },
     { '<leader>tb', desc = 'Toggle git blame' },
     { '<leader>td', desc = 'Toggle deleted (git)' },
-    { '<leader>tl', desc = 'Toggle LSP lens (reference counts)' },
+    { '<leader>tl', desc = 'Toggle code lens' },
 
     -- Workspace (LSP buffer-local)
     { '<leader>wa', desc = 'Add workspace folder' },

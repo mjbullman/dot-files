@@ -50,6 +50,8 @@ return {
             },
         },
         typescript = {
+            referencesCodeLens = { enabled = true, showOnAllFunctions = true },
+            implementationsCodeLens = { enabled = true },
             suggest = {
                 completeFunctionCalls = true,
             },
@@ -65,6 +67,8 @@ return {
             },
         },
         javascript = {
+            referencesCodeLens = { enabled = true, showOnAllFunctions = true },
+            implementationsCodeLens = { enabled = true },
             suggest = {
                 completeFunctionCalls = true,
             },

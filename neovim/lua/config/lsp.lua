@@ -76,6 +76,16 @@ vim.keymap.set('n', '<leader>li', '<cmd>LspInfo<cr>', { desc = 'LSP Info' })
 vim.keymap.set('n', '<leader>ll', '<cmd>LspLog<cr>', { desc = 'LSP Log' })
 vim.keymap.set('n', '<leader>lr', '<cmd>LspRestart<cr>', { desc = 'LSP Restart' })
 
+-- code lens (native; only servers that advertise codeLensProvider)
+vim.lsp.codelens.enable(true)
+
+vim.keymap.set('n', '<leader>lc', vim.lsp.codelens.run, { desc = 'Run code lens' })
+vim.keymap.set('n', '<leader>tl', function()
+    local on = not vim.lsp.codelens.is_enabled()
+    vim.lsp.codelens.enable(on)
+    vim.notify('Code lens: ' .. tostring(on), vim.log.levels.INFO)
+end, { desc = 'Toggle code lens' })
+
 -- =============================
 -- LSP keymaps (buffer-local)
 -- =============================

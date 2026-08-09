@@ -16,6 +16,7 @@ return {
     settings = {
         Lua = {
             runtime = { version = 'LuaJIT' },
+            codeLens = { enable = true },
             diagnostics = { globals = { 'vim' } },
             workspace = {
                 library = vim.api.nvim_get_runtime_file('', true),
