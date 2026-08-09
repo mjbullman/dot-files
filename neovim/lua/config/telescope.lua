@@ -6,6 +6,12 @@
 local builtin = require('telescope/builtin')
 local actions = require('telescope.actions')
 
+local file_ignore_patterns = {
+    'node_modules',
+    '.git/',
+    '.venv',
+}
+
 require('telescope').setup({
     extensions = {
         ['ui-select'] = {
@@ -48,11 +54,13 @@ require('telescope').setup({
                 ['q'] = actions.close,
             },
         },
-        file_ignore_patterns = {
-            'node_modules',
-            '.git/',
-            '.venv',
-        },
+    },
+    -- scoped to file-searching pickers only: in `defaults` these also strip
+    -- LSP results, so go-to-definition into node_modules returned nothing
+    pickers = {
+        find_files = { file_ignore_patterns = file_ignore_patterns },
+        live_grep = { file_ignore_patterns = file_ignore_patterns },
+        oldfiles = { file_ignore_patterns = file_ignore_patterns },
     },
 })
 
