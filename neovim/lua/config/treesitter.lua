@@ -7,10 +7,13 @@ local ts = require('nvim-treesitter')
 
 -- Install parsers that aren't already installed
 local ensure_installed = {
+    'c',
     'lua',
     'css',
+    'cpp',
     'vue',
     'php',
+    'zsh',
     'tsx',
     'yaml',
     'toml',
