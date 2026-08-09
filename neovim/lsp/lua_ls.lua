@@ -8,7 +8,12 @@ return {
         vim.fn.expand('~/.local/share/nvim/mason/bin/lua-language-server')
     },
     root_markers = {
-        '.luarc.json'
+        '.luarc.json',
+        '.luarc.jsonc',
+        '.stylua.toml',
+        'stylua.toml',
+        'lazy-lock.json',
+        '.git'
     },
     filetypes = {
         'lua'
