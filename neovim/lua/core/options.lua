@@ -101,7 +101,7 @@ vim.opt.pumheight = 12
 vim.api.nvim_create_autocmd('TextYankPost', {
     group = vim.api.nvim_create_augroup('HighlightYank', {}),
     callback = function()
-        vim.highlight.on_yank({
+        vim.hl.on_yank({
             higroup = 'IncSearch',
             timeout = 200,
         })

@@ -33,10 +33,19 @@ end, {
 map('n', '<leader>dd', vim.diagnostic.setloclist, {
     desc = 'Set location list with diagnostics'
 })
-map('n', '[d', vim.diagnostic.goto_prev, vim.tbl_extend('force', opts, {
+-- show the diagnostic after jumping to it
+local function on_jump(_, bufnr)
+    vim.diagnostic.open_float({ bufnr = bufnr, scope = 'cursor', focus = false })
+end
+
+map('n', '[d', function()
+    vim.diagnostic.jump({ count = -1, on_jump = on_jump })
+end, vim.tbl_extend('force', opts, {
     desc = 'Go to previous diagnostic'
 }))
-map('n', ']d', vim.diagnostic.goto_next, vim.tbl_extend('force', opts, {
+map('n', ']d', function()
+    vim.diagnostic.jump({ count = 1, on_jump = on_jump })
+end, vim.tbl_extend('force', opts, {
     desc = 'Go to next diagnostic'
 }))
 
