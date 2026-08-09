@@ -31,6 +31,8 @@ require('mason-tool-installer').setup({
         'lua-language-server',
         'vue-language-server',
         'bash-language-server',
+        -- required by nvim-treesitter (main) to compile parsers
+        'tree-sitter-cli',
         -- formatters / linters
         'ruff',
         'black',
