@@ -84,12 +84,6 @@ vim.keymap.set('n', '<leader>lr', '<cmd>LspRestart<cr>', { desc = 'LSP Restart' 
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('UserLspConfig', {}),
     callback = function(ev)
-        -- populate diagnostics for all project files (not just open buffers)
-        local client = vim.lsp.get_client_by_id(ev.data.client_id)
-        if client and client.config.filetypes then
-            require('workspace-diagnostics').populate_workspace_diagnostics(client, ev.buf)
-        end
-
         -- navigation with Telescope LSP pickers (better UI)
         vim.keymap.set('n', 'gd', '<cmd>Telescope lsp_definitions<cr>', {
             buffer = ev.buf,

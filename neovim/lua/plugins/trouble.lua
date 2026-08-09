@@ -5,9 +5,8 @@
 
 return {
     'folke/trouble.nvim',
-    dependencies = { 
+    dependencies = {
         'nvim-tree/nvim-web-devicons',
-        'artemave/workspace-diagnostics.nvim'
     },
     config = function()
         require('config.trouble')
