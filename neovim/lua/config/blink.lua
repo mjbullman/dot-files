@@ -5,17 +5,11 @@
 
 require('blink.cmp').setup({
     enabled = function()
-        -- disable in ChatGPT input windows and prompts
         local buftype = vim.api.nvim_get_option_value('buftype', { buf = 0 })
         local filetype = vim.api.nvim_get_option_value('filetype', { buf = 0 })
 
-        -- disable in prompt buffers (ChatGPT input)
+        -- disable in prompt-style buffers
         if buftype == 'prompt' then
-            return false
-        end
-
-        -- disable in ChatGPT-related filetypes
-        if filetype == 'chatgpt-input' or filetype == 'chatgpt' then
             return false
         end
 
