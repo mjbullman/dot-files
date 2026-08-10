@@ -46,7 +46,7 @@ Uses Neovim's built-in LSP (`vim.lsp.enable` / `vim.lsp.config`) — not nvim-ls
 - **Global LSP configuration** in `neovim/lua/config/lsp.lua`:
   - Sets Blink.cmp capabilities for all servers via `vim.lsp.config('*', {...})`
   - Diagnostic UI, inlay hints, and LspAttach keybindings
-  - Enabled servers: `vtsls`, `vue_ls`, `lua_ls`, `clangd`, `css_ls`, `rust_analyzer`, `html_ls`, `eslint_ls`, `basedpyright`, `jsonls`, `marksman`, `bashls`, `ruff`
+  - Enabled servers: `vtsls`, `vue_ls`, `lua_ls`, `clangd`, `css_ls`, `rust_analyzer`, `html_ls`, `eslint_ls`, `basedpyright`, `jsonls`, `marksman`, `bashls`, `ruff`, `dockerls`
 - **Per-server configs** in `neovim/lsp/*.lua`: Auto-loaded by `vim.lsp.enable()`, one file per server
 - **LSP keybindings** (set in LspAttach autocmd):
   - Navigation: `gd` (definition), `gD` (declaration), `gi` (implementation), `gr` (references), `gt` (type definition)
@@ -59,23 +59,24 @@ Uses Neovim's built-in LSP (`vim.lsp.enable` / `vim.lsp.config`) — not nvim-ls
 Vue requires two servers working together — `vue_ls` handles templates/styles, `vtsls` handles TypeScript including `<script setup>`:
 - `neovim/lsp/vtsls.lua`: Includes `vue` in filetypes + loads `@vue/typescript-plugin` via `globalPlugins`
   - **Critical**: `enableForWorkspaceTypeScriptVersions = true` is required when `autoUseWorkspaceTsdk = true`, otherwise the plugin location is silently ignored
-  - Plugin path: `@vue/typescript-plugin` (inside Mason's `vue-language-server` package)
+  - **Critical (Vue 2)**: Mason's `vue-language-server` package installs two conflicting `@vue/typescript-plugin` versions. Point at the **nested** one — `node_modules/@vue/language-server/node_modules/@vue/typescript-plugin` (v3.0.0, still supports Vue 2) — NOT the top-level `node_modules/@vue/typescript-plugin` (v3.2.4, dropped Vue 2 in v3.1). See `neovim/lsp/vtsls.lua`.
   - No `.git` in root_markers — prevents anchoring to git root instead of the project dir with `tsconfig.json`
 - `neovim/lsp/vue_ls.lua`: Implements the `tsserver/request` bridge in `on_init` to forward TypeScript requests to vtsls (mandatory in vue-language-server v3 — standalone mode was removed)
 - Run `nuxt prepare` after pulling Nuxt projects to regenerate `.nuxt/` type declarations
 
+**Java LSP (jdtls)**:
+Java is handled separately from the `vim.lsp.enable()` list, via the `nvim-jdtls` plugin (`neovim/lua/plugins/jdtls.lua`, config in `neovim/lua/config/jdtls.lua`) which starts on `java` filetype. It depends on `nvim-dap` for debugging.
+
 **Completion System**:
 - **Blink.cmp** (`neovim/lua/plugins/blink.lua`): Modern completion engine replacing nvim-cmp
   - Sources: LSP, Codeium, snippets, path, buffer
-  - Special handling to disable in ChatGPT buffers
   - Custom keybindings: `<Tab>` (accept), `<C-j/k>` (next/prev), `<C-Space>` (show), `<C-y>` (select and accept)
   - Integrated with vim.snippet for snippet expansion
   - Configuration in `neovim/lua/config/blink.lua`
 
 **AI Coding Assistants**:
-- **Codeium** (`neovim/lua/plugins/codeium.lua`): Free AI completion integrated via Blink.cmp
-- **GitHub Copilot Chat** (`neovim/lua/plugins/copilotchat.lua`): Interactive AI assistance
-- **ChatGPT** (`neovim/lua/plugins/chatgpt.lua`): ChatGPT integration for code explanation and generation
+- **Codeium** (`neovim/lua/plugins/codeium.lua`, config in `lua/config/codeium.lua`): Free AI completion. Configured as virtual text (`enable_cmp_source = false`).
+- **Supermaven** (`neovim/lua/plugins/supermaven.lua`, config in `lua/config/supermaven.lua`): Inline AI completion. Accept with `<C-l>` (kept off `<Tab>` to avoid conflicting with Blink.cmp).
 
 **Plugin Management** (`lua/plugins/`):
 Each file defines related plugins for lazy.nvim. Key plugins include:
@@ -132,7 +133,6 @@ Configuration files in root:
 - `.gitconfig`: Git configuration (includes `~/.gitconfig.local` for personal info)
 - `config.yml`: Lazygit configuration
 - `.p10k.zsh`: Powerlevel10k configuration (legacy, Starship is active)
-- `neofetch.conf`: Neofetch system info display configuration
 
 Neovim files:
 - `neovim/init.lua`: Entry point
@@ -171,7 +171,5 @@ Neovim files:
 3. Higher `score_offset` values prioritize the source (LSP=100, Codeium=85, snippets=50, etc.)
 
 **AI Assistant Integration**:
-- Codeium provides inline completions via Blink.cmp (free, no API key needed)
-- ChatGPT requires an API key stored in environment or config
-- Copilot Chat requires GitHub Copilot subscription
-- Blink.cmp is disabled in ChatGPT buffers to prevent interference (configured in `neovim/lua/config/blink.lua`)
+- Codeium provides completions (free, no API key needed); configured as virtual text
+- Supermaven provides inline completions; accept with `<C-l>`
