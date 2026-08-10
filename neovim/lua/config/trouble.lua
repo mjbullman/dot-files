@@ -9,6 +9,8 @@ require('trouble').setup({
         position = 'right',
         size     = { width = 0.4 },
         border   = 'rounded',
+        -- global wrap is off, which truncates long diagnostics in the panel
+        wo       = { wrap = true, linebreak = true, breakindent = true },
     },
     icons = {
         error   = '✘',

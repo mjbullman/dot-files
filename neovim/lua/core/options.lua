@@ -90,8 +90,8 @@ vim.opt.confirm = true
 -- enable 24-bit RGB colors
 vim.opt.termguicolors = true
 
--- completion popup behavior (JetBrains-like preselection flow)
-vim.opt.completeopt = { 'menu', 'menuone', 'noinsert', 'noselect', 'popup' }
+-- native completion only (<C-x><C-o>); blink.cmp draws its own menu
+vim.opt.completeopt = { 'menu', 'menuone', 'noselect', 'popup' }
 vim.opt.pumheight = 12
 
 

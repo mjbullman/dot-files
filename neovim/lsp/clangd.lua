@@ -10,7 +10,6 @@ return {
         '--all-scopes-completion',
         '--completion-style=detailed',
         '--header-insertion=iwyu',
-        '--cross-file-rename',
     },
     root_markers = {
         'compile_commands.json',
