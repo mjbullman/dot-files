@@ -5,7 +5,7 @@
 
 return {
     cmd = {
-        vim.fn.expand('~/.local/share/nvim/mason/bin/vscode-html-language-server'),
+        vim.fn.stdpath('data') .. '/mason/bin/vscode-html-language-server',
         '--stdio'
     },
     root_markers = {

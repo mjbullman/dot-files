@@ -5,7 +5,7 @@
 
 return {
     cmd = {
-        vim.fn.expand('~/.local/share/nvim/mason/bin/rust-analyzer'),
+        vim.fn.stdpath('data') .. '/mason/bin/rust-analyzer',
     },
     root_markers = {
         'Cargo.toml',
