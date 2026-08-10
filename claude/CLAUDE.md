@@ -37,3 +37,4 @@ Include:
 
 - Don't commit or push unless I ask; if on main, branch first.
 - Verify changes actually work (show the command/output) rather than asserting they do.
+- Obsidian vault deletes are permanent (`obsidian_delete_file` does not use `.trash`). Before deleting any vault file, copy it into the vault's `.trash/` folder yourself first.
