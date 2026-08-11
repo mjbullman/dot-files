@@ -5,13 +5,14 @@
 
 return {
     {
-        'williamboman/mason.nvim',
+        'mason-org/mason.nvim',
         cmd = 'Mason',
         build = ':MasonUpdate',
     },
     {
         'WhoIsSethDaniel/mason-tool-installer.nvim',
-        dependencies = { 'williamboman/mason.nvim' },
+        event = 'VeryLazy',
+        dependencies = { 'mason-org/mason.nvim' },
         config = function()
             require('config.mason')
         end,

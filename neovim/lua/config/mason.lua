@@ -35,7 +35,6 @@ require('mason-tool-installer').setup({
         'tree-sitter-cli',
         -- formatters / linters
         'ruff',
-        'black',
         'stylua',
         'prettier',
         -- java debug / test
