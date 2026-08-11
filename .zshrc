@@ -151,14 +151,15 @@ case "$(uname -s)" in
     Linux)  [[ -f ~/.zsh_aliases_linux ]] && source ~/.zsh_aliases_linux ;;
 esac
 
-# Init jenv (Java version manager).
-if command -v jenv &>/dev/null; then
-  eval "$(jenv init -)"
-fi
-
-# Init fnm (Fast Node Manager). Placed last so its shim precedes Homebrew's node on PATH.
+# Init fnm (Fast Node Manager). Placed late so its shim precedes Homebrew's node on PATH.
 if command -v fnm &>/dev/null; then
   eval "$(fnm env --use-on-cd)"
+fi
+
+# Init jenv (Java version manager) last, so a project pinning a version via .java-version
+# wins over the JAVA_HOME default set in .zprofile_mac.
+if command -v jenv &>/dev/null; then
+  eval "$(jenv init -)"
 fi
 
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.

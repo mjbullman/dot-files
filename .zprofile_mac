@@ -26,6 +26,15 @@ if [ -d "$HOME/Library/Application Support/JetBrains/Toolbox/scripts" ]; then
     export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
 fi
 
+# java path settings. openjdk@25 (current LTS) is keg-only, so it is not linked into
+# /opt/homebrew/bin. This lives in .zprofile rather than .zshrc because Homebrew's mvn
+# wrapper falls back to a hardcoded /opt/homebrew/opt/openjdk path when JAVA_HOME is
+# unset — and that path no longer exists — so non-interactive shells need it too.
+if [ -d "/opt/homebrew/opt/openjdk@25/libexec/openjdk.jdk/Contents/Home" ]; then
+    export JAVA_HOME="/opt/homebrew/opt/openjdk@25/libexec/openjdk.jdk/Contents/Home"
+    export PATH="$JAVA_HOME/bin:$PATH"
+fi
+
 # ruby path settings.
 if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
     export PATH=/opt/homebrew/opt/ruby/bin:$PATH

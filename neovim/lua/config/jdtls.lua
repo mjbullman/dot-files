@@ -55,10 +55,34 @@ end
 -- =============================
 -- jdtls configuration
 -- =============================
+-- jdtls itself requires Java 21+ to run. Resolve the binary at runtime instead of
+-- hardcoding a versioned Homebrew path: the /opt/homebrew/opt/openjdk@<n> aliases are
+-- left behind by upgraded formulae, so they can disappear or silently resolve to a
+-- different JDK than their name suggests.
+local function resolve_java()
+    local candidates = {}
+
+    -- jenv's export plugin sets JAVA_HOME to the active version
+    if vim.env.JAVA_HOME and vim.env.JAVA_HOME ~= '' then
+        table.insert(candidates, vim.env.JAVA_HOME .. '/bin/java')
+    end
+
+    table.insert(candidates, '/opt/homebrew/opt/openjdk@25/libexec/openjdk.jdk/Contents/Home/bin/java')
+
+    for _, candidate in ipairs(candidates) do
+        if vim.fn.executable(candidate) == 1 then
+            return candidate
+        end
+    end
+
+    -- last resort: whatever java is on PATH
+    local on_path = vim.fn.exepath('java')
+    return on_path ~= '' and on_path or 'java'
+end
+
 local config = {
     cmd = {
-        -- jdtls itself requires Java 21+ to run
-        '/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home/bin/java',
+        resolve_java(),
         '-Declipse.application=org.eclipse.jdt.ls.core.id1',
         '-Dosgi.bundles.defaultStartLevel=4',
         '-Declipse.product=org.eclipse.jdt.ls.core.product',
@@ -93,19 +117,15 @@ local config = {
             contentProvider = { preferred = 'fernflower' },
             configuration = {
                 updateBuildConfiguration = 'interactive',
+                -- Only JDK 25 (current LTS) is installed; 17, 21 and 22 were removed.
+                -- Do NOT point entries at /opt/homebrew/opt/openjdk@<n> without checking
+                -- what they resolve to: those aliases are left behind by upgraded
+                -- formulae and can silently resolve to a completely different JDK.
                 runtimes = {
                     {
-                        name = 'JavaSE-17',
-                        path = '/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home',
+                        name = 'JavaSE-25',
+                        path = '/opt/homebrew/opt/openjdk@25/libexec/openjdk.jdk/Contents/Home',
                         default = true,
-                    },
-                    {
-                        name = 'JavaSE-21',
-                        path = '/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home',
-                    },
-                    {
-                        name = 'JavaSE-22',
-                        path = '/Users/martinbullman/Library/Java/JavaVirtualMachines/openjdk-22.0.2/Contents/Home',
                     },
                 },
             },
