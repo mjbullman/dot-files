@@ -89,6 +89,7 @@ wk.add({
     -- Find (Telescope)
     { '<leader>ff', desc = 'Find files' },
     { '<leader>fg', desc = 'Live grep (search text)' },
+    { '<leader>fr', desc = 'Find & replace (grug-far)' },
     { '<leader>fh', desc = 'Help tags' },
     { '<leader>f.', desc = 'Recent files' },
     { '<leader>fd', desc = 'Diagnostics' },
@@ -139,7 +140,6 @@ wk.add({
     { '<leader>wl', desc = 'List workspace folders' },
 
     -- File operations
-    { '<leader>s', desc = 'Save file' },
     { '<leader>q', desc = 'Quit window' },
     { '<leader>Q', desc = 'Quit all (no save)' },
 

@@ -57,9 +57,6 @@ map({'n', 'v'}, '<Space>', '<Nop>', {
     silent = true,
     desc = 'Disable space key default behavior'
 })
-map('n', '<leader>s', '<cmd>w<CR>', {
-    desc = 'Save file'
-})
 map('n', '<leader>q', '<cmd>q<CR>', {
     desc = 'Quit window'
 })
