@@ -9,9 +9,6 @@ local dapui = require('dapui')
 -- Setup DAP UI
 require('dapui').setup()
 
--- Setup DAP for Go
-require('dap-go').setup()
-
 -- Setup virtual text for DAP
 require('nvim-dap-virtual-text').setup()
 

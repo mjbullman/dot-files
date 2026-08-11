@@ -75,8 +75,8 @@ Java is handled separately from the `vim.lsp.enable()` list, via the `nvim-jdtls
   - Configuration in `neovim/lua/config/blink.lua`
 
 **AI Coding Assistants**:
-- **Codeium** (`neovim/lua/plugins/codeium.lua`, config in `lua/config/codeium.lua`): Free AI completion. Configured as virtual text (`enable_cmp_source = false`).
-- **Supermaven** (`neovim/lua/plugins/supermaven.lua`, config in `lua/config/supermaven.lua`): Inline AI completion. Accept with `<C-l>` (kept off `<Tab>` to avoid conflicting with Blink.cmp).
+- **Codeium** (`neovim/lua/plugins/codeium.lua`, config in `lua/config/codeium.lua`): Free AI completion. Configured as virtual text (`enable_cmp_source = false`), and wired into Blink.cmp as a source.
+- **Supermaven** (`neovim/lua/plugins/supermaven.lua`, config in `lua/config/supermaven.lua`): Inline AI completion. Accept with `<C-l>` (kept off `<Tab>` to avoid conflicting with Blink.cmp). Currently `enabled = false` — Codeium is the active assistant.
 
 **Plugin Management** (`lua/plugins/`):
 Each file defines related plugins for lazy.nvim. Key plugins include:

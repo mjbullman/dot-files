@@ -12,7 +12,6 @@ local ensure_installed = {
     'css',
     'cpp',
     'vue',
-    'php',
     'zsh',
     'tsx',
     'yaml',
