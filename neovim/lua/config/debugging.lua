@@ -26,4 +26,141 @@ dap.listeners.before.event_exited.dapui_config = function()
     dapui.close()
 end
 
--- keymaps live in plugins/debugging.lua so they work before the plugin loads
+-- =============================
+-- JavaScript / TypeScript / Vue
+-- =============================
+
+local mason_bin = vim.fn.stdpath('data') .. '/mason/bin'
+
+-- one js-debug binary serves both adapters; ${port} lets nvim pick a free port
+for _, adapter in ipairs({ 'pwa-node', 'pwa-chrome' }) do
+    dap.adapters[adapter] = {
+        type = 'server',
+        host = 'localhost',
+        port = '${port}',
+        executable = {
+            command = mason_bin .. '/js-debug-adapter',
+            args = { '${port}' },
+        },
+    }
+end
+
+local js_configurations = {
+    {
+        type = 'pwa-node',
+        request = 'launch',
+        name = 'Vitest: current file',
+        runtimeExecutable = 'npx',
+        runtimeArgs = { 'vitest', 'run', '--no-coverage', '${file}' },
+        cwd = '${workspaceFolder}',
+        console = 'integratedTerminal',
+        sourceMaps = true,
+        skipFiles = { '<node_internals>/**', '**/node_modules/**' },
+    },
+    {
+        -- requires the dev server started with: nuxt dev --inspect
+        type = 'pwa-node',
+        request = 'attach',
+        name = 'Attach to Nuxt dev server (SSR / server routes)',
+        port = 9229,
+        cwd = '${workspaceFolder}',
+        sourceMaps = true,
+        restart = true,
+        skipFiles = { '<node_internals>/**', '**/node_modules/**' },
+    },
+    {
+        -- requires chrome started with: --remote-debugging-port=9222
+        -- sourceMapPathOverrides is the fiddly part: Nuxt serves through a virtual
+        -- filesystem, so browser URLs need mapping back to real files. Tune if
+        -- breakpoints in .vue files show as unbound.
+        type = 'pwa-chrome',
+        request = 'attach',
+        name = 'Attach to Chrome (client)',
+        port = 9222,
+        webRoot = '${workspaceFolder}',
+        sourceMaps = true,
+        sourceMapPathOverrides = {
+            ['./*'] = '${webRoot}/*',
+            ['../*'] = '${webRoot}/*',
+            ['/_nuxt/*'] = '${webRoot}/*',
+        },
+    },
+}
+
+for _, ft in ipairs({ 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'vue' }) do
+    dap.configurations[ft] = js_configurations
+end
+
+-- =============================
+-- Language-agnostic dispatch
+-- =============================
+
+-- One set of <leader>d* keys for every language. Each ecosystem needs a different
+-- mechanism to resolve "the test under the cursor", so dispatch on filetype rather
+-- than giving each language its own bindings.
+
+local M = {}
+
+local function unsupported(action)
+    vim.notify(
+        ('No %s runner for filetype: %s'):format(action, vim.bo.filetype),
+        vim.log.levels.WARN
+    )
+end
+
+local function is_js(ft)
+    return vim.tbl_contains(
+        { 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'vue' },
+        ft
+    )
+end
+
+function M.debug_nearest_test()
+    local ft = vim.bo.filetype
+    if ft == 'java' then
+        require('jdtls').test_nearest_method()
+    elseif ft == 'python' then
+        require('dap-python').test_method()
+    elseif is_js(ft) then
+        -- vitest resolves the nearest test itself when given the file
+        dap.run(js_configurations[1])
+    else
+        unsupported('test')
+    end
+end
+
+function M.debug_test_class()
+    local ft = vim.bo.filetype
+    if ft == 'java' then
+        require('jdtls').test_class()
+    elseif ft == 'python' then
+        require('dap-python').test_class()
+    elseif is_js(ft) then
+        dap.run(js_configurations[1])
+    else
+        unsupported('test')
+    end
+end
+
+-- Java main-class configs are resolved lazily: doing it on every LspAttach fires
+-- java-debug's resolveJavaExecutable per file open, which crashes adapter 0.53.2.
+-- Register once per project on first continue instead.
+local java_main_registered = {}
+
+function M.continue()
+    if vim.bo.filetype == 'java' then
+        local root = vim.fn.getcwd()
+        if not java_main_registered[root] then
+            java_main_registered[root] = true
+            require('jdtls.dap').setup_dap_main_class_configs()
+            -- resolution is async; give jdtls a moment before offering configs
+            vim.defer_fn(function()
+                dap.continue()
+            end, 1000)
+            return
+        end
+    end
+    dap.continue()
+end
+
+return M

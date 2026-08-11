@@ -37,9 +37,10 @@ require('mason-tool-installer').setup({
         'ruff',
         'stylua',
         'prettier',
-        -- java debug / test
+        -- debug adapters
         'java-test',
         'java-debug-adapter',
+        'js-debug-adapter',
 
     },
     auto_update = false,

@@ -202,17 +202,15 @@ local config = {
         map('n', '<leader>jv', jdtls.extract_variable, 'Extract variable')
         map('n', '<leader>jc', jdtls.extract_constant, 'Extract constant')
         map('v', '<leader>jm', function() jdtls.extract_method(true) end, 'Extract method')
-        map('n', '<leader>jt', function() jdtls.test_nearest_method() end, 'Test nearest method')
-        map('n', '<leader>jT', function() jdtls.test_class() end, 'Test class')
         map('n', '<leader>jp', function() jdtls.pick_test() end, 'Pick test')
         map('n', '<leader>ju', '<cmd>JdtUpdateConfig<cr>', 'Update project config')
         map('n', '<leader>jr', function()
             vim.cmd('term java ' .. vim.fn.expand('%'))
         end, 'Run main class')
-        map('n', '<leader>jd', function()
-            require('jdtls.dap').setup_dap_main_class_configs()
-            vim.defer_fn(function() require('dap').continue() end, 1000)
-        end, 'Debug main class')
+
+        -- Test and debug keys are language-agnostic and live in plugins/debugging.lua:
+        -- <leader>dn (nearest test), <leader>dC (test class), <leader>dc (continue —
+        -- registers jdtls main-class configs on first use in a project).
     end,
 }
 

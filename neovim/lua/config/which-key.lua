@@ -81,6 +81,10 @@ wk.add({
     { '<leader>do', desc = 'Step out' },
     { '<leader>dr', desc = 'Open REPL' },
     { '<leader>du', desc = 'Toggle debug UI' },
+    { '<leader>dn', desc = 'Debug nearest test (any language)' },
+    { '<leader>dC', desc = 'Debug test class/file (any language)' },
+    { '<leader>dl', desc = 'Re-run last debug session' },
+    { '<leader>dx', desc = 'Terminate debug session' },
 
     -- Explorer
     { '<leader>e', desc = 'Toggle Neo-tree (cwd)' },
@@ -112,12 +116,9 @@ wk.add({
     { '<leader>jv', desc = 'Extract variable' },
     { '<leader>jc', desc = 'Extract constant' },
     { '<leader>jm', desc = 'Extract method' },
-    { '<leader>jt', desc = 'Test nearest method' },
-    { '<leader>jT', desc = 'Test class' },
     { '<leader>jp', desc = 'Pick test' },
     { '<leader>ju', desc = 'Update project config' },
     { '<leader>jr', desc = 'Run main class' },
-    { '<leader>jd', desc = 'Debug main class' },
 
     -- LSP (buffer-local)
     { '<leader>li', desc = 'LSP info' },
