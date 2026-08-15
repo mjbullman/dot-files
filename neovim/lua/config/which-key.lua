@@ -46,7 +46,6 @@ local wk = require('which-key')
 
 wk.add({
     -- Top-level groups
-    { '<leader>a', group = 'AI Tools' },
     { '<leader>b', group = 'Buffers' },
     { '<leader>c', group = 'Code Actions' },
     { '<leader>d', group = 'Debug/Diagnostics' },
@@ -57,9 +56,6 @@ wk.add({
     { '<leader>l', group = 'LSP' },
     { '<leader>t', group = 'Toggle' },
     { '<leader>w', group = 'Workspace' },
-
-    -- AI Tools (Codeium active via Blink; Supermaven disabled by default)
-    { '<leader>am', desc = 'Toggle Supermaven' },
 
     -- Buffers
     { '<leader>bd', desc = 'Delete buffer' },

@@ -67,10 +67,10 @@ map('n', '<leader>Q', '<cmd>qa!<CR>', {
 -- -----------------------------
 -- buffers
 -- -----------------------------
-map('n', '<S-l>', '<cmd>bnext<CR>', {
+map('n', '<S-l>', '<cmd>BufferLineCycleNext<CR>', {
     desc = 'Go to next buffer'
 })
-map('n', '<S-h>', '<cmd>bprevious<CR>', {
+map('n', '<S-h>', '<cmd>BufferLineCyclePrev<CR>', {
     desc = 'Go to previous buffer'
 })
 map('n', '<leader>bd', function() Snacks.bufdelete() end, {
