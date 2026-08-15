@@ -49,13 +49,13 @@ wk.add({
     { '<leader>b', group = 'Buffers' },
     { '<leader>c', group = 'Code Actions' },
     { '<leader>d', group = 'Debug/Diagnostics' },
-    { '<leader>e', group = 'Explorer' },
     { '<leader>f', group = 'Find (Telescope)' },
     { '<leader>g', group = 'Git' },
     { '<leader>j', group = 'Java' },
     { '<leader>l', group = 'LSP' },
     { '<leader>t', group = 'Toggle' },
     { '<leader>w', group = 'Workspace' },
+    { '<leader>x', group = 'Trouble' },
 
     -- Buffers
     { '<leader>bd', desc = 'Delete buffer' },
