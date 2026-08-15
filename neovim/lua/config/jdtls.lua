@@ -191,7 +191,7 @@ local config = {
         -- lazily in the <leader>jd mapping below, not here: resolving on every
         -- attach fires java-debug's resolveJavaExecutable on each file open,
         -- which crashes in adapter 0.53.2.
-        jdtls.setup_dap({ hotcodereplace = 'auto' })
+        jdtls.setup_dap({ hotcodereplace = 'auto', config_overrides = {} })
 
         -- buffer-local Java keymaps
         local map = function(mode, lhs, rhs, desc)
