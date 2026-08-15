@@ -54,34 +54,30 @@ require('snacks').setup({
     },
 
     -- =====================
-    -- Disabled modules
+    -- Module toggles
     -- =====================
-    animate     = { enabled = false },
+    -- Only these modules read `enabled` — snacks gates them at setup time via
+    -- event autocmds (bigfile, image, quickfile, indent, explorer, words,
+    -- dashboard, scroll, input, scope, picker) or an explicit check
+    -- (statuscolumn, notifier). Every other module (lazygit, gh, git, zen,
+    -- scratch, profiler, rename, bufdelete, toggle, terminal, gitbrowse, win,
+    -- layout, debug, keymap, animate, dim) is a lazy API loaded on first
+    -- `Snacks.x()` call and ignores the flag entirely — listing them here would
+    -- imply a switch that does not exist.
     bigfile     = { enabled = true },
-    bufdelete   = { enabled = true },
-    debug       = { enabled = false },
-    dim         = { enabled = false },
-    explorer    = { enabled = false },
-    gh          = { enabled = true },
-    git         = { enabled = true },
-    gitbrowse   = { enabled = false },
+    explorer    = { enabled = false },  -- neo-tree handles the file tree
     image       = {
         enabled = true,
-        doc     = { enabled = false },
+        doc     = { enabled = true },   -- inline images in markdown, beside render-markdown
     },
     indent      = { enabled = false },
     input       = { enabled = false },
-    keymap      = { enabled = false },
-    layout      = { enabled = false },
-    lazygit     = { enabled = true },
-    notifier    = { enabled = false },
-    picker      = { enabled = false },
-    profiler    = { enabled = false },
+    notifier    = { enabled = false },  -- noice owns notifications
+    picker      = { enabled = false },  -- telescope owns pickers
     quickfile   = { enabled = true },
-    rename      = { enabled = true },
     scope       = { enabled = false },
-    scratch     = { enabled = false },
     scroll      = { enabled = true },
+    words       = { enabled = true },
     statuscolumn = {
         enabled = true,
         left    = { 'mark', 'sign' },
@@ -95,11 +91,6 @@ require('snacks').setup({
         },
         refresh = 50,
     },
-    terminal    = { enabled = false },
-    toggle      = { enabled = false },
-    win         = { enabled = false },
-    words       = { enabled = false },
-    zen         = { enabled = false },
 })
 
 -- =====================
