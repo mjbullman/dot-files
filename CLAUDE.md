@@ -1,175 +1,80 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for Claude Code working in this repository.
 
 ## Repository Overview
 
-This is a personal dotfiles repository containing configurations for a macOS/Unix development environment. The primary focus is on:
-- **Neovim**: Modern Lua-based configuration using lazy.nvim plugin manager
-- **Tmux**: Terminal multiplexer with Catppuccin theme
-- **Zsh**: Shell configuration with Oh My Zsh, Starship prompt, and custom aliases
-- **Ghostty**: Terminal emulator configuration
-- **Starship**: Cross-shell prompt configuration
+Personal dotfiles for a macOS/Unix development environment: Neovim (lazy.nvim), Tmux, Zsh (Oh My Zsh + Starship), Ghostty. Everything uses the Catppuccin Mocha theme — match it when adding anything with colours.
 
-All tools use the Catppuccin Mocha theme for visual consistency.
+Layout is discoverable by listing directories; only the non-obvious parts are documented below.
 
-## Installation Method
+## Installation
 
-Files are symlinked to the user's home directory using the install script at `~/Development/BashScripts/installers/mac/install_dotfiles.sh`. This script handles cloning the repo, creating symlinks, and setting up dependencies (Oh My Zsh, TPM, etc.).
+`scripts/install_dotfiles.sh` detects macOS vs Linux, clones to `~/.dotfiles`, symlinks into `$HOME`, and installs dependencies (Oh My Zsh, TPM). Shared bash helpers live in `scripts/utils/`.
 
-Manual symlink example:
+**Git config**: personal name/email live in `~/.gitconfig.local`, which is **not committed**. The tracked `.gitconfig` pulls it in via `[include]`. The install script creates it by prompting on first run — never hardcode identity into `.gitconfig`.
+
+`scripts/dev_env.sh` creates or re-attaches the `MJBDotFiles` tmux session with nvim/claude/lazygit windows.
+
+## Neovim
+
+`neovim/` is symlinked to `~/.config/nvim`. Entry point `init.lua` → `lua/core/` (options, keymaps, lazy bootstrap) → lazy.nvim auto-discovers `lua/plugins/`.
+
+**Where things go:**
+- `lua/plugins/*.lua` — plugin specs. Anything non-trivial delegates to a matching `lua/config/*.lua`.
+- `lua/disabled/{plugins,config}/` — parked plugins. lazy.nvim only scans `lua/plugins/`, so these are inert without needing `enabled = false`. Currently: `neotest` (a `neotest-java` adapter is already written), `auto-pairs`, `copilot`, `chatgpt`, `kulala` (REST client for `.http` files), `supermaven`.
+- `neovim/lazy-lock.json` — pinned versions, and the **authoritative list of what is actually installed**. A plugin listed in a spec but absent here was never cloned.
+
+**Verifying a change** — always do this rather than asserting it works:
 ```bash
-mv ~/.zshrc ~/.zshrc.bak
-ln -s /path/to/.dotfiles/.zshrc ~/.zshrc
+nvim --headless +qa                                  # startup errors
+nvim --headless "+lua print(vim.inspect(…))" +qa     # inspect runtime state
+luac -p neovim/lua/config/<file>.lua                 # syntax only
 ```
 
-**Git config**: Personal info (name, email) is kept in `~/.gitconfig.local` (not committed). The dotfiles `.gitconfig` includes it via `[include] path = ~/.gitconfig.local`. The install script creates this file by prompting for user details on first run.
+### LSP
 
-## Neovim Configuration Architecture
+Built-in LSP (`vim.lsp.enable` / `vim.lsp.config`), **not** nvim-lspconfig. Global setup in `lua/config/lsp.lua` (Blink capabilities via `vim.lsp.config('*', …)`, diagnostics, inlay hints, LspAttach keymaps). Per-server files in `neovim/lsp/*.lua` are auto-loaded by name.
 
-The Neovim configuration follows a modular Lua-based structure:
+To add a server: add its name to the `vim.lsp.enable()` list in `lua/config/lsp.lua`, drop a `neovim/lsp/<server>.lua` if it needs options, install via `:Mason`. Keybindings apply automatically.
 
-**Entry Point**: `neovim/init.lua`
-- Bootstraps the lazy.nvim plugin manager
-- Loads core configuration from `lua/core/` (options, keymaps, lazy setup)
-- Initializes plugins from `lua/plugins/` via lazy.nvim auto-discovery
-- Configures global LSP settings and enables LSP servers
+**Vue (hybrid mode)** — two servers cooperate; `vue_ls` does templates/styles, `vtsls` does TypeScript including `<script setup>`:
+- `enableForWorkspaceTypeScriptVersions = true` is **required** when `autoUseWorkspaceTsdk = true`, or vtsls silently ignores the plugin `location` and TS can't find `@vue/typescript-plugin`.
+- **Vue 2**: Mason's `vue-language-server` ships two conflicting `@vue/typescript-plugin` copies. Point at the **nested** one (`node_modules/@vue/language-server/node_modules/@vue/typescript-plugin`, v3.0.0 — still supports Vue 2), NOT the top-level v3.2.4, which dropped Vue 2 in v3.1.
+- No `.git` in vtsls `root_markers` — it would anchor to the git root instead of the dir holding `tsconfig.json`.
+- `vue_ls.lua` implements the `tsserver/request` bridge in `on_init`. Mandatory in v3; standalone mode was removed.
+- Run `nuxt prepare` after pulling a Nuxt project to regenerate `.nuxt/` types.
 
-**Core Configuration** (`lua/core/`):
-- `options.lua`: Fundamental editor settings (line numbers, tabs, clipboard, mouse support, split behavior)
-- `keymaps.lua`: General keybindings not specific to plugins
-- `lazy.lua`: lazy.nvim bootstrap and setup, global LSP configuration
+**Java** is outside the `vim.lsp.enable()` list — `nvim-jdtls` (`lua/config/jdtls.lua`) starts on the `java` filetype and depends on `nvim-dap`.
 
-**LSP Architecture**:
-Uses Neovim's built-in LSP (`vim.lsp.enable` / `vim.lsp.config`) — not nvim-lspconfig:
-- **Plugin definition** in `neovim/lua/plugins/lsp.lua`: Pseudo-plugin that loads on file events
-- **Global LSP configuration** in `neovim/lua/config/lsp.lua`:
-  - Sets Blink.cmp capabilities for all servers via `vim.lsp.config('*', {...})`
-  - Diagnostic UI, inlay hints, and LspAttach keybindings
-  - Enabled servers: `vtsls`, `vue_ls`, `lua_ls`, `clangd`, `css_ls`, `rust_analyzer`, `html_ls`, `eslint_ls`, `basedpyright`, `jsonls`, `marksman`, `bashls`, `ruff`, `dockerls`
-- **Per-server configs** in `neovim/lsp/*.lua`: Auto-loaded by `vim.lsp.enable()`, one file per server
-- **LSP keybindings** (set in LspAttach autocmd):
-  - Navigation: `gd` (definition), `gD` (declaration), `gi` (implementation), `gr` (references), `gt` (type definition)
-  - Documentation: `K` (hover), `<C-k>` (signature help)
-  - Actions: `<leader>ca` (code actions), `<leader>rn` (rename)
-  - Workspace: `<leader>wa/wr/wl` (add/remove/list workspace folders)
-- **Mason** (`neovim/lua/plugins/mason.lua`): LSP server installer UI (cmd lazy-loaded)
+### Completion
 
-**Vue LSP (hybrid mode)**:
-Vue requires two servers working together — `vue_ls` handles templates/styles, `vtsls` handles TypeScript including `<script setup>`:
-- `neovim/lsp/vtsls.lua`: Includes `vue` in filetypes + loads `@vue/typescript-plugin` via `globalPlugins`
-  - **Critical**: `enableForWorkspaceTypeScriptVersions = true` is required when `autoUseWorkspaceTsdk = true`, otherwise the plugin location is silently ignored
-  - **Critical (Vue 2)**: Mason's `vue-language-server` package installs two conflicting `@vue/typescript-plugin` versions. Point at the **nested** one — `node_modules/@vue/language-server/node_modules/@vue/typescript-plugin` (v3.0.0, still supports Vue 2) — NOT the top-level `node_modules/@vue/typescript-plugin` (v3.2.4, dropped Vue 2 in v3.1). See `neovim/lsp/vtsls.lua`.
-  - No `.git` in root_markers — prevents anchoring to git root instead of the project dir with `tsconfig.json`
-- `neovim/lsp/vue_ls.lua`: Implements the `tsserver/request` bridge in `on_init` to forward TypeScript requests to vtsls (mandatory in vue-language-server v3 — standalone mode was removed)
-- Run `nuxt prepare` after pulling Nuxt projects to regenerate `.nuxt/` type declarations
+Blink.cmp (`lua/config/blink.lua`). Sources ranked by `score_offset`: LSP 120, lazydev 90, Codeium 85, snippets 50, path 10, buffer −20. To add a source, put it in `sources.default` and define the provider in `sources.providers`.
 
-**Java LSP (jdtls)**:
-Java is handled separately from the `vim.lsp.enable()` list, via the `nvim-jdtls` plugin (`neovim/lua/plugins/jdtls.lua`, config in `neovim/lua/config/jdtls.lua`) which starts on `java` filetype. It depends on `nvim-dap` for debugging.
+**Codeium is the only AI assistant, and it is popup-only.** Both `virtual_text.enable` and `enable_cmp_source` are `false`; it reaches the editor solely as a Blink source (`module = 'codeium.blink'`). There is deliberately **no inline ghost text** — short, LSP-shaped completions are preferred over multi-line blocks. Do not reinstate Supermaven to get "shorter" suggestions: its model emits long ghost text by design and has no length setting.
 
-**Completion System**:
-- **Blink.cmp** (`neovim/lua/plugins/blink.lua`): Modern completion engine replacing nvim-cmp
-  - Sources: LSP, Codeium, snippets, path, buffer
-  - Custom keybindings: `<Tab>` (accept), `<C-j/k>` (next/prev), `<C-Space>` (show), `<C-y>` (select and accept)
-  - Integrated with vim.snippet for snippet expansion
-  - Configuration in `neovim/lua/config/blink.lua`
+### snacks.nvim gotchas
 
-**AI Coding Assistants**:
-- **Codeium** (`neovim/lua/plugins/codeium.lua`, config in `lua/config/codeium.lua`): Free AI completion. Configured as virtual text (`enable_cmp_source = false`), and wired into Blink.cmp as a source.
-- **Supermaven** (`neovim/lua/plugins/supermaven.lua`, config in `lua/config/supermaven.lua`): Inline AI completion. Accept with `<C-l>` (kept off `<Tab>` to avoid conflicting with Blink.cmp). Currently `enabled = false` — Codeium is the active assistant.
+**Most `enabled` flags do nothing.** Only 13 modules are gated by it (`snacks/init.lua`): `bigfile`, `image`, `quickfile`, `indent`, `explorer`, `words`, `dashboard`, `scroll`, `input`, `scope`, `picker` via event autocmds, plus `statuscolumn` and `notifier`. Every other module (`lazygit`, `gh`, `zen`, `scratch`, `profiler`, `rename`, `bufdelete`, …) is a lazy API loaded on first `Snacks.x()` call and **ignores the flag entirely** — so `enabled = false` does not disable it, and listing it in the config implies a switch that doesn't exist. To make one of those unavailable, don't bind it.
 
-**Plugin Management** (`lua/plugins/`):
-Each file defines related plugins for lazy.nvim. Key plugins include:
-- `telescope.lua`: Fuzzy finder with UI config in `lua/config/telescope.lua`
-- `neotree.lua`: File explorer with config in `lua/config/neotree.lua`
-- `catppuccin.lua`: Theme with config in `lua/config/catppuccin.lua`
-- `bufferline.lua`: Buffer/tab bar with config in `lua/config/bufferline.lua`
-- `treesitter.lua`: Syntax highlighting and code parsing
-- `lualine.lua`: Status line
-- `debugging.lua`: Debug adapter protocol support
-- `tmuxnavigator.lua`: Seamless navigation between tmux panes and Neovim splits
-- `which-key.lua`: Keybinding popup helper
-- `dashboard.lua`: Start screen
-- `comment.lua`: Comment toggling
-- `conform.lua`: Code formatting (replaced none-ls)
-- `inline-diagnostic.lua`: Inline diagnostic display
+Animation is gated by `vim.g.snacks_animate`, not by the `animate` module flag.
 
-**Configuration Pattern**: Plugins defined in `lua/plugins/*.lua` often have corresponding detailed configuration files in `lua/config/*.lua`.
+### bufferline
 
-## Tmux Configuration
+`lua/config/bufferline.lua` hand-writes its highlight table from the Catppuccin palette, and `lua/config/catppuccin.lua` sets `bufferline = { enabled = false }` **on purpose**. These are deliberate custom colours — do not "simplify" by enabling the Catppuccin integration; it overwrites them.
 
-**File**: `.tmux.conf`
+Buffer cycling must use `BufferLineCycleNext` / `BufferLineCyclePrev`, not `:bnext` / `:bprevious`. Bufferline sorts with `sort_by = 'insert_after_current'`, so the plain commands jump somewhere other than the tab shown next to the current one.
 
-Key customizations:
-- Prefix remapped to `Ctrl+A` (GNU Screen style)
-- Mouse support enabled
-- Catppuccin Mocha theme via TPM (Tmux Plugin Manager)
-- vim-tmux-navigator plugin for seamless Neovim integration
-- Custom pane splitting: `|` for horizontal, `-` for vertical
-- Vim-style pane resizing: `h`, `l`, `j`, `k` with prefix
-- Status bar positioned at top with directory, session, uptime, and datetime
-- Base index starts at 1 for windows and panes
+## Tmux
 
-**Reload config**: `Ctrl+A` then `r`
+`.tmux.conf`. Prefix is `Ctrl+A`; reload with `Ctrl+A` then `r`. Splits `|` and `-`, vim-style resize with `h/j/k/l`, base index 1, status bar at top.
 
-## Zsh Configuration
+- `allow-passthrough on` is **required** for snacks.image to draw through tmux into Ghostty.
+- vim-tmux-navigator is **commented out**, so `Ctrl+h/j/k/l` does not cross between tmux panes and Neovim splits. The matching Neovim plugin sits in `neovim/lua/disabled/`.
 
-**File**: `.zshrc`
+## Zsh
 
-Key features:
-- Oh My Zsh framework with plugins: git, zsh-syntax-highlighting, zsh-autosuggestions
-- Starship prompt (configured in `starship.toml`)
-- Fastfetch runs on shell startup to display system info
-- Custom aliases loaded from `.zsh_aliases`
-- Docker CLI completions enabled
+`.zshrc` — Oh My Zsh (git, zsh-syntax-highlighting, zsh-autosuggestions), Starship prompt (`starship.toml`), aliases in `.zsh_aliases`.
 
-## File Organization
-
-Configuration files in root:
-- `.zshrc`, `.bash_aliases`, `.zsh_aliases`: Shell configurations
-- `.tmux.conf`: Tmux configuration
-- `starship.toml`: Starship prompt configuration
-- `ghostty.config`: Ghostty terminal emulator settings
-- `.gitconfig`: Git configuration (includes `~/.gitconfig.local` for personal info)
-- `config.yml`: Lazygit configuration
-- `.p10k.zsh`: Powerlevel10k configuration (legacy, Starship is active)
-
-Neovim files:
-- `neovim/init.lua`: Entry point
-- `neovim/lua/core/`: Core editor settings
-- `neovim/lua/plugins/`: Plugin definitions
-- `neovim/lua/config/`: Detailed plugin configurations
-- `neovim/lsp/`: Per-server LSP configurations (auto-loaded by `vim.lsp.enable()`)
-
-## Common Development Patterns
-
-**Modifying Neovim Configuration**:
-1. Plugin definitions go in `lua/plugins/*.lua` using lazy.nvim return table format:
-   ```lua
-   return {
-       "author/plugin-name",
-       dependencies = { ... },
-       config = function()
-           require("config.pluginname")
-       end,
-   }
-   ```
-2. Complex plugin configs should be extracted to `lua/config/*.lua` and required from the plugin file
-3. Core editor behavior goes in `lua/core/options.lua`
-4. Keybindings can go in plugin files (plugin-specific) or `lua/core/keymaps.lua` (general)
-5. All plugins are auto-loaded by lazy.nvim scanning the `lua/plugins/` directory
-
-**Adding LSP Support for a New Language**:
-1. Add the server name to the `vim.lsp.enable()` call in `neovim/lua/config/lsp.lua`
-2. If the server needs special configuration, add it using `vim.lsp.config()` before the `vim.lsp.enable()` call
-3. Install the language server via Mason (`:Mason` command in Neovim)
-4. LSP keybindings are globally configured and apply to all servers automatically
-
-**Adding Completion Sources to Blink.cmp**:
-1. Add the source to the `sources.default` array in `neovim/lua/config/blink.lua`
-2. Configure the provider in `sources.providers` with name, module, score_offset, and other settings
-3. Higher `score_offset` values prioritize the source (LSP=100, Codeium=85, snippets=50, etc.)
-
-**AI Assistant Integration**:
-- Codeium provides completions (free, no API key needed); configured as virtual text
-- Supermaven provides inline completions; accept with `<C-l>`
+- Fastfetch runs on startup only at `$SHLVL -eq 1`, so it stays out of nested shells.
+- `.p10k.zsh` is legacy — Starship is the active prompt.
