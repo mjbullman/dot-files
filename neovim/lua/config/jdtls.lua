@@ -201,7 +201,7 @@ local config = {
         map('n', '<leader>jo', jdtls.organize_imports, 'Organize imports')
         map('n', '<leader>jv', jdtls.extract_variable, 'Extract variable')
         map('n', '<leader>jc', jdtls.extract_constant, 'Extract constant')
-        map('v', '<leader>jm', function() jdtls.extract_method(true) end, 'Extract method')
+        map('v', '<leader>jm', function() jdtls.extract_method() end, 'Extract method')
         map('n', '<leader>jp', function() jdtls.pick_test() end, 'Pick test')
         map('n', '<leader>ju', '<cmd>JdtUpdateConfig<cr>', 'Update project config')
         map('n', '<leader>jr', function()
