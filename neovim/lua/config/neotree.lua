@@ -52,12 +52,13 @@ map('n', '<leader>e', function()
     })
 end, vim.tbl_extend('force', opts, { desc = 'Toggle Neo-tree (cwd)' }))
 
--- toggle Neo-tree in the current working directory.
+-- reveal the current buffer's file in the tree. No `toggle` — with it, an
+-- already-open tree is closed and the reveal never runs (command/init.lua).
 map('n', '<leader>E', function()
     require('neo-tree.command').execute({
         dir = vim.fn.getcwd(),
-        toggle = true,
         reveal = true,
+        source = 'filesystem',
         position = 'left',
     })
-end, vim.tbl_extend('force', opts, { desc = 'Toggle Neo-tree' }))
+end, vim.tbl_extend('force', opts, { desc = 'Reveal current file in Neo-tree' }))

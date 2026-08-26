@@ -85,7 +85,7 @@ wk.add({
 
     -- Explorer
     { '<leader>e', desc = 'Toggle Neo-tree (cwd)' },
-    { '<leader>E', desc = 'Toggle Neo-tree (reveal)' },
+    { '<leader>E', desc = 'Reveal current file in Neo-tree' },
 
     -- Find (Telescope)
     { '<leader>ff', desc = 'Find files' },
