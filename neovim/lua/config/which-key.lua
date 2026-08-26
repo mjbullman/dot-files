@@ -53,6 +53,7 @@ wk.add({
     { '<leader>g', group = 'Git' },
     { '<leader>j', group = 'Java' },
     { '<leader>l', group = 'LSP' },
+    { '<leader>n', group = 'Tests (neotest)' },
     { '<leader>t', group = 'Toggle' },
     { '<leader>w', group = 'Workspace' },
     { '<leader>x', group = 'Trouble' },

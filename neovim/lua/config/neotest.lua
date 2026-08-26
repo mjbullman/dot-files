@@ -8,6 +8,13 @@ local neotest = require('neotest')
 neotest.setup({
     adapters = {
         require('neotest-java'),
+        -- pytest is used by every Python project here; `python` is left unset so
+        -- the adapter picks up each project's own .venv rather than a global one.
+        require('neotest-python')({
+            runner = 'pytest',
+            dap = { justMyCode = false },
+        }),
+        require('neotest-vitest'),
     },
     icons = {
         passed = '✓',
