@@ -12,10 +12,6 @@ else
     # create new session and start nvim
     tmux new-session -d -s "${SESSION_NAME}" -n nvim nvim
 
-    sleep 1
-    # split nvim window horizontally (top/bottom)
-    tmux split-window -v -t "${SESSION_NAME}"
-
     # create new window and run cluade code
     sleep 1
     tmux new-window -t "${SESSION_NAME}" claude
