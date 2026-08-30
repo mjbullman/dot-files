@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 SESSION_NAME="MJBDotFiles"
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 if tmux has-session -t "${SESSION_NAME}" 2>/dev/null; then
     echo "Attaching to existing session: ${SESSION_NAME}..."
