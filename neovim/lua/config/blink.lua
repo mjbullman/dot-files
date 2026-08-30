@@ -71,7 +71,7 @@ require('blink.cmp').setup({
             },
         },
         ghost_text = {
-            enabled = true
+            enabled = false
         },
         trigger = {
             prefetch_on_insert = true,
