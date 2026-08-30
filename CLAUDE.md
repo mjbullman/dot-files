@@ -51,7 +51,7 @@ To add a server: add its name to the `vim.lsp.enable()` list in `lua/config/lsp.
 
 Blink.cmp (`lua/config/blink.lua`). Sources ranked by `score_offset`: LSP 120, lazydev 90, Codeium 85, snippets 50, path 10, buffer −20. To add a source, put it in `sources.default` and define the provider in `sources.providers`.
 
-**Codeium is the only AI assistant, and it is popup-only.** Both `virtual_text.enable` and `enable_cmp_source` are `false`; it reaches the editor solely as a Blink source (`module = 'codeium.blink'`). There is deliberately **no inline ghost text** — short, LSP-shaped completions are preferred over multi-line blocks. Do not reinstate Supermaven to get "shorter" suggestions: its model emits long ghost text by design and has no length setting.
+**Codeium is the only AI assistant, and it is popup-only.** Both `virtual_text.enabled` and `enable_cmp_source` are `false`; it reaches the editor solely as a Blink source (`module = 'codeium.blink'`). There is deliberately **no inline ghost text** — short, LSP-shaped completions are preferred over multi-line blocks. This needs *two* switches, not one: Codeium's own `virtual_text.enabled`, and Blink's `completion.ghost_text.enabled` (`lua/config/blink.lua`), which previews the selected item inline and renders multi-line completions as `virt_lines`. Blink's `show_with_menu` defaults to `true`, so leaving it on draws ghost text *alongside* the popup, not instead of it. Do not reinstate Supermaven to get "shorter" suggestions: its model emits long ghost text by design and has no length setting.
 
 ### snacks.nvim gotchas
 
