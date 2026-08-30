@@ -36,3 +36,8 @@ pnpm-debug.log*
 # --- MAC SPECIFIC ---
 .AppleDouble
 .LSOverride
+
+# finance-review skill: Actual API client (197MB, reinstall with `npm install`)
+claude/skills/*/lib/node_modules/
+claude/skills/*/lib/package-lock.json
+claude/skills/*/lib/data/
