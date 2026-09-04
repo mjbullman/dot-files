@@ -32,6 +32,10 @@ nvim --headless "+lua print(vim.inspect(…))" +qa     # inspect runtime state
 luac -p neovim/lua/config/<file>.lua                 # syntax only
 ```
 
+### Formatting
+
+conform.nvim formats on demand only (`<leader>lf`), never on save. **`neovim/.stylua.toml` is load-bearing** — StyLua's own defaults are tabs and double quotes, so without it a single `<leader>lf` rewrites any Lua file away from the repo's 4-space, single-quote style. It lives under `neovim/` rather than the repo root so it is still found when files are opened through the `~/.config/nvim` symlink.
+
 ### LSP
 
 Built-in LSP (`vim.lsp.enable` / `vim.lsp.config`), **not** nvim-lspconfig. Global setup in `lua/config/lsp.lua` (Blink capabilities via `vim.lsp.config('*', …)`, diagnostics, inlay hints, LspAttach keymaps). Per-server files in `neovim/lsp/*.lua` are auto-loaded by name.
