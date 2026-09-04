@@ -44,7 +44,7 @@ To add a server: add its name to the `vim.lsp.enable()` list in `lua/config/lsp.
 
 **Vue (hybrid mode)** — two servers cooperate; `vue_ls` does templates/styles, `vtsls` does TypeScript including `<script setup>`:
 - `enableForWorkspaceTypeScriptVersions = true` is **required** when `autoUseWorkspaceTsdk = true`, or vtsls silently ignores the plugin `location` and TS can't find `@vue/typescript-plugin`.
-- **Vue 2**: Mason's `vue-language-server` ships two conflicting `@vue/typescript-plugin` copies. Point at the **nested** one (`node_modules/@vue/language-server/node_modules/@vue/typescript-plugin`, v3.0.0 — still supports Vue 2), NOT the top-level v3.2.4, which dropped Vue 2 in v3.1.
+- **Vue 3 only.** `@vue/typescript-plugin` dropped Vue 2 in v3.1; Mason now ships a single copy (v3.3.9) at `node_modules/@vue/typescript-plugin`, and the older nested v3.0.0 that used to sit beside it is gone. Vue 2 files get templates and styles from `vue_ls` but **no TypeScript** — don't try to restore it by repointing `location` in `lsp/vtsls.lua`, there is nothing there to point at. Reviving it would mean pinning an old `vue-language-server` in Mason.
 - No `.git` in vtsls `root_markers` — it would anchor to the git root instead of the dir holding `tsconfig.json`.
 - `vue_ls.lua` implements the `tsserver/request` bridge in `on_init`. Mandatory in v3; standalone mode was removed.
 - Run `nuxt prepare` after pulling a Nuxt project to regenerate `.nuxt/` types.
