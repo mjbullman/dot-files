@@ -33,10 +33,32 @@ return {
         'typescript',
         'typescriptreact',
     },
-    root_markers = {
-        '.git',
-        'package.json',
-    },
+    -- Only start where ESLint is actually configured. Matching on `.git` or a
+    -- bare `package.json` starts the server in every JS project, and one with no
+    -- ESLint installed then notifies 'Unable to find ESLint library' on open.
+    -- Not calling `on_dir` is how vim.lsp.config declines to start a server.
+    root_dir = function(bufnr, on_dir)
+        local fname = vim.api.nvim_buf_get_name(bufnr)
+        if fname == '' then
+            return
+        end
+
+        for dir in vim.fs.parents(fname) do
+            for _, name in ipairs(eslint_config_files) do
+                local path = dir .. '/' .. name
+                if vim.uv.fs_stat(path) then
+                    -- package.json only counts when it carries an eslintConfig block
+                    if name ~= 'package.json' then
+                        return on_dir(dir)
+                    end
+                    local ok, pkg = pcall(vim.json.decode, table.concat(vim.fn.readfile(path), '\n'))
+                    if ok and type(pkg) == 'table' and pkg.eslintConfig then
+                        return on_dir(dir)
+                    end
+                end
+            end
+        end
+    end,
     on_attach = function(client, bufnr)
         vim.api.nvim_buf_create_user_command(bufnr, 'LspEslintFixAll', function()
             client:request_sync('workspace/executeCommand', {
@@ -54,14 +76,20 @@ return {
         validate = 'on',
         packageManager = nil,
         useESLintClass = false,
-        experimental = {
-            useFlatConfig = false,
-        },
         codeActionOnSave = {
             enable = false,
             mode = 'all',
         },
-        format = true,
+        -- Do not remove: the server does an unguarded read of
+        -- `settings.experimental.useFlatConfig`, so dropping the table crashes
+        -- textDocument/diagnostic. `false` selects the standard `eslint` entry
+        -- point (`true` picks `eslint/use-at-your-own-risk`, for v8.21-8.56).
+        -- Flat config is detected separately off the *top-level* useFlatConfig,
+        -- which stays unset — so ESLint 9 flat config works with this at false.
+        experimental = {
+            useFlatConfig = false,
+        },
+        format = false, -- conform.nvim + prettier own formatting
         quiet = false,
         onIgnoredFiles = 'off',
         rulesCustomizations = {},

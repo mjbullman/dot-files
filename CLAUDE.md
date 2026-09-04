@@ -49,6 +49,10 @@ To add a server: add its name to the `vim.lsp.enable()` list in `lua/config/lsp.
 - `vue_ls.lua` implements the `tsserver/request` bridge in `on_init`. Mandatory in v3; standalone mode was removed.
 - Run `nuxt prepare` after pulling a Nuxt project to regenerate `.nuxt/` types.
 
+**ESLint** (`lsp/eslint_ls.lua`) — two things that look like dead config but are not:
+- `experimental.useFlatConfig = false` **must stay**. The server reads `settings.experimental.useFlatConfig` without a guard, so removing the table crashes `textDocument/diagnostic`. `false` selects the standard `eslint` entry point; flat config is detected off a separate top-level `useFlatConfig` that stays unset, so ESLint 9 works with this at `false`.
+- It uses a `root_dir` function, not `root_markers`. Matching `.git` or a bare `package.json` started the server in every JS project, and one without ESLint installed then notified `Unable to find ESLint library` on every open. Declining to call `on_dir` is how a server opts out of starting. `package.json` only counts when it carries an `eslintConfig` block.
+
 **Java** is outside the `vim.lsp.enable()` list — `nvim-jdtls` (`lua/config/jdtls.lua`) starts on the `java` filetype and depends on `nvim-dap`.
 
 ### Completion
