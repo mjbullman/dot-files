@@ -5,16 +5,17 @@
 
 require('conform').setup({
     formatters_by_ft = {
-        -- python: use ruff for import sorting and formatting
+        -- python: organise imports first, then format — the formatter gets the
+        -- last word on the import block ruff_organize_imports rewrites
         python = {
-            'ruff_format',
             'ruff_organize_imports',
+            'ruff_format',
         },
 
         -- lua: use stylua
         lua = { 'stylua' },
 
-        -- javaScript/typeccript/vue: use prettier
+        -- javascript/typescript/vue: use prettier
         vue = { 'prettier' },
         css = { 'prettier' },
         html = { 'prettier' },
