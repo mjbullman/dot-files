@@ -9,6 +9,7 @@ return {
         'rcarriga/nvim-dap-ui',
         'nvim-neotest/nvim-nio',
         'theHamsta/nvim-dap-virtual-text',
+        'mfussenegger/nvim-dap-python',
     },
     -- keys live here so they exist before the plugin loads
     keys = {

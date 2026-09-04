@@ -92,6 +92,21 @@ for _, ft in ipairs({ 'javascript', 'typescript', 'javascriptreact', 'typescript
 end
 
 -- =============================
+-- Python
+-- =============================
+
+-- Mason's debugpy-adapter shim hosts the adapter, so nothing needs debugpy in
+-- the project venv. The *debuggee* interpreter is resolved separately by
+-- dap-python (VIRTUAL_ENV, then a venv/.venv/env/.env directory under the
+-- project root), and an explicit `python` on a config wins over both — which is
+-- how neotest-python's <leader>nd hands over each project's own .venv.
+require('dap-python').setup(vim.fn.stdpath('data') .. '/mason/bin/debugpy-adapter')
+
+-- match config/neotest.lua rather than letting dap-python sniff the project
+require('dap-python').test_runner = 'pytest'
+
+
+-- =============================
 -- Language-agnostic dispatch
 -- =============================
 

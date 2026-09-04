@@ -41,6 +41,7 @@ require('mason-tool-installer').setup({
         'java-test',
         'java-debug-adapter',
         'js-debug-adapter',
+        'debugpy',
 
     },
     auto_update = false,
