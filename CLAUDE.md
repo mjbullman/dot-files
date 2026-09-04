@@ -22,7 +22,7 @@ Layout is discoverable by listing directories; only the non-obvious parts are do
 
 **Where things go:**
 - `lua/plugins/*.lua` — plugin specs. Anything non-trivial delegates to a matching `lua/config/*.lua`.
-- `lua/disabled/{plugins,config}/` — parked plugins. lazy.nvim only scans `lua/plugins/`, so these are inert without needing `enabled = false`. Currently: `neotest` (a `neotest-java` adapter is already written), `auto-pairs`, `copilot`, `chatgpt`, `kulala` (REST client for `.http` files), `supermaven`.
+- `lua/disabled/{plugins,config}/` — parked plugins. lazy.nvim only scans `lua/plugins/`, so these are inert without needing `enabled = false`. Currently: `auto-pairs`, `copilot`, `chatgpt`, `kulala` (REST client for `.http` files), `supermaven`.
 - `neovim/lazy-lock.json` — pinned versions, and the **authoritative list of what is actually installed**. A plugin listed in a spec but absent here was never cloned.
 
 **Verifying a change** — always do this rather than asserting it works:
