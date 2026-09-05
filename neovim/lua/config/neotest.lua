@@ -16,12 +16,14 @@ neotest.setup({
         }),
         require('neotest-vitest'),
     },
+    -- Material Design, same family as the diagnostic signs in config/lsp.lua
+    -- and mason's package icons in config/mason.lua
     icons = {
-        passed = '✓',
-        failed = '✗',
-        running = '⟳',
-        skipped = '○',
-        unknown = '?',
+        passed = '󰗠',
+        failed = '󱎘',
+        running = '󰦖',
+        skipped = '󰍶',
+        unknown = '󰘥',
     },
     status = {
         virtual_text = true,
