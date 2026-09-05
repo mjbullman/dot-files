@@ -50,7 +50,12 @@ require('lualine').setup({
             {
                 'diagnostics',
                 -- same glyphs as the gutter signs in config/lsp.lua
-                symbols = { error = '󰅙 ', warn = '󰀦 ', info = '󰋼 ', hint = '󰛨 ' },
+                symbols = {
+                    error = '󰅙 ',
+                    warn = '󰀦 ',
+                    info = '󰋼 ',
+                    hint = '󰛨 '
+                },
             },
         },
         lualine_c = {
