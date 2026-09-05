@@ -10,7 +10,7 @@ local dapui = require('dapui')
 require('dapui').setup()
 
 -- Setup virtual text for DAP
-require('nvim-dap-virtual-text').setup()
+require('nvim-dap-virtual-text').setup({})
 
 -- DAP UI auto-open/close listeners
 dap.listeners.before.attach.dapui_config = function()
