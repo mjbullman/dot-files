@@ -12,11 +12,12 @@ require('trouble').setup({
         -- global wrap is off, which truncates long diagnostics in the panel
         wo       = { wrap = true, linebreak = true, breakindent = true },
     },
+    -- same glyphs as the gutter signs in config/lsp.lua
     icons = {
-        error   = '✘',
-        warning = '⚠',
-        hint    = '󰞋',
-        info    = 'ℹ',
+        error   = '󰅙',
+        warning = '󰀦',
+        hint    = '󰛨',
+        info    = '󰋼',
     },
 })
 

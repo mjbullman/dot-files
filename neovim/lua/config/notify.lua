@@ -7,12 +7,13 @@
 require('notify').setup({
     background_colour = '#1e1e2e',  -- catppuccin mocha background
     fps = 60,
+    -- ERROR/INFO/WARN match the gutter signs in config/lsp.lua
     icons = {
         DEBUG = '󰃤',
-        ERROR = '✘',
-        INFO  = 'ℹ',
+        ERROR = '󰅙',
+        INFO  = '󰋼',
         TRACE = '✎',
-        WARN  = '⚠',
+        WARN  = '󰀦',
     },
     level = 2,
     max_width = 80,

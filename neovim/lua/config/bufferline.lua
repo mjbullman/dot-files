@@ -217,7 +217,8 @@ require('bufferline').setup({
         diagnostics_update_in_insert = false,
         diagnostics_update_on_event = true,
         diagnostics_indicator = function(count, level)
-            local icons = { error = ' ', warning = ' ', info = ' ', hint = '󰌵 ' }
+            -- same glyphs as the gutter signs in config/lsp.lua
+            local icons = { error = '󰅙 ', warning = '󰀦 ', info = '󰋼 ', hint = '󰛨 ' }
             return (icons[level] or '') .. count
         end,
         offsets = {
