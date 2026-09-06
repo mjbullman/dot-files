@@ -25,11 +25,13 @@ require('neo-tree').setup({
         icon = vim.tbl_extend('force', default_icon, {
             folder_closed = '󰉋',
             folder_open = '󰝰',
+            -- fallback when nvim-web-devicons has no match for the filetype
+            default = '󰧮',
         }),
         -- unsaved-buffer dot: same glyph and hue (NeoTreeModified) as the
         -- bufferline tab and the lualine filename indicator
         modified = {
-            symbol = ' ●',
+            symbol = '●',
         },
         indent = {
             with_expanders = true,

@@ -81,6 +81,11 @@ require('catppuccin').setup({
             -- lualine unsaved indicators (git "change" peach)
             NeoTreeModified = { fg = git.change },
 
+            -- indent guides sit one step below the default (overlay0) so the
+            -- tree structure recedes and the file icons carry the eye
+            NeoTreeIndentMarker = { fg = colors.surface1 },
+            NeoTreeExpander     = { fg = colors.surface1 },
+
             -- gitsigns gutter
             GitSignsAdd          = { fg = git.add },
             GitSignsChange       = { fg = git.change },
