@@ -121,6 +121,9 @@ require('catppuccin').setup({
             NoiceConfirmBorder            = { fg = colors.sky },
             NoiceCmdlinePopupBorderSearch = { fg = colors.yellow },
             NoiceCmdlineIconSearch        = { fg = colors.yellow },
+
+            -- telescope prompt magnifier glyph
+            TelescopePromptPrefix = { fg = colors.mauve },
         }
     end,
     default_integrations = true,
