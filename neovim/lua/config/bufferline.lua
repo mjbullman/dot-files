@@ -54,7 +54,7 @@ require('bufferline').setup({
             bg = c.base,
         },
         tab_close = {
-            fg = c.red,
+            fg = latte.red,
             bg = c.base,
         },
         close_button = {
@@ -62,15 +62,21 @@ require('bufferline').setup({
             bg = c.mantle,
         },
         close_button_selected = {
-            fg = c.red,
+            fg = latte.red,
             bg = c.surface0,
         },
+        -- the ● unsaved-buffer dot: tie it to the git "modified" orange.
+        -- all three states, or modified_visible falls back to String green.
         modified = {
-            fg = c.peach,
+            fg = latte.peach,
+            bg = c.mantle,
+        },
+        modified_visible = {
+            fg = latte.peach,
             bg = c.mantle,
         },
         modified_selected = {
-            fg = c.peach,
+            fg = latte.peach,
             bg = c.surface0,
         },
 
