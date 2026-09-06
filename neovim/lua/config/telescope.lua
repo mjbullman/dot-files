@@ -3,13 +3,13 @@
 -- Author: Martin Bullman
 -- ===============================
 
-local builtin = require('telescope/builtin')
+local builtin = require('telescope.builtin')
 local actions = require('telescope.actions')
 
 local file_ignore_patterns = {
     'node_modules',
-    '.git/',
-    '.venv',
+    '%.git/',
+    '%.venv',
 }
 
 require('telescope').setup({
@@ -19,7 +19,7 @@ require('telescope').setup({
         },
     },
     defaults = {
-        prompt_prefix = ' 🔍 ',
+        prompt_prefix = '   ',
         selection_caret = '➤ ',
         path_display = { 'smart' },
         mappings = {
