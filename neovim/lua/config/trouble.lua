@@ -4,6 +4,10 @@
 -- ===============================
 
 require('trouble').setup({
+    -- close the panel once its last item clears; skip the "no results"
+    -- flash when toggling a mode that has nothing to show
+    auto_close = true,
+    warn_no_results = false,
     win = {
         type     = 'split',
         position = 'right',
@@ -12,17 +16,12 @@ require('trouble').setup({
         -- global wrap is off, which truncates long diagnostics in the panel
         wo       = { wrap = true, linebreak = true, breakindent = true },
     },
-    -- same glyphs as the gutter signs in config/lsp.lua
-    icons = {
-        error   = '󰅙',
-        warning = '󰀦',
-        hint    = '󰛨',
-        info    = '󰋼',
-    },
+    -- severity icons come from vim.diagnostic.config() signs (config/lsp.lua);
+    -- trouble v3 has no error/warning/hint/info keys of its own
 })
 
 -- =============================
--- Trouble keymaps 
+-- Trouble keymaps
 -- =============================
 
 local map = vim.keymap.set
@@ -40,8 +39,8 @@ map('n', '<leader>xs', '<cmd>Trouble symbols toggle focus=false<cr>', vim.tbl_ex
     desc = 'Symbols (Trouble)'
 }))
 
-map('n', '<leader>xr', '<cmd>Trouble lsp toggle focus=false win.position=right<cr>', vim.tbl_extend('force', opts, {
-    desc = 'LSP references (Trouble)'
+map('n', '<leader>xr', '<cmd>Trouble lsp toggle focus=false<cr>', vim.tbl_extend('force', opts, {
+    desc = 'LSP definitions / references (Trouble)'
 }))
 
 map('n', '<leader>xL', '<cmd>Trouble loclist toggle<cr>', vim.tbl_extend('force', opts, {
