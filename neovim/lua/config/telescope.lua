@@ -22,9 +22,6 @@ require('telescope').setup({
         prompt_prefix = ' 🔍 ',
         selection_caret = '➤ ',
         path_display = { 'smart' },
-        layout_config = {
-            vertical = { width = 1 },
-        },
         mappings = {
             i = {
                 -- navigation in list
@@ -64,7 +61,9 @@ require('telescope').setup({
     },
 })
 
-require('telescope').load_extension('fzf')
+-- fzf-native is build-gated on `make` in the plugin spec; skip it gracefully
+-- on a machine without a compiler rather than erroring at startup
+pcall(require('telescope').load_extension, 'fzf')
 require('telescope').load_extension('ui-select')
 
 
