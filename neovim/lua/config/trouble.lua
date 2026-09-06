@@ -20,6 +20,21 @@ require('trouble').setup({
     -- trouble v3 has no error/warning/hint/info keys of its own
 })
 
+-- render every quickfix list (:grep, :make, LSP references, diffview conflicts,
+-- …) in the Trouble panel instead of the plain built-in window. :cnext/:cprev
+-- still work; <leader>xQ becomes redundant.
+vim.api.nvim_create_autocmd('BufWinEnter', {
+    group = vim.api.nvim_create_augroup('trouble_qf', { clear = true }),
+    callback = function(ev)
+        if vim.bo[ev.buf].buftype == 'quickfix' then
+            vim.schedule(function()
+                vim.cmd('cclose')
+                require('trouble').open('qflist')
+            end)
+        end
+    end,
+})
+
 -- =============================
 -- Trouble keymaps
 -- =============================
