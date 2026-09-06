@@ -5,11 +5,10 @@
 
 require('noice').setup({
     lsp = {
-        -- override markdown rendering so that cmp and other plugins use Treesitter
+        -- render LSP markdown (hover / signature) through Treesitter
         override = {
             ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
             ['vim.lsp.util.stylize_markdown'] = true,
-            ['cmp.entry.get_documentation'] = true,
         },
         hover = {
             enabled = true,
@@ -22,7 +21,8 @@ require('noice').setup({
     presets = {
         bottom_search = false,         -- search uses the centred popup, same as ':' (a bottom
                                        -- search view paints over the global statusline / lualine)
-        command_palette = true,        -- Position the cmdline and popupmenu together
+        command_palette = false,       -- would top-anchor cmdline+menu; the
+                                       -- centred `views` overrides below win anyway
         long_message_to_split = true,  -- Long messages will be sent to a split
         inc_rename = false,            -- Enables an input dialog for inc-rename.nvim
         lsp_doc_border = true,         -- Add a border to hover docs and signature help
