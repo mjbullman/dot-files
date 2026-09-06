@@ -33,21 +33,21 @@ require('neo-tree').setup({
             expander_highlight = 'NeoTreeExpander',
         },
         git_status = {
-           -- deliberately minimal: JetBrains uses filename colour alone, VS
-           -- Code plain letters ("!" over "⚠" — their own reasoning is it
-           -- "looks really bad on Windows"), nvim-tree mostly plain unicode.
-           -- modified/untracked keep neo-tree's defaults, already minimal
-           -- (a dot, and "?"). ignored drops its icon entirely and relies on
-           -- the NeoTreeGitIgnored highlight, which colours the text either way.
-           symbols = {
-               added = '+',
-               deleted = '-',
-               renamed = '→',
-               conflict = '!',
-               ignored = '',
-               unstaged = '󰄱',
-               staged = '󰱒',
-           },
+            -- plain marks, differentiated by the NeoTreeGit* highlight colour.
+            -- unstaged has no mark (that is the default state); staged gets a
+            -- tick. modified is '~' so a doubled index+worktree change reads
+            -- '~~' rather than two identical glyphs.
+            symbols = {
+                added = '+',
+                deleted = '-',
+                modified = '~',
+                untracked = '?',
+                renamed = '→',
+                conflict = '!',
+                ignored = '',
+                unstaged = '',
+                staged = '✓',
+            },
         },
     },
 })
