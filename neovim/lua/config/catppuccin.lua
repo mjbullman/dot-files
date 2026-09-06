@@ -123,8 +123,9 @@ require('catppuccin').setup({
             NoiceCmdlinePopupBorderSearch = { fg = colors.peach },
             NoiceCmdlineIconSearch        = { fg = colors.peach },
 
-            -- telescope prompt magnifier glyph
-            TelescopePromptPrefix = { fg = colors.mauve },
+            -- telescope prompt magnifier glyph: peach, same as the noice search
+            -- chrome and lazygit's searching border — all "search" reads peach
+            TelescopePromptPrefix = { fg = colors.peach },
         }
     end,
     default_integrations = true,
