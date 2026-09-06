@@ -4,24 +4,8 @@
 -- =======================
 
 require('Comment').setup({
-    padding = true,
-    sticky = true,
-    toggler = {
-        line = 'gcc',
-        block = 'gbc',
-    },
-    opleader = {
-        line = 'gc',
-        block = 'gb',
-    },
-    extra = {
-        above = 'gcO',
-        below = 'gco',
-        eol = 'gcA',
-    },
-    mappings = {
-        basic = true,
-        extra = true,
-    },
+    -- context-aware commentstring: a toggle inside a Vue <template> or a
+    -- JSX block picks <!-- --> / {/* */} instead of the file's top-level
+    -- comment syntax. Everything else is left at Comment.nvim defaults.
+    pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
 })
-
