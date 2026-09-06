@@ -7,9 +7,10 @@ require('mason').setup({
     ui = {
         border = 'rounded',
         icons = {
-            -- same family and concept-mapping as neotest's status icons in
-            -- config/neotest.lua: installed~passed, pending~running, uninstalled~failed
-            package_installed = '󰗠',
+            -- pending / uninstalled mirror neotest's running / failed status
+            -- icons (config/neotest.lua). installed uses a plain check rather
+            -- than neotest's circled 'passed' glyph.
+            package_installed = '󰄬',
             package_pending = '󰦖',
             package_uninstalled = '󱎘',
         },
