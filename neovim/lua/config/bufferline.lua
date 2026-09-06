@@ -1,5 +1,15 @@
 local c = require('catppuccin.palettes').get_palette('mocha')
 
+-- Diagnostic severity hues: Catppuccin Latte accents, matching the diagnostic
+-- signs and the git colours set in lua/config/catppuccin.lua.
+local latte = require('catppuccin.palettes').get_palette('latte')
+local diag = {
+    error = latte.red,   -- #d20f39  (= git conflict/delete)
+    warn  = latte.peach, -- #fe640b  (= git modified)
+    info  = latte.blue,  -- #1e66f5  (= git renamed)
+    hint  = latte.teal,  -- #179299  (diagnostic-only hue)
+}
+
 require('bufferline').setup({
     highlights = {
         fill = {
@@ -67,124 +77,124 @@ require('bufferline').setup({
         -- diagnostic states: keep the same tab background but tint the text
         -- with the diagnostic severity colour so the tab doesn't shift hue
         error = {
-            fg = c.red,
+            fg = diag.error,
             bg = c.mantle,
-            sp = c.red,
+            sp = diag.error,
         },
         error_visible = {
-            fg = c.red,
+            fg = diag.error,
             bg = c.mantle,
         },
         error_selected = {
-            fg = c.red,
+            fg = diag.error,
             bg = c.surface0,
             bold = true,
             italic = false,
         },
         error_diagnostic = {
-            fg = c.red,
+            fg = diag.error,
             bg = c.mantle,
-            sp = c.red,
+            sp = diag.error,
         },
         error_diagnostic_visible = {
-            fg = c.red,
+            fg = diag.error,
             bg = c.mantle,
         },
         error_diagnostic_selected = {
-            fg = c.red,
+            fg = diag.error,
             bg = c.surface0,
             bold = true,
             italic = false,
         },
 
         warning = {
-            fg = c.yellow,
+            fg = diag.warn,
             bg = c.mantle,
-            sp = c.yellow,
+            sp = diag.warn,
         },
         warning_visible = {
-            fg = c.yellow,
+            fg = diag.warn,
             bg = c.mantle,
         },
         warning_selected = {
-            fg = c.yellow,
+            fg = diag.warn,
             bg = c.surface0,
             bold = true,
             italic = false,
         },
         warning_diagnostic = {
-            fg = c.yellow,
+            fg = diag.warn,
             bg = c.mantle,
-            sp = c.yellow,
+            sp = diag.warn,
         },
         warning_diagnostic_visible = {
-            fg = c.yellow,
+            fg = diag.warn,
             bg = c.mantle,
         },
         warning_diagnostic_selected = {
-            fg = c.yellow,
+            fg = diag.warn,
             bg = c.surface0,
             bold = true,
             italic = false,
         },
 
         info = {
-            fg = c.sky,
+            fg = diag.info,
             bg = c.mantle,
-            sp = c.sky,
+            sp = diag.info,
         },
         info_visible = {
-            fg = c.sky,
+            fg = diag.info,
             bg = c.mantle,
         },
         info_selected = {
-            fg = c.sky,
+            fg = diag.info,
             bg = c.surface0,
             bold = true,
             italic = false,
         },
         info_diagnostic = {
-            fg = c.sky,
+            fg = diag.info,
             bg = c.mantle,
-            sp = c.sky,
+            sp = diag.info,
         },
         info_diagnostic_visible = {
-            fg = c.sky,
+            fg = diag.info,
             bg = c.mantle,
         },
         info_diagnostic_selected = {
-            fg = c.sky,
+            fg = diag.info,
             bg = c.surface0,
             bold = true,
             italic = false,
         },
 
         hint = {
-            fg = c.teal,
+            fg = diag.hint,
             bg = c.mantle,
-            sp = c.teal,
+            sp = diag.hint,
         },
         hint_visible = {
-            fg = c.teal,
+            fg = diag.hint,
             bg = c.mantle,
         },
         hint_selected = {
-            fg = c.teal,
+            fg = diag.hint,
             bg = c.surface0,
             bold = true,
             italic = false,
         },
         hint_diagnostic = {
-            fg = c.teal,
+            fg = diag.hint,
             bg = c.mantle,
-            sp = c.teal,
+            sp = diag.hint,
         },
         hint_diagnostic_visible = {
-            fg = c.teal,
+            fg = diag.hint,
             bg = c.mantle,
         },
         hint_diagnostic_selected = {
-            fg = c.teal,
+            fg = diag.hint,
             bg = c.surface0,
             bold = true,
             italic = false,
