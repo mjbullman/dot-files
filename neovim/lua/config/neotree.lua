@@ -60,7 +60,6 @@ require('neo-tree').setup({
 local map = vim.keymap.set
 local opts = { silent = true, noremap = true }
 
--- toggle Neo-tree at project root (cwd).
 map('n', '<leader>e', function()
     require('neo-tree.command').execute({
         dir = vim.fn.getcwd(),
