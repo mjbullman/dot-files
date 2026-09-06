@@ -55,10 +55,10 @@ require('catppuccin').setup({
     },
     --color_overrides = {},
     custom_highlights = function(colors)
-        -- Shared git status palette: Catppuccin's Latte (light) accents are
-        -- deeper, more saturated versions of the same hues and read more
-        -- clearly on the Mocha background than the Mocha pastels do. Used by
-        -- both the neo-tree file tree and the gitsigns gutter so the two match.
+        -- Catppuccin's Latte (light) accents are deeper, more saturated
+        -- versions of the same hues and read more clearly on the Mocha
+        -- background than the Mocha pastels do. One shared table so the
+        -- neo-tree tree, the gitsigns gutter and the diagnostic signs match.
         local latte = require('catppuccin.palettes').get_palette('latte')
         local git = {
             add     = latte.green,  -- #40a02b
@@ -66,6 +66,12 @@ require('catppuccin').setup({
             delete  = latte.red,    -- #d20f39
             rename  = latte.blue,   -- #1e66f5
             special = latte.maroon, -- #e64553  untracked / changedelete
+        }
+        local diag = {
+            error = latte.red,   -- #d20f39  (= git conflict/delete)
+            warn  = latte.peach, -- #fe640b  (= git modified)
+            info  = latte.blue,  -- #1e66f5  (= git renamed)
+            hint  = latte.teal,  -- #179299  (diagnostic-only hue)
         }
 
         return {
@@ -89,6 +95,34 @@ require('catppuccin').setup({
             GitSignsTopdelete    = { fg = git.delete },
             GitSignsChangedelete = { fg = git.special },
             GitSignsUntracked    = { fg = git.special },
+
+            -- diagnostics: the base severity groups drive the sign icons, the
+            -- tiny-inline-diagnostic bars, the lualine count and neo-tree's
+            -- fallback. Underline and float keep the Catppuccin palette.
+            DiagnosticError = { fg = diag.error },
+            DiagnosticWarn  = { fg = diag.warn },
+            DiagnosticInfo  = { fg = diag.info },
+            DiagnosticHint  = { fg = diag.hint },
+
+            DiagnosticSignError = { fg = diag.error },
+            DiagnosticSignWarn  = { fg = diag.warn },
+            DiagnosticSignInfo  = { fg = diag.info },
+            DiagnosticSignHint  = { fg = diag.hint },
+
+            DiagnosticUnderlineError = { sp = diag.error, underline = true },
+            DiagnosticUnderlineWarn  = { sp = diag.warn, underline = true },
+            DiagnosticUnderlineInfo  = { sp = diag.info, underline = true },
+            DiagnosticUnderlineHint  = { sp = diag.hint, underline = true },
+
+            -- noice links its cmdline chrome to DiagnosticSign*, which would
+            -- drag the Latte blue/orange onto the popup border. Pin it back to
+            -- the original Catppuccin sky / yellow.
+            NoiceCmdlinePopupBorder       = { fg = colors.sky },
+            NoiceCmdlinePopupTitle        = { fg = colors.sky },
+            NoiceCmdlineIcon              = { fg = colors.sky },
+            NoiceConfirmBorder            = { fg = colors.sky },
+            NoiceCmdlinePopupBorderSearch = { fg = colors.yellow },
+            NoiceCmdlineIconSearch        = { fg = colors.yellow },
         }
     end,
     default_integrations = true,
