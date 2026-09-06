@@ -27,11 +27,11 @@ require('trouble').setup({
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
-map('n', '<leader>xx', '<cmd>Trouble diagnostics toggle<cr>', vim.tbl_extend('force', opts, {
+map('n', '<leader>xx', '<cmd>Trouble diagnostics toggle focus=true<cr>', vim.tbl_extend('force', opts, {
     desc = 'Diagnostics (Trouble)'
 }))
 
-map('n', '<leader>xX', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', vim.tbl_extend('force', opts, {
+map('n', '<leader>xX', '<cmd>Trouble diagnostics toggle focus=true filter.buf=0<cr>', vim.tbl_extend('force', opts, {
     desc = 'Buffer diagnostics (Trouble)'
 }))
 
