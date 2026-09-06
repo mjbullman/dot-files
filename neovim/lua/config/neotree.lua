@@ -26,6 +26,11 @@ require('neo-tree').setup({
             folder_closed = '󰉋',
             folder_open = '󰝰',
         }),
+        -- unsaved-buffer dot: same glyph and hue (NeoTreeModified) as the
+        -- bufferline tab and the lualine filename indicator
+        modified = {
+            symbol = ' ●',
+        },
         indent = {
             with_expanders = true,
             expander_collapsed = '',

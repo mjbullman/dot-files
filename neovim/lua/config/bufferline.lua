@@ -1,14 +1,11 @@
 local c = require('catppuccin.palettes').get_palette('mocha')
 
--- Diagnostic severity hues: Catppuccin Latte accents, matching the diagnostic
--- signs and the git colours set in lua/config/catppuccin.lua.
-local latte = require('catppuccin.palettes').get_palette('latte')
-local diag = {
-    error = latte.red,   -- #d20f39  (= git conflict/delete)
-    warn  = latte.peach, -- #fe640b  (= git modified)
-    info  = latte.blue,  -- #1e66f5  (= git renamed)
-    hint  = latte.teal,  -- #179299  (diagnostic-only hue)
-}
+-- Shared git / diagnostic accents (Catppuccin Latte hues), defined once in
+-- lua/core/palette.lua and matched by the gitsigns gutter, neo-tree, lualine
+-- and the diagnostic signs.
+local palette = require('core.palette')
+local git = palette.git
+local diag = palette.diag
 
 require('bufferline').setup({
     highlights = {
@@ -54,7 +51,7 @@ require('bufferline').setup({
             bg = c.base,
         },
         tab_close = {
-            fg = latte.red,
+            fg = git.delete,
             bg = c.base,
         },
         close_button = {
@@ -62,21 +59,21 @@ require('bufferline').setup({
             bg = c.mantle,
         },
         close_button_selected = {
-            fg = latte.red,
+            fg = git.delete,
             bg = c.surface0,
         },
         -- the ● unsaved-buffer dot: tie it to the git "modified" orange.
         -- all three states, or modified_visible falls back to String green.
         modified = {
-            fg = latte.peach,
+            fg = git.change,
             bg = c.mantle,
         },
         modified_visible = {
-            fg = latte.peach,
+            fg = git.change,
             bg = c.mantle,
         },
         modified_selected = {
-            fg = latte.peach,
+            fg = git.change,
             bg = c.surface0,
         },
 

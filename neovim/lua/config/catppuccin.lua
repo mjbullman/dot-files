@@ -55,24 +55,13 @@ require('catppuccin').setup({
     },
     --color_overrides = {},
     custom_highlights = function(colors)
-        -- Catppuccin's Latte (light) accents are deeper, more saturated
-        -- versions of the same hues and read more clearly on the Mocha
-        -- background than the Mocha pastels do. One shared table so the
-        -- neo-tree tree, the gitsigns gutter and the diagnostic signs match.
-        local latte = require('catppuccin.palettes').get_palette('latte')
-        local git = {
-            add     = latte.green,  -- #40a02b
-            change  = latte.peach,  -- #fe640b
-            delete  = latte.red,    -- #d20f39
-            rename  = latte.blue,   -- #1e66f5
-            special = latte.maroon, -- #e64553  untracked / changedelete
-        }
-        local diag = {
-            error = latte.red,   -- #d20f39  (= git conflict/delete)
-            warn  = latte.peach, -- #fe640b  (= git modified)
-            info  = latte.blue,  -- #1e66f5  (= git renamed)
-            hint  = latte.teal,  -- #179299  (diagnostic-only hue)
-        }
+        -- Shared git / diagnostic accents (Catppuccin Latte hues on the Mocha
+        -- background). Defined once in core/palette.lua so the neo-tree tree,
+        -- the gitsigns gutter, bufferline, lualine and the diagnostic signs
+        -- cannot drift apart.
+        local palette = require('core.palette')
+        local git = palette.git
+        local diag = palette.diag
 
         return {
             TroubleNormal   = { bg = colors.mantle },
@@ -87,6 +76,10 @@ require('catppuccin').setup({
             NeoTreeGitUntracked = { fg = git.special },
             NeoTreeGitStaged    = { fg = git.add },
             NeoTreeGitIgnored   = { fg = colors.overlay0 },
+
+            -- buffer-unsaved dot in the tree: same hue as the bufferline and
+            -- lualine unsaved indicators (git "change" peach)
+            NeoTreeModified = { fg = git.change },
 
             -- gitsigns gutter
             GitSignsAdd          = { fg = git.add },
