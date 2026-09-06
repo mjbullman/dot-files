@@ -20,7 +20,8 @@ require('noice').setup({
     },
     -- presets for easier configuration
     presets = {
-        bottom_search = true,          -- Use a classic bottom cmdline for search
+        bottom_search = false,         -- search uses the centred popup, same as ':' (a bottom
+                                       -- search view paints over the global statusline / lualine)
         command_palette = true,        -- Position the cmdline and popupmenu together
         long_message_to_split = true,  -- Long messages will be sent to a split
         inc_rename = false,            -- Enables an input dialog for inc-rename.nvim

@@ -94,6 +94,15 @@ vim.opt.termguicolors = true
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect', 'popup' }
 vim.opt.pumheight = 12
 
+-- reclaim the command-line row: noice renders ':' and '/' as popups, so the
+-- native cmdline is only needed transiently. 0 lets lualine's global
+-- statusline sit flush against the bottom of the window.
+vim.opt.cmdheight = 0
+
+-- lualine already shows the mode; the native "-- INSERT --" has nowhere to go
+-- with cmdheight = 0 and would force a transient row
+vim.opt.showmode = false
+
 
 -- -----------------------------
 -- highlight yanked text
