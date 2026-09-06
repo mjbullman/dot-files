@@ -55,9 +55,40 @@ require('catppuccin').setup({
     },
     --color_overrides = {},
     custom_highlights = function(colors)
+        -- Shared git status palette: Catppuccin's Latte (light) accents are
+        -- deeper, more saturated versions of the same hues and read more
+        -- clearly on the Mocha background than the Mocha pastels do. Used by
+        -- both the neo-tree file tree and the gitsigns gutter so the two match.
+        local latte = require('catppuccin.palettes').get_palette('latte')
+        local git = {
+            add     = latte.green,  -- #40a02b
+            change  = latte.peach,  -- #fe640b
+            delete  = latte.red,    -- #d20f39
+            rename  = latte.blue,   -- #1e66f5
+            special = latte.maroon, -- #e64553  untracked / changedelete
+        }
+
         return {
             TroubleNormal   = { bg = colors.mantle },
             TroubleNormalNC = { bg = colors.mantle },
+
+            -- neo-tree file tree
+            NeoTreeGitAdded     = { fg = git.add },
+            NeoTreeGitModified  = { fg = git.change },
+            NeoTreeGitRenamed   = { fg = git.rename },
+            NeoTreeGitDeleted   = { fg = colors.overlay1, strikethrough = true },
+            NeoTreeGitConflict  = { fg = git.delete },
+            NeoTreeGitUntracked = { fg = git.special },
+            NeoTreeGitStaged    = { fg = git.add },
+            NeoTreeGitIgnored   = { fg = colors.overlay0 },
+
+            -- gitsigns gutter
+            GitSignsAdd          = { fg = git.add },
+            GitSignsChange       = { fg = git.change },
+            GitSignsDelete       = { fg = git.delete },
+            GitSignsTopdelete    = { fg = git.delete },
+            GitSignsChangedelete = { fg = git.special },
+            GitSignsUntracked    = { fg = git.special },
         }
     end,
     default_integrations = true,
