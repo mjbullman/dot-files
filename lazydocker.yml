@@ -1,0 +1,21 @@
+###############################################################################
+#                          LAZYDOCKER CONFIGURATION                           #
+# --------------------------------------------------------------------------- #
+# Author       : Martin Bullman                                               #
+# Purpose      : Custom configuration file for Lazydocker container TUI       #
+# Last Updated : 2026-09-06                                                   #
+###############################################################################
+
+gui:
+  border: "rounded"
+  theme:
+    # Catppuccin Mocha — mirrors ~/.dotfiles/config.yml (lazygit)
+    activeBorderColor:
+      - "#fab387"
+      - "bold"
+    inactiveBorderColor:
+      - "#89b4fa"
+    selectedLineBgColor:
+      - "#45475a"
+    optionsTextColor:
+      - "#89b4fa"

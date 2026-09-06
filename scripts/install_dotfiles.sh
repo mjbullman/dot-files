@@ -259,6 +259,32 @@ function install_lazygit_config() {
     fi
 }
 
+function install_lazydocker_config() {
+    if [[ -f "$DOTFILES_DIR/lazydocker.yml" ]]; then
+        print_banner "Installing Lazydocker Configuration"
+
+        mkdir -p "$CONFIG_DIR/lazydocker" || return 1
+
+        if ln -sf "$DOTFILES_DIR/lazydocker.yml" "$CONFIG_DIR/lazydocker/config.yml"; then
+            print_success "lazydocker.yml installed to ~/.config/lazydocker/"
+        else
+            print_error "Failed to install lazydocker.yml to ~/.config/lazydocker/!"
+        fi
+
+        if [[ "$PLATFORM" == "mac" ]]; then
+            local mac_lazydocker_dir="$HOME/Library/Application Support/lazydocker"
+
+            mkdir -p "$mac_lazydocker_dir" || return 1
+
+            if ln -sf "$DOTFILES_DIR/lazydocker.yml" "$mac_lazydocker_dir/config.yml"; then
+                print_success "lazydocker.yml installed to ~/Library/Application Support/lazydocker/"
+            else
+                print_error "Failed to install lazydocker.yml to ~/Library/Application Support/lazydocker/!"
+            fi
+        fi
+    fi
+}
+
 function install_tmux_config() {
     local tpm_dir="$HOME/.tmux/plugins/tpm"
 
@@ -395,6 +421,7 @@ main() {
     install_neofetch_config
     install_opencode_config
     install_lazygit_config
+    install_lazydocker_config
     install_claude_config
     print_banner "Installation Complete!"
     print_success "Your dot-files have been installed successfully!"
