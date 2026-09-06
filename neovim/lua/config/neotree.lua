@@ -3,6 +3,8 @@
 --  Author: Martin Bullman
 -- ========================
 
+local default_icon = require('neo-tree.defaults').default_component_configs.icon
+
 require('neo-tree').setup({
     popup_border_style = '',
     close_if_last_window = true,
@@ -12,6 +14,7 @@ require('neo-tree').setup({
         position = 'left',
     },
     filesystem = {
+        use_libuv_file_watcher = true,
         filtered_items = {
             visible = true,
             hide_dotfiles = false,
@@ -19,6 +22,10 @@ require('neo-tree').setup({
         },
     },
     default_component_configs = {
+        icon = vim.tbl_extend('force', default_icon, {
+            folder_closed = '󰉋',
+            folder_open = '󰝰',
+        }),
         indent = {
             with_expanders = true,
             expander_collapsed = '',
