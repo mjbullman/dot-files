@@ -114,16 +114,16 @@ require('catppuccin').setup({
 
             -- noice links its cmdline chrome to DiagnosticSign*, which would
             -- drag the Latte blue/orange onto the popup border. The ':' cmdline
-            -- shares the telescope prompt's mauve; search uses the same peach as
-            -- lazygit's searching border (config.yml); confirm stays on sky.
-            NoiceCmdlinePopupBorder       = { fg = colors.mauve },
-            NoiceCmdlinePopupTitle        = { fg = colors.mauve },
-            NoiceCmdlineIcon              = { fg = colors.mauve },
+            -- matches Telescope's border blue (#89b4fa); search uses the same
+            -- peach as lazygit's searching border (config.yml); confirm stays sky.
+            NoiceCmdlinePopupBorder       = { fg = colors.blue },
+            NoiceCmdlinePopupTitle        = { fg = colors.blue },
+            NoiceCmdlineIcon              = { fg = colors.blue },
             NoiceConfirmBorder            = { fg = colors.sky },
             NoiceCmdlinePopupBorderSearch = { fg = colors.peach },
             NoiceCmdlineIconSearch        = { fg = colors.peach },
 
-            -- telescope prompt magnifier glyph, same mauve as the ':' cmdline
+            -- telescope prompt magnifier glyph
             TelescopePromptPrefix = { fg = colors.mauve },
         }
     end,
