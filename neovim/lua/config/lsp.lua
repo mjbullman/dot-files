@@ -59,6 +59,7 @@ vim.lsp.enable({
     'dockerls',
     'basedpyright',
     'rust_analyzer',
+    'markdown-oxide',
 })
 
 -- =============================

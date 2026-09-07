@@ -30,6 +30,7 @@ require('mason-tool-installer').setup({
         'eslint-lsp',
         'basedpyright',
         'rust-analyzer',
+        'markdown-oxide',
         'docker-language-server',
         'lua-language-server',
         'vue-language-server',
