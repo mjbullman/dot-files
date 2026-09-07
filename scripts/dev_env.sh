@@ -14,7 +14,7 @@ else
     # create new window and run cluade code
     sleep 1
     tmux new-window -t "${SESSION_NAME}" claude
-    
+
     # create new window and run lazygit
     sleep 1
     tmux new-window -t "${SESSION_NAME}" lazygit
