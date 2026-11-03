@@ -345,6 +345,38 @@ function install_neofetch_config() {
     fi
 }
 
+function install_claude_config() {
+    # Claude Code config lives in a private repo; clone it and run its own installer.
+    # CLAUDE_PROFILE=runner installs only core + factory (no personal data).
+    local claude_repo="git@github.com:mjbullman/claude-code.git"
+    local claude_code_dir="${CLAUDE_CODE_DIR:-$HOME/Development/claude-code}"
+    local claude_profile="${CLAUDE_PROFILE:-all}"
+
+    print_banner "Installing Claude Code Configuration"
+
+    if ! command -v claude &> /dev/null; then
+        print_warning "Claude Code is not installed — skipping its config."
+        return 0
+    fi
+
+    if [[ ! -d "$claude_code_dir/.git" ]]; then
+        mkdir -p "$(dirname "$claude_code_dir")" || return 1
+
+        if ! git clone "$claude_repo" "$claude_code_dir"; then
+            print_warning "Could not clone $claude_repo (no access or SSH key) — skipping."
+            return 0
+        fi
+    else
+        print_info "Using existing $claude_code_dir (not pulled)."
+    fi
+
+    if "$claude_code_dir/install.sh" --profile "$claude_profile"; then
+        print_success "Claude Code config installed ($claude_profile profile)!"
+    else
+        print_error "Claude Code config install failed!"
+    fi
+}
+
 # main installation function.
 main() {
     detect_os
@@ -381,6 +413,7 @@ main() {
     install_opencode_config
     install_lazygit_config
     install_lazydocker_config
+    install_claude_config
     print_banner "Installation Complete!"
     print_success "Your dot-files have been installed successfully!"
 }
