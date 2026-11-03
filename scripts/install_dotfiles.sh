@@ -345,47 +345,6 @@ function install_neofetch_config() {
     fi
 }
 
-function install_claude_config() {
-    local claude_dir="$HOME/.claude"
-    local claude_dotfiles_dir="$DOTFILES_DIR/claude"
-
-    if [[ -d "$claude_dotfiles_dir" ]]; then
-        print_banner "Installing Claude Code Configuration"
-
-        mkdir -p "$claude_dir" || return 1
-
-        if ln -sf "$claude_dotfiles_dir/settings.json" "$claude_dir/settings.json"; then
-            print_success "Claude settings.json installed!"
-        else
-            print_error "Failed to install Claude settings.json!"
-        fi
-
-        if ln -sf "$claude_dotfiles_dir/CLAUDE.md" "$claude_dir/CLAUDE.md"; then
-            print_success "Claude global CLAUDE.md installed!"
-        else
-            print_error "Failed to install Claude global CLAUDE.md!"
-        fi
-
-        if ln -sf "$claude_dotfiles_dir/statusline-command.sh" "$claude_dir/statusline-command.sh"; then
-            print_success "Claude statusline-command.sh installed!"
-        else
-            print_error "Failed to install Claude statusline-command.sh!"
-        fi
-
-        # Remove existing real directory to prevent ln creating a nested symlink
-        if [[ -d "$claude_dir/skills" && ! -L "$claude_dir/skills" ]]; then
-            print_warning "$claude_dir/skills exists as a real directory — removing before symlinking."
-            rm -rf "$claude_dir/skills"
-        fi
-
-        if ln -sf "$claude_dotfiles_dir/skills" "$claude_dir/skills"; then
-            print_success "Claude skills installed!"
-        else
-            print_error "Failed to install Claude skills!"
-        fi
-    fi
-}
-
 # main installation function.
 main() {
     detect_os
@@ -422,7 +381,6 @@ main() {
     install_opencode_config
     install_lazygit_config
     install_lazydocker_config
-    install_claude_config
     print_banner "Installation Complete!"
     print_success "Your dot-files have been installed successfully!"
 }
