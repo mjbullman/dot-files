@@ -13,3 +13,6 @@ case "$(uname -s)" in
     Darwin) [[ -f ~/.zprofile_mac ]]   && source ~/.zprofile_mac ;;
     Linux)  [[ -f ~/.zprofile_linux ]] && source ~/.zprofile_linux ;;
 esac
+
+# user-local binaries (Claude Code, uv, hc) for every login shell, interactive or not.
+[[ -d "$HOME/.local/bin" ]] && export PATH="$HOME/.local/bin:$PATH"
