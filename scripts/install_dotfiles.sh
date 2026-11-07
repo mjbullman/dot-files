@@ -347,10 +347,12 @@ function install_neofetch_config() {
 
 function install_claude_config() {
     # Claude Code config lives in a private repo; clone it and run its own installer.
-    # CLAUDE_PROFILE=runner installs only core + factory (no personal data).
+    # The installer remembers each machine's profile; set CLAUDE_PROFILE only to choose
+    # it on a first, non-interactive run (mac, work or runner).
     local claude_repo="git@github.com:mjbullman/claude-code.git"
-    local claude_code_dir="${CLAUDE_CODE_DIR:-$HOME/Development/claude-code}"
-    local claude_profile="${CLAUDE_PROFILE:-all}"
+    local claude_code_dir="${CLAUDE_CODE_DIR:-$HOME/Development/ClaudeCodeConfig}"
+    local profile_args=()
+    [[ -n "${CLAUDE_PROFILE:-}" ]] && profile_args=(--profile "$CLAUDE_PROFILE")
 
     print_banner "Installing Claude Code Configuration"
 
@@ -370,8 +372,8 @@ function install_claude_config() {
         print_info "Using existing $claude_code_dir (not pulled)."
     fi
 
-    if "$claude_code_dir/install.sh" --profile "$claude_profile"; then
-        print_success "Claude Code config installed ($claude_profile profile)!"
+    if "$claude_code_dir/install.sh" ${profile_args[@]+"${profile_args[@]}"}; then
+        print_success "Claude Code config installed!"
     else
         print_error "Claude Code config install failed!"
     fi
