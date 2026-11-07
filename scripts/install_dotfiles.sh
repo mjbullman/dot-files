@@ -350,7 +350,7 @@ function install_claude_config() {
     # The installer remembers each machine's profile; set CLAUDE_PROFILE only to choose
     # it on a first, non-interactive run (mac, work or runner).
     local claude_repo="git@github.com:mjbullman/claude-code.git"
-    local claude_code_dir="${CLAUDE_CODE_DIR:-$HOME/Development/ClaudeCodeConfig}"
+    local claude_code_dir="${CLAUDE_CODE_DIR:-$HOME/.claudecode}"
     local profile_args=()
     [[ -n "${CLAUDE_PROFILE:-}" ]] && profile_args=(--profile "$CLAUDE_PROFILE")
 
