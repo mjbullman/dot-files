@@ -1,0 +1,44 @@
+# Herdr TUI config — symlinked to ~/.config/herdr/config.toml
+# Reload a running server with: herdr server reload-config
+
+onboarding = false
+
+[theme]
+name = "catppuccin"
+
+[ui.toast]
+delivery = "herdr"
+
+# Mirrors .tmux.conf where it doesn't fight Herdr's defaults
+[keys]
+prefix = "ctrl+a"
+split_vertical = ["prefix+v", "prefix+|"]   # side by side, like tmux |
+split_horizontal = "prefix+minus"           # stacked, like tmux -
+reload_config = "prefix+r"                  # tmux muscle memory
+resize_mode = "prefix+shift+r"              # freed by moving reload
+last_pane = "prefix+;"                      # tmux default
+
+[[keys.command]]
+key = "prefix+ctrl+g"                       # prefix+g is Herdr's goto; macOS Option types characters
+type = "popup"
+command = "lazygit"
+description = "lazygit"
+width = "90%"
+height = "90%"
+
+[[keys.command]]
+key = "prefix+ctrl+d"                       # prefix+shift+d is close_workspace
+type = "popup"
+command = "lazydocker"
+description = "lazydocker"
+width = "90%"
+height = "90%"
+
+[ui]
+accent = "#fab387"                          # Catppuccin peach, matches the app theme
+status_indicators = "symbols"               # glyphs, not colour-only dots
+prompt_new_tab_name = false                 # open tabs immediately, like tmux new-window
+tab_bar_right = [{ type = "hostname" }, { type = "datetime", format = "%a %d %b %H:%M" }]
+
+[experimental]
+pane_history = true                         # keep pane screens across server restarts

@@ -233,6 +233,34 @@ function install_opencode_config() {
     fi
 }
 
+function install_herdr_config() {
+    if [[ -f "$DOTFILES_DIR/herdr/config.toml" ]]; then
+        print_banner "Installing Herdr TUI Configuration"
+
+        mkdir -p "$CONFIG_DIR/herdr" || return 1
+
+        if ln -sf "$DOTFILES_DIR/herdr/config.toml" "$CONFIG_DIR/herdr/config.toml"; then
+            print_success "herdr/config.toml installed!"
+        else
+            print_error "Failed to install herdr/config.toml!"
+        fi
+    fi
+
+    # Link files, not the folder: ~/.config/herdr-app also holds sockets, data and logs
+    if [[ -d "$DOTFILES_DIR/herdr-app" ]]; then
+        print_banner "Installing Herdr App Configuration"
+
+        mkdir -p "$CONFIG_DIR/herdr-app/themes" || return 1
+
+        if ln -sf "$DOTFILES_DIR/herdr-app/settings.json" "$CONFIG_DIR/herdr-app/settings.json" &&
+            ln -sf "$DOTFILES_DIR/herdr-app/themes/catppuccin-mocha.json" "$CONFIG_DIR/herdr-app/themes/catppuccin-mocha.json"; then
+            print_success "herdr-app settings and theme installed!"
+        else
+            print_error "Failed to install herdr-app settings and theme!"
+        fi
+    fi
+}
+
 function install_lazygit_config() {
     if [[ -f "$DOTFILES_DIR/config.yml" ]]; then
         print_banner "Installing Lazygit Configuration"
@@ -413,6 +441,7 @@ main() {
     install_neovim_config
     install_neofetch_config
     install_opencode_config
+    install_herdr_config
     install_lazygit_config
     install_lazydocker_config
     install_claude_config

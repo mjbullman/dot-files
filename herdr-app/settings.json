@@ -1,0 +1,12 @@
+{
+  "zoom": 1,
+  "sounds": {
+    "enabled": true
+  },
+  "minimum_contrast": 1,
+  "appearance": "dark",
+  "theme": "catppuccin-mocha",
+  "font": "MesloLGS NF",
+  "ui_font": "MesloLGS NF",
+  "telemetry": false
+}
